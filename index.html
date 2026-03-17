@@ -255,10 +255,21 @@ section{min-height:100vh;padding:120px 20px 80px;position:relative}
 .back-to-top:hover{background:rgba(139,0,0,.2);box-shadow:0 0 15px rgba(139,0,0,.5);transform:translateY(-3px)}
 
 /* === MUZZLE FLASH === */
-/* === MUSIC TOGGLE === */
-.music-toggle{position:fixed;bottom:30px;left:30px;width:45px;height:45px;border:1px solid var(--rouge-sang);background:rgba(10,10,10,.9);color:var(--parchemin);font-size:1.1rem;cursor:pointer;display:flex;align-items:center;justify-content:center;z-index:8000;border-radius:50%;transition:.3s;opacity:.7}
-.music-toggle:hover{opacity:1;background:rgba(139,0,0,.2);box-shadow:0 0 15px rgba(139,0,0,.5)}
-.music-toggle.playing{border-color:var(--vert-mil);animation:pulse-glow 3s infinite}
+/* === MUSIC TOGGLE — ZOMBIE DJ === */
+.music-toggle{position:fixed;bottom:30px;left:30px;width:60px;height:60px;border:2px solid var(--rouge-sang);background:rgba(10,10,10,.95);cursor:pointer;display:flex;align-items:center;justify-content:center;z-index:8000;border-radius:50%;transition:.3s;opacity:.8;padding:0;overflow:visible}
+.music-toggle:hover{opacity:1;background:rgba(139,0,0,.25);box-shadow:0 0 20px rgba(139,0,0,.6),0 0 40px rgba(139,0,0,.2);transform:scale(1.1)}
+.music-toggle.playing{border-color:var(--vert-mil);box-shadow:0 0 15px rgba(90,106,74,.4);opacity:1}
+.music-toggle.playing .zombie-dj{filter:drop-shadow(0 0 6px rgba(90,106,74,.6))}
+.music-toggle .zombie-dj{width:42px;height:42px;transition:.3s}
+.music-toggle.muted .zombie-dj{opacity:.4;filter:grayscale(1)}
+.music-toggle .music-bars{position:absolute;bottom:-2px;left:50%;transform:translateX(-50%);display:flex;gap:2px;height:10px;align-items:flex-end}
+.music-toggle .music-bars span{display:block;width:3px;background:var(--rouge-vif);border-radius:1px;animation:none;opacity:0}
+.music-toggle.playing .music-bars span{opacity:1;animation:eq-bar .6s ease-in-out infinite alternate}
+.music-toggle.playing .music-bars span:nth-child(1){height:3px;animation-delay:0s}
+.music-toggle.playing .music-bars span:nth-child(2){height:6px;animation-delay:.15s}
+.music-toggle.playing .music-bars span:nth-child(3){height:8px;animation-delay:.3s}
+.music-toggle.playing .music-bars span:nth-child(4){height:5px;animation-delay:.45s}
+@keyframes eq-bar{0%{height:3px}100%{height:10px}}
 
 .muzzle-flash{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(255,200,50,.15);pointer-events:none;z-index:99999;opacity:0;transition:opacity .05s}
 .muzzle-flash.active{opacity:1}
@@ -284,7 +295,31 @@ section{padding:100px 15px 60px}
 <div class="muzzle-flash" id="muzzleFlash"></div>
 <button class="back-to-top" id="backToTop" title="Retour en haut">↑</button>
 <audio id="bgMusic" src="audio/theme.mp3" loop preload="auto"></audio>
-<button class="music-toggle" id="musicToggle" title="Musique ON/OFF">🔇</button>
+<button class="music-toggle muted" id="musicToggle" title="Musique ON/OFF">
+<svg class="zombie-dj" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+<!-- Casque audio -->
+<path d="M12 28c0-12 8-20 20-20s20 8 20 20" fill="none" stroke="#CC0000" stroke-width="3.5" stroke-linecap="round"/>
+<rect x="8" y="26" width="8" height="14" rx="3" fill="#CC0000"/>
+<rect x="48" y="26" width="8" height="14" rx="3" fill="#CC0000"/>
+<!-- Tête zombie -->
+<ellipse cx="32" cy="36" rx="14" ry="16" fill="#4a5240"/>
+<!-- Yeux -->
+<circle cx="26" cy="33" r="3.5" fill="#111"/>
+<circle cx="38" cy="33" r="3.5" fill="#111"/>
+<circle cx="26" cy="32.5" r="1.8" fill="#CC0000"/>
+<circle cx="38" cy="32.5" r="1.8" fill="#CC0000"/>
+<!-- Bouche -->
+<path d="M24 43 c2 3 6 4 8 3 c2-1 4-2 6-3" fill="none" stroke="#111" stroke-width="1.5"/>
+<line x1="26" y1="43" x2="26" y2="46" stroke="#111" stroke-width="1"/>
+<line x1="30" y1="44" x2="30" y2="47" stroke="#111" stroke-width="1"/>
+<line x1="34" y1="44" x2="34" y2="47" stroke="#111" stroke-width="1"/>
+<line x1="38" y1="43" x2="38" y2="46" stroke="#111" stroke-width="1"/>
+<!-- Cicatrice -->
+<path d="M20 30 l4 6" stroke="#8B0000" stroke-width="1.2" opacity=".7"/>
+<path d="M42 28 l2 5" stroke="#8B0000" stroke-width="1.2" opacity=".7"/>
+</svg>
+<div class="music-bars"><span></span><span></span><span></span><span></span></div>
+</button>
 
 <!-- === HEADER === -->
 <header class="main-header">
@@ -902,8 +937,8 @@ anim()})();
 // ============================================================
 const bgMusic=document.getElementById('bgMusic');
 const musicToggle=document.getElementById('musicToggle');
-const BG_VOLUME=0.15; // Volume de fond (pas trop fort)
-const DUCK_VOLUME=0.0; // Volume quand audio/jeu actif (silence)
+const BG_VOLUME=0.45; // Volume de fond audible
+const DUCK_VOLUME=0.05; // Volume très bas quand audio/jeu actif
 const FADE_DURATION=800; // Durée du fondu en ms
 let bgMusicEnabled=false;
 let bgFadeInterval=null;
@@ -927,8 +962,8 @@ function startBgMusic(){
 bgMusic.volume=0;
 bgMusic.play().then(()=>{
 bgMusicEnabled=true;
-musicToggle.textContent='🔊';
 musicToggle.classList.add('playing');
+musicToggle.classList.remove('muted');
 fadeBgMusic(bgDucked?DUCK_VOLUME:BG_VOLUME,FADE_DURATION);
 }).catch(()=>{});
 }
@@ -937,8 +972,8 @@ function stopBgMusic(){
 fadeBgMusic(0,FADE_DURATION,()=>{
 bgMusic.pause();
 bgMusicEnabled=false;
-musicToggle.textContent='🔇';
 musicToggle.classList.remove('playing');
+musicToggle.classList.add('muted');
 });
 }
 
