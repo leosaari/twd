@@ -1,0 +1,896 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>THE WALKING DEAD — POSTE ECHO-7 — DERNIER SIGNAL ACTIF</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Special+Elite&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{
+--noir:#0a0a0a;--rouge-sang:#8B0000;--rouge-vif:#CC0000;--rouge-alerte:#ff1a1a;
+--vert-kaki:#4a5240;--vert-mil:#5a6a4a;--parchemin:#d4c9a8;--parchemin-sombre:#a89b7a;
+--gris-acier:#2a2a2a;--blanc-casse:#e8e0d0;
+--font-military:'Special Elite',cursive;--font-body:'Libre Baskerville',serif;--font-mono:'Share Tech Mono',monospace;
+}
+html{cursor:url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32"><circle cx="16" cy="16" r="10" fill="none" stroke="%238B0000" stroke-width="1.5" opacity="0.8"/><line x1="16" y1="2" x2="16" y2="10" stroke="%238B0000" stroke-width="1.5"/><line x1="16" y1="22" x2="16" y2="30" stroke="%238B0000" stroke-width="1.5"/><line x1="2" y1="16" x2="10" y2="16" stroke="%238B0000" stroke-width="1.5"/><line x1="22" y1="16" x2="30" y2="16" stroke="%238B0000" stroke-width="1.5"/><circle cx="16" cy="16" r="2" fill="%238B0000"/></svg>') 16 16,crosshair;scroll-behavior:smooth}
+body{background:var(--noir);color:var(--parchemin);font-family:var(--font-body);overflow-x:hidden;line-height:1.6}
+body::before{content:'';position:fixed;top:0;left:0;width:100%;height:100%;background-image:url('data:image/svg+xml;utf8,<svg viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg"><filter id="n"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="4" stitchTiles="stitch"/></filter><rect width="100%" height="100%" filter="url(%23n)" opacity="0.04"/></svg>');pointer-events:none;z-index:10000}
+body::after{content:'';position:fixed;top:0;left:0;width:100%;height:100%;background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,0.06) 2px,rgba(0,0,0,0.06) 4px);pointer-events:none;z-index:10001}
+.vignette-overlay{position:fixed;top:0;left:0;width:100%;height:100%;background:radial-gradient(ellipse at center,transparent 50%,rgba(0,0,0,0.7) 100%);pointer-events:none;z-index:9999}
+::-webkit-scrollbar{width:8px}::-webkit-scrollbar-track{background:#111}::-webkit-scrollbar-thumb{background:var(--rouge-sang);border-radius:4px}
+
+@keyframes flicker{0%,100%{opacity:1}5%{opacity:.85}15%{opacity:.9}55%{opacity:.7}56%{opacity:1}85%{opacity:.6}86%{opacity:1}}
+@keyframes blink-red{0%,50%{opacity:1}51%,100%{opacity:0}}
+@keyframes pulse-glow{0%,100%{box-shadow:0 0 5px rgba(139,0,0,.3)}50%{box-shadow:0 0 20px rgba(139,0,0,.8),0 0 40px rgba(139,0,0,.3)}}
+@keyframes static-noise{0%{background-position:0 0}25%{background-position:-20px 10px}50%{background-position:15px -5px}75%{background-position:-10px 20px}100%{background-position:5px -15px}}
+@keyframes glitch-h{0%{transform:translate(0)}20%{transform:translate(-3px,1px)}40%{transform:translate(2px,-1px)}60%{transform:translate(-1px,2px)}80%{transform:translate(3px,0)}100%{transform:translate(0)}}
+@keyframes reveal-up{from{transform:translateY(60px);opacity:0}to{transform:translateY(0);opacity:1}}
+@keyframes radio-wave{0%{transform:scale(1);opacity:.6}100%{transform:scale(2.5);opacity:0}}
+@keyframes tape-sway{0%,100%{transform:rotate(-2deg)}50%{transform:rotate(1deg)}}
+@keyframes float-drift{0%,100%{transform:translateY(0) translateX(0)}25%{transform:translateY(-8px) translateX(3px)}50%{transform:translateY(-3px) translateX(-2px)}75%{transform:translateY(-10px) translateX(1px)}}
+@keyframes shake{0%,100%{transform:translateX(0)}10%,30%,50%,70%,90%{transform:translateX(-4px)}20%,40%,60%,80%{transform:translateX(4px)}}
+@keyframes blood-drip{0%{height:0;opacity:0}30%{opacity:.3}100%{height:120px;opacity:0}}
+@keyframes ken-burns{0%{transform:scale(1) translate(0,0)}50%{transform:scale(1.08) translate(-1%,-1%)}100%{transform:scale(1) translate(0,0)}}
+@keyframes crosshair-pulse{0%,100%{transform:translate(-50%,-50%) scale(1);opacity:.7}50%{transform:translate(-50%,-50%) scale(1.3);opacity:1}}
+
+/* === HEADER === */
+.main-header{position:fixed;top:0;left:0;right:0;z-index:9000;background:linear-gradient(180deg,rgba(10,10,10,.97),rgba(10,10,10,.85));border-bottom:1px solid rgba(139,0,0,.4);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
+.header-top{display:flex;align-items:center;justify-content:center;padding:10px 20px 5px;position:relative}
+.header-top .status-indicator{position:absolute;right:20px;top:50%;transform:translateY(-50%);display:flex;align-items:center;gap:8px;font-family:var(--font-mono);font-size:.7rem;color:var(--rouge-vif);text-transform:uppercase;letter-spacing:2px}
+.status-dot{width:8px;height:8px;background:var(--rouge-vif);border-radius:50%;animation:blink-red 1s infinite;box-shadow:0 0 8px var(--rouge-vif)}
+.twd-logo{font-family:'Arial Black','Impact',sans-serif;font-weight:900;text-transform:uppercase;letter-spacing:2px;line-height:1;user-select:none}
+.twd-logo .the-line{font-size:1rem;letter-spacing:12px;color:var(--parchemin);display:block;margin-bottom:-2px}
+.twd-logo .walking-dead-line{font-size:1.8rem;color:var(--parchemin);display:block;text-shadow:0 0 10px rgba(139,0,0,.5)}
+.header-tagline{text-align:center;font-family:var(--font-mono);font-size:.65rem;color:var(--vert-kaki);letter-spacing:4px;text-transform:uppercase;padding-bottom:6px;animation:flicker 4s infinite}
+.nav-bar{display:flex;justify-content:center;gap:0;border-top:1px solid rgba(74,82,64,.3);overflow-x:auto}
+.nav-bar a{display:flex;align-items:center;gap:6px;padding:10px 16px;color:var(--parchemin-sombre);text-decoration:none;font-family:var(--font-military);font-size:.75rem;text-transform:uppercase;letter-spacing:1px;border-right:1px solid rgba(74,82,64,.2);transition:.3s;white-space:nowrap;position:relative}
+.nav-bar a:first-child{border-left:1px solid rgba(74,82,64,.2)}
+.nav-bar a:hover,.nav-bar a.active{color:var(--rouge-vif);background:rgba(139,0,0,.1)}
+.nav-bar a.active::after{content:'';position:absolute;bottom:0;left:0;right:0;height:2px;background:var(--rouge-vif);box-shadow:0 0 10px var(--rouge-vif)}
+.hamburger{display:none;position:absolute;left:15px;top:50%;transform:translateY(-50%);background:none;border:1px solid var(--vert-kaki);padding:8px;cursor:pointer;z-index:9999}
+.hamburger span{display:block;width:22px;height:2px;background:var(--parchemin);margin:4px 0;transition:.3s}
+.mobile-nav{display:none;position:fixed;top:0;left:0;width:280px;height:100vh;background:rgba(10,10,10,.98);border-right:2px solid var(--rouge-sang);z-index:9998;flex-direction:column;padding:80px 20px 20px;transform:translateX(-100%);transition:transform .4s ease}
+.mobile-nav.open{transform:translateX(0)}
+.mobile-nav a{display:block;padding:15px;color:var(--parchemin);text-decoration:none;font-family:var(--font-military);font-size:1rem;text-transform:uppercase;letter-spacing:2px;border-bottom:1px solid rgba(74,82,64,.3);transition:.3s}
+.mobile-nav a:hover{color:var(--rouge-vif);padding-left:25px}
+
+/* === SECTIONS === */
+section{min-height:100vh;padding:120px 20px 80px;position:relative}
+.section-header{text-align:center;margin-bottom:50px}
+.section-label{font-family:var(--font-mono);font-size:.7rem;color:var(--vert-kaki);letter-spacing:6px;text-transform:uppercase;margin-bottom:10px}
+.section-title{font-family:var(--font-military);font-size:clamp(1.8rem,4vw,3rem);color:var(--parchemin);text-transform:uppercase;letter-spacing:3px;text-shadow:0 0 20px rgba(139,0,0,.3);display:inline-block}
+.section-title::before,.section-title::after{content:'///';color:var(--rouge-sang);margin:0 15px;font-size:.6em;vertical-align:middle;opacity:.6}
+.section-divider{width:120px;height:1px;background:linear-gradient(90deg,transparent,var(--rouge-sang),transparent);margin:20px auto}
+.reveal{opacity:0;transform:translateY(40px);transition:opacity .8s ease,transform .8s ease}
+.reveal.visible{opacity:1;transform:translateY(0)}
+.reveal-delay-1{transition-delay:.1s}.reveal-delay-2{transition-delay:.2s}.reveal-delay-3{transition-delay:.3s}.reveal-delay-4{transition-delay:.4s}
+
+/* === HERO VIDEO === */
+#hero{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:0;position:relative;overflow:hidden}
+.hero-video-bg{position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;z-index:0;filter:brightness(0.4) contrast(1.2) saturate(0.8)}
+.hero-overlay{position:absolute;top:0;left:0;width:100%;height:100%;background:linear-gradient(180deg,rgba(10,10,10,.5) 0%,rgba(10,10,10,.2) 40%,rgba(10,10,10,.3) 60%,rgba(10,10,10,.8) 100%);z-index:1}
+.hero-content{position:relative;z-index:2;padding:20px}
+.hero-logo-big .twd-logo .the-line{font-size:1.5rem;letter-spacing:18px}
+.hero-logo-big .twd-logo .walking-dead-line{font-size:clamp(2.5rem,7vw,5rem);text-shadow:0 0 30px rgba(139,0,0,.6),0 0 60px rgba(139,0,0,.2)}
+.hero-subtitle{font-family:var(--font-mono);font-size:clamp(.7rem,1.5vw,.9rem);color:var(--vert-kaki);letter-spacing:6px;text-transform:uppercase;margin:15px 0 30px;animation:flicker 5s infinite}
+.hero-cta{display:inline-block;font-family:var(--font-mono);font-size:.75rem;color:var(--parchemin);letter-spacing:4px;text-transform:uppercase;border:1px solid var(--rouge-sang);padding:14px 35px;text-decoration:none;background:rgba(139,0,0,.15);transition:.3s;position:relative;overflow:hidden}
+.hero-cta:hover{background:rgba(139,0,0,.4);box-shadow:0 0 30px rgba(139,0,0,.5);animation:shake .4s}
+.hero-cta::after{content:'';position:absolute;top:-50%;left:-50%;width:200%;height:200%;background:linear-gradient(45deg,transparent 40%,rgba(255,255,255,.05) 50%,transparent 60%);animation:none;transition:.3s}
+.hero-scroll-arrow{position:absolute;bottom:30px;left:50%;transform:translateX(-50%);z-index:2;font-size:1.5rem;color:var(--rouge-sang);animation:blink-red 1.5s infinite;opacity:.6}
+
+/* === COUNTDOWN === */
+#countdown{background:linear-gradient(180deg,var(--noir),#0d0d0d,var(--noir));display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:70vh}
+.countdown-frame{border:1px solid rgba(139,0,0,.4);padding:50px 60px;position:relative;background:rgba(15,15,15,.9)}
+.countdown-frame::before{content:'PROTOCOLE EXTRACTION — CLASSIFIÉ NIVEAU 5';position:absolute;top:-12px;left:20px;background:var(--noir);padding:2px 15px;font-family:var(--font-mono);font-size:.6rem;color:var(--rouge-sang);letter-spacing:3px;text-transform:uppercase}
+.countdown-label{font-family:var(--font-military);font-size:clamp(.9rem,2vw,1.3rem);color:var(--parchemin-sombre);text-transform:uppercase;letter-spacing:4px;text-align:center;margin-bottom:30px}
+.countdown-display{display:flex;gap:20px;justify-content:center;flex-wrap:wrap}
+.countdown-unit{text-align:center;min-width:90px}
+.countdown-number{font-family:var(--font-mono);font-size:clamp(2.5rem,6vw,4.5rem);color:var(--rouge-vif);text-shadow:0 0 20px rgba(204,0,0,.5),0 0 40px rgba(204,0,0,.2);line-height:1;display:block;animation:flicker 6s infinite}
+.countdown-sep{font-family:var(--font-mono);font-size:clamp(2rem,5vw,3.5rem);color:var(--rouge-sang);align-self:flex-start;margin-top:5px;animation:blink-red 1s infinite}
+.countdown-word{font-family:var(--font-mono);font-size:.6rem;color:var(--vert-kaki);letter-spacing:4px;text-transform:uppercase;margin-top:8px}
+.countdown-message{font-family:var(--font-mono);font-size:.75rem;color:var(--parchemin-sombre);text-align:center;margin-top:30px;letter-spacing:2px;opacity:.7}
+.countdown-frame.alert{border-color:var(--rouge-vif);animation:pulse-glow 2s infinite}
+.countdown-frame.alert .countdown-number{color:var(--rouge-alerte);animation:glitch-h .3s infinite}
+
+/* === TRANSMISSIONS AUDIO === */
+#transmissions{background:linear-gradient(180deg,var(--noir),#080808)}
+.transmissions-grid{max-width:900px;margin:0 auto;display:flex;flex-direction:column;gap:40px}
+.audio-dossier{background:linear-gradient(135deg,#0f0f0f,#141414);border:1px solid rgba(74,82,64,.3);padding:30px;position:relative;overflow:hidden;transition:border-color .3s}
+.audio-dossier:hover{border-color:rgba(139,0,0,.5)}
+.dossier-number{font-family:var(--font-mono);font-size:.65rem;color:var(--rouge-sang);letter-spacing:4px;text-transform:uppercase;margin-bottom:6px}
+.dossier-title{font-family:var(--font-military);font-size:1.2rem;color:var(--parchemin);text-transform:uppercase;letter-spacing:2px;margin-bottom:4px}
+.dossier-classification{font-family:var(--font-mono);font-size:.6rem;color:var(--rouge-vif);letter-spacing:3px;text-transform:uppercase;margin-bottom:4px;display:flex;align-items:center;gap:8px}
+.class-dot{width:6px;height:6px;background:var(--rouge-vif);border-radius:50%;animation:blink-red 1.5s infinite}
+.dossier-date{font-family:var(--font-mono);font-size:.6rem;color:var(--vert-kaki);letter-spacing:2px;margin-bottom:20px;opacity:.7}
+.audio-player{display:flex;align-items:center;gap:15px;background:rgba(0,0,0,.4);padding:15px;border:1px solid rgba(74,82,64,.2)}
+.play-btn{width:44px;height:44px;border:2px solid var(--rouge-sang);background:rgba(139,0,0,.1);cursor:pointer;display:flex;align-items:center;justify-content:center;transform:rotate(45deg);transition:.3s;flex-shrink:0}
+.play-btn:hover{background:rgba(139,0,0,.3);box-shadow:0 0 15px rgba(139,0,0,.5)}
+.play-btn svg{transform:rotate(-45deg);width:18px;height:18px;fill:var(--rouge-vif)}
+.audio-progress-container{flex:1;display:flex;flex-direction:column;gap:6px}
+.audio-waveform{height:35px;position:relative;background:rgba(0,0,0,.3);border:1px solid rgba(74,82,64,.15);overflow:hidden;cursor:pointer}
+.waveform-bars{display:flex;align-items:flex-end;height:100%;gap:1px;padding:3px}
+.waveform-bar{flex:1;background:var(--vert-kaki);min-width:2px;transition:background .1s;opacity:.5}
+.waveform-bar.active{background:var(--rouge-vif);opacity:1}
+.audio-progress-overlay{position:absolute;top:0;left:0;height:100%;background:rgba(139,0,0,.1);pointer-events:none;transition:width .1s linear}
+.audio-time{display:flex;justify-content:space-between;font-family:var(--font-mono);font-size:.6rem;color:var(--vert-kaki);letter-spacing:1px}
+.audio-static-overlay{position:absolute;top:0;left:0;width:100%;height:100%;pointer-events:none;opacity:0;transition:opacity .3s}
+.audio-dossier.playing .audio-static-overlay{opacity:1;animation:static-noise .2s steps(3) infinite}
+.radio-waves{position:absolute;top:15px;right:15px;display:flex;gap:3px;opacity:0;transition:opacity .3s}
+.audio-dossier.playing .radio-waves{opacity:1}
+.radio-wave-dot{width:12px;height:12px;border:1px solid var(--rouge-vif);border-radius:50%;animation:radio-wave 1.5s infinite}
+.radio-wave-dot:nth-child(2){animation-delay:.3s}.radio-wave-dot:nth-child(3){animation-delay:.6s}
+
+/* === DOSSIERS === */
+#dossiers{background:linear-gradient(180deg,#080808,var(--noir))}
+.dossiers-grid{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:30px}
+.dossier-card{background:linear-gradient(145deg,#111,#0d0d0d);border:1px solid rgba(74,82,64,.25);padding:30px 25px;position:relative;cursor:pointer;transition:.4s;overflow:hidden}
+.dossier-card:hover{transform:translateY(-4px);border-color:rgba(139,0,0,.5);box-shadow:0 10px 30px rgba(0,0,0,.5)}
+.dossier-stamp{position:absolute;top:15px;right:15px;font-family:var(--font-military);font-size:.7rem;color:var(--rouge-vif);border:2px solid var(--rouge-vif);padding:3px 10px;transform:rotate(-8deg);letter-spacing:2px;text-transform:uppercase;opacity:.7}
+.dossier-stamp.declassified{color:var(--vert-mil);border-color:var(--vert-mil)}
+.dossier-card-number{font-family:var(--font-mono);font-size:.6rem;color:var(--vert-kaki);letter-spacing:3px;margin-bottom:10px}
+.dossier-card-date{font-family:var(--font-mono);font-size:.65rem;color:var(--rouge-sang);letter-spacing:2px;margin-bottom:10px}
+.dossier-card-title{font-family:var(--font-military);font-size:1.1rem;color:var(--parchemin);text-transform:uppercase;letter-spacing:1px;margin-bottom:12px;line-height:1.3}
+.dossier-card-excerpt{font-family:var(--font-body);font-size:.85rem;color:var(--parchemin-sombre);line-height:1.5;margin-bottom:20px}
+.dossier-card-btn{display:inline-block;font-family:var(--font-mono);font-size:.7rem;color:var(--rouge-vif);letter-spacing:3px;text-transform:uppercase;border:1px solid var(--rouge-sang);padding:8px 20px;background:rgba(139,0,0,.05);cursor:pointer;transition:.3s}
+.dossier-card-btn:hover{background:rgba(139,0,0,.2);box-shadow:0 0 15px rgba(139,0,0,.3)}
+.admin-toggle-btn{display:block;margin:40px auto 0;font-family:var(--font-mono);font-size:.7rem;color:var(--vert-kaki);letter-spacing:3px;text-transform:uppercase;border:1px dashed var(--vert-kaki);padding:10px 25px;background:transparent;cursor:pointer;transition:.3s}
+.admin-toggle-btn:hover{color:var(--parchemin);border-color:var(--parchemin)}
+.modal-overlay{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.92);z-index:20000;align-items:center;justify-content:center;padding:20px;backdrop-filter:blur(5px)}
+.modal-overlay.active{display:flex}
+.modal-content{background:linear-gradient(145deg,#111,#0a0a0a);border:1px solid rgba(139,0,0,.4);max-width:700px;width:100%;max-height:85vh;overflow-y:auto;padding:40px;position:relative;animation:reveal-up .4s ease}
+.modal-close{position:absolute;top:15px;right:15px;width:35px;height:35px;border:1px solid var(--rouge-sang);background:transparent;color:var(--rouge-vif);font-size:1.2rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:.3s}
+.modal-close:hover{background:rgba(139,0,0,.3)}
+.modal-stamp{font-family:var(--font-military);font-size:2.5rem;color:rgba(139,0,0,.25);position:absolute;top:30px;left:30px;transform:rotate(-15deg);letter-spacing:5px;text-transform:uppercase;pointer-events:none;border:4px solid rgba(139,0,0,.2);padding:5px 20px}
+.modal-body{margin-top:20px}
+.modal-body-text{font-family:var(--font-body);font-size:.95rem;color:var(--parchemin-sombre);line-height:1.8}
+.modal-body-text p{margin-bottom:15px}
+.admin-panel{display:none;max-width:700px;margin:40px auto 0;border:1px dashed var(--vert-kaki);padding:30px;background:rgba(74,82,64,.05)}
+.admin-panel.active{display:block}
+.admin-panel h3{font-family:var(--font-military);font-size:1rem;color:var(--vert-kaki);text-transform:uppercase;letter-spacing:3px;margin-bottom:20px}
+.admin-field{margin-bottom:15px}
+.admin-field label{display:block;font-family:var(--font-mono);font-size:.65rem;color:var(--vert-kaki);letter-spacing:2px;text-transform:uppercase;margin-bottom:5px}
+.admin-field input,.admin-field textarea,.admin-field select{width:100%;padding:10px;background:rgba(0,0,0,.5);border:1px solid rgba(74,82,64,.3);color:var(--parchemin);font-family:var(--font-body);font-size:.9rem;outline:none;transition:border-color .3s}
+.admin-field input:focus,.admin-field textarea:focus{border-color:var(--rouge-sang)}
+.admin-field textarea{min-height:120px;resize:vertical}
+.admin-submit{font-family:var(--font-mono);font-size:.75rem;color:var(--noir);background:var(--rouge-sang);border:none;padding:12px 30px;cursor:pointer;letter-spacing:3px;text-transform:uppercase;transition:.3s}
+.admin-submit:hover{background:var(--rouge-vif);box-shadow:0 0 20px rgba(139,0,0,.5)}
+
+/* === ZOMBIE GAME === */
+#zombie-game{min-height:100vh;background:#000;padding:100px 20px 40px;overflow:hidden}
+.game-container{max-width:1000px;margin:0 auto;position:relative}
+.game-hud{display:flex;justify-content:space-between;align-items:center;margin-bottom:15px;padding:10px 20px;border:1px solid rgba(139,0,0,.3);background:rgba(10,10,10,.9)}
+.hud-item{font-family:var(--font-mono);font-size:.8rem;color:var(--rouge-vif);letter-spacing:2px;text-transform:uppercase}
+.hud-item span{color:var(--parchemin);font-size:1.1rem}
+.game-canvas-wrapper{position:relative;border:2px solid rgba(139,0,0,.4);overflow:hidden;cursor:url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40"><circle cx="20" cy="20" r="15" fill="none" stroke="%23CC0000" stroke-width="2" opacity="0.9"/><line x1="20" y1="0" x2="20" y2="12" stroke="%23CC0000" stroke-width="2"/><line x1="20" y1="28" x2="20" y2="40" stroke="%23CC0000" stroke-width="2"/><line x1="0" y1="20" x2="12" y2="20" stroke="%23CC0000" stroke-width="2"/><line x1="28" y1="20" x2="40" y2="20" stroke="%23CC0000" stroke-width="2"/><circle cx="20" cy="20" r="3" fill="%23CC0000"/></svg>') 20 20,crosshair}
+#gameCanvas{display:block;width:100%;background:#111;image-rendering:auto}
+.game-controls{display:flex;gap:15px;justify-content:center;margin-top:15px}
+.game-btn{font-family:var(--font-mono);font-size:.75rem;color:var(--parchemin);letter-spacing:3px;text-transform:uppercase;border:1px solid var(--rouge-sang);padding:10px 25px;background:rgba(139,0,0,.1);cursor:pointer;transition:.3s}
+.game-btn:hover{background:rgba(139,0,0,.3);box-shadow:0 0 15px rgba(139,0,0,.5)}
+.game-btn.active{background:rgba(139,0,0,.4);border-color:var(--rouge-vif)}
+.game-over-screen{display:none;position:absolute;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.85);z-index:10;flex-direction:column;align-items:center;justify-content:center}
+.game-over-screen.active{display:flex}
+.game-over-screen h2{font-family:var(--font-military);font-size:2.5rem;color:var(--rouge-vif);text-transform:uppercase;letter-spacing:5px;margin-bottom:20px;text-shadow:0 0 30px rgba(204,0,0,.5)}
+.game-over-screen .final-score{font-family:var(--font-mono);font-size:1.5rem;color:var(--parchemin);margin-bottom:30px}
+
+/* === CHAT / RADIO === */
+#radio-chat{min-height:80vh;background:linear-gradient(180deg,var(--noir),#080808);padding:120px 20px 80px}
+.chat-container{max-width:700px;margin:0 auto;border:1px solid rgba(74,82,64,.3);background:rgba(10,10,10,.95);overflow:hidden}
+.chat-header{display:flex;justify-content:space-between;align-items:center;padding:15px 20px;background:rgba(139,0,0,.1);border-bottom:1px solid rgba(139,0,0,.3)}
+.chat-header h3{font-family:var(--font-military);font-size:.9rem;color:var(--parchemin);text-transform:uppercase;letter-spacing:2px}
+.chat-status{display:flex;align-items:center;gap:6px;font-family:var(--font-mono);font-size:.6rem;color:var(--vert-mil);letter-spacing:1px}
+.chat-status .status-dot{width:6px;height:6px;background:var(--vert-mil);animation:blink-red 2s infinite}
+.chat-messages{height:400px;overflow-y:auto;padding:20px;display:flex;flex-direction:column;gap:12px}
+.chat-msg{max-width:80%;padding:10px 15px;position:relative;animation:reveal-up .3s ease}
+.chat-msg.received{align-self:flex-start;background:rgba(74,82,64,.15);border-left:2px solid var(--vert-kaki)}
+.chat-msg.sent{align-self:flex-end;background:rgba(139,0,0,.1);border-right:2px solid var(--rouge-sang)}
+.chat-msg-pseudo{font-family:var(--font-mono);font-size:.6rem;letter-spacing:2px;text-transform:uppercase;margin-bottom:4px}
+.chat-msg.received .chat-msg-pseudo{color:var(--vert-mil)}
+.chat-msg.sent .chat-msg-pseudo{color:var(--rouge-vif);text-align:right}
+.chat-msg-text{font-family:var(--font-body);font-size:.85rem;color:var(--parchemin-sombre);line-height:1.5}
+.chat-msg-time{font-family:var(--font-mono);font-size:.5rem;color:rgba(168,155,122,.4);margin-top:4px}
+.chat-msg.sent .chat-msg-time{text-align:right}
+.chat-input-area{display:flex;gap:0;border-top:1px solid rgba(74,82,64,.3)}
+.chat-input-area input{flex:1;padding:15px;background:rgba(0,0,0,.5);border:none;color:var(--parchemin);font-family:var(--font-body);font-size:.85rem;outline:none}
+.chat-input-area input::placeholder{color:rgba(168,155,122,.3)}
+.chat-send-btn{padding:15px 25px;background:rgba(139,0,0,.2);border:none;border-left:1px solid rgba(74,82,64,.3);color:var(--rouge-vif);font-family:var(--font-mono);font-size:.7rem;letter-spacing:2px;cursor:pointer;transition:.3s;text-transform:uppercase}
+.chat-send-btn:hover{background:rgba(139,0,0,.4)}
+.chat-pseudo-setup{padding:20px;text-align:center}
+.chat-pseudo-setup input{padding:10px;background:rgba(0,0,0,.5);border:1px solid rgba(74,82,64,.3);color:var(--parchemin);font-family:var(--font-military);font-size:1rem;text-align:center;outline:none;width:250px;margin:10px}
+.chat-pseudo-setup input:focus{border-color:var(--rouge-sang)}
+
+/* === SURVIVANTS === */
+#survivants{background:linear-gradient(180deg,var(--noir),#0e0c08,var(--noir))}
+.cork-board{max-width:1200px;margin:0 auto;background:repeating-linear-gradient(45deg,rgba(80,60,30,.03) 0px,transparent 2px,transparent 8px),repeating-linear-gradient(-45deg,rgba(80,60,30,.03) 0px,transparent 2px,transparent 8px),linear-gradient(180deg,rgba(50,35,15,.15),rgba(30,20,10,.1));border:2px solid rgba(80,60,30,.2);padding:40px;min-height:300px}
+.survivors-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:30px}
+.survivor-card{background:#f5f0e6;padding:12px 12px 40px;transform:rotate(var(--rotate,-1deg));box-shadow:2px 3px 15px rgba(0,0,0,.5);position:relative;animation:tape-sway 5s ease-in-out infinite;transition:transform .3s}
+.survivor-card:nth-child(even){--rotate:1.5deg;animation-delay:1s}
+.survivor-card:nth-child(3n){--rotate:-2deg;animation-delay:2s}
+.survivor-card:hover{transform:rotate(0deg) scale(1.05);z-index:10}
+.survivor-card::before{content:'';position:absolute;top:-10px;left:50%;transform:translateX(-50%);width:60px;height:20px;background:rgba(200,190,160,.6);border:1px solid rgba(150,140,110,.3)}
+.survivor-photo{width:100%;height:180px;background:#2a2520;display:flex;align-items:center;justify-content:center;overflow:hidden;margin-bottom:10px}
+.survivor-photo img{width:100%;height:100%;object-fit:cover;filter:sepia(.2) contrast(1.1)}
+.survivor-photo .no-photo{font-family:var(--font-military);color:#555;font-size:.8rem;text-transform:uppercase;letter-spacing:2px}
+.survivor-info{padding:5px 3px}
+.survivor-name{font-family:var(--font-military);font-size:.9rem;color:#1a1a1a;text-transform:uppercase;letter-spacing:1px;margin-bottom:3px}
+.survivor-location{font-family:var(--font-mono);font-size:.6rem;color:#555;letter-spacing:1px;margin-bottom:5px}
+.survivor-message{font-family:var(--font-body);font-size:.75rem;color:#333;font-style:italic;line-height:1.4}
+.survivor-date{position:absolute;bottom:10px;right:12px;font-family:var(--font-mono);font-size:.55rem;color:#888}
+.survivor-form-container{max-width:600px;margin:40px auto 0;border:1px dashed rgba(74,82,64,.4);padding:30px;background:rgba(0,0,0,.3)}
+.survivor-form-container h3{font-family:var(--font-military);font-size:1rem;color:var(--parchemin);text-transform:uppercase;letter-spacing:3px;text-align:center;margin-bottom:20px}
+.form-row{display:flex;gap:15px;margin-bottom:15px}
+.form-row .admin-field{flex:1}
+.char-counter{font-family:var(--font-mono);font-size:.6rem;color:var(--vert-kaki);text-align:right;margin-top:3px}
+
+/* === JOURNAL === */
+#journal{background:linear-gradient(180deg,var(--noir),#080808)}
+.journal-container{max-width:800px;margin:0 auto}
+.journal-entries{display:flex;flex-direction:column;gap:25px;margin-bottom:40px}
+.journal-entry{background:linear-gradient(145deg,rgba(30,25,18,.6),rgba(20,17,12,.8));border-left:3px solid var(--rouge-sang);padding:25px 25px 25px 30px;position:relative;transition:.3s}
+.journal-entry:hover{border-left-color:var(--rouge-vif)}
+.journal-entry-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
+.journal-pseudo{font-family:var(--font-military);font-size:.9rem;color:var(--parchemin);text-transform:uppercase;letter-spacing:1px}
+.journal-date{font-family:var(--font-mono);font-size:.6rem;color:var(--vert-kaki);letter-spacing:1px}
+.journal-text{font-family:var(--font-body);font-size:.9rem;color:var(--parchemin-sombre);line-height:1.7;font-style:italic}
+.journal-image{margin-top:12px;max-width:100%;max-height:300px;border:1px solid rgba(74,82,64,.2);filter:sepia(.15) contrast(1.05)}
+.journal-report-btn{font-family:var(--font-mono);font-size:.55rem;color:var(--rouge-sang);background:none;border:1px solid rgba(139,0,0,.3);padding:3px 10px;cursor:pointer;letter-spacing:2px;text-transform:uppercase;margin-top:10px;transition:.3s;opacity:.5}
+.journal-report-btn:hover{opacity:1;background:rgba(139,0,0,.1)}
+.journal-form-container{border:1px solid rgba(74,82,64,.3);padding:30px;background:rgba(0,0,0,.3)}
+.journal-form-container h3{font-family:var(--font-military);font-size:1rem;color:var(--parchemin);text-transform:uppercase;letter-spacing:3px;margin-bottom:20px}
+.confirmation-msg{display:none;text-align:center;padding:20px;border:1px solid var(--vert-kaki);background:rgba(74,82,64,.1);font-family:var(--font-mono);font-size:.75rem;color:var(--vert-mil);letter-spacing:2px;text-transform:uppercase;margin-top:15px;animation:reveal-up .4s ease}
+.confirmation-msg.show{display:block}
+
+/* === FOOTER === */
+#footer{min-height:auto;padding:60px 20px 40px;background:linear-gradient(180deg,var(--noir),#050505);border-top:1px solid rgba(139,0,0,.3);text-align:center}
+.footer-frequency{font-family:var(--font-mono);font-size:.8rem;color:var(--rouge-vif);letter-spacing:4px;text-transform:uppercase;margin-bottom:15px;animation:flicker 4s infinite}
+.footer-gps{font-family:var(--font-mono);font-size:.65rem;color:var(--vert-kaki);letter-spacing:3px;margin-bottom:20px;animation:blink-red 2s infinite}
+.footer-message{font-family:var(--font-military);font-size:1rem;color:var(--parchemin-sombre);letter-spacing:2px;max-width:600px;margin:0 auto 20px;line-height:1.6}
+.footer-links{display:flex;justify-content:center;gap:30px;flex-wrap:wrap;margin-bottom:25px}
+.footer-links a{font-family:var(--font-mono);font-size:.65rem;color:var(--parchemin-sombre);text-decoration:none;letter-spacing:2px;text-transform:uppercase;transition:.3s;padding:5px 0;border-bottom:1px solid transparent}
+.footer-links a:hover{color:var(--rouge-vif);border-bottom-color:var(--rouge-sang)}
+.footer-copyright{font-family:var(--font-mono);font-size:.55rem;color:rgba(74,82,64,.5);letter-spacing:2px}
+.back-to-top{position:fixed;bottom:30px;right:30px;width:45px;height:45px;border:1px solid var(--rouge-sang);background:rgba(10,10,10,.9);color:var(--rouge-vif);font-size:1.2rem;cursor:pointer;display:flex;align-items:center;justify-content:center;z-index:8000;opacity:0;transform:translateY(20px);transition:.3s;border-radius:50%}
+.back-to-top.visible{opacity:1;transform:translateY(0)}
+.back-to-top:hover{background:rgba(139,0,0,.2);box-shadow:0 0 15px rgba(139,0,0,.5);transform:translateY(-3px)}
+
+/* === MUZZLE FLASH === */
+.muzzle-flash{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(255,200,50,.15);pointer-events:none;z-index:99999;opacity:0;transition:opacity .05s}
+.muzzle-flash.active{opacity:1}
+
+/* === RESPONSIVE === */
+@media(max-width:768px){
+.hamburger{display:block}.mobile-nav{display:flex}.nav-bar{display:none}
+.header-top .status-indicator{display:none}
+section{padding:100px 15px 60px}
+.countdown-frame{padding:30px 20px}.countdown-display{gap:10px}.countdown-unit{min-width:65px}
+.audio-player{flex-direction:column}.play-btn{align-self:center}
+.dossiers-grid{grid-template-columns:1fr}
+.cork-board{padding:20px 15px}.survivors-grid{grid-template-columns:1fr 1fr;gap:20px}
+.form-row{flex-direction:column;gap:10px}
+.modal-content{padding:25px 20px}.modal-stamp{font-size:1.5rem}
+.chat-messages{height:300px}
+}
+@media(max-width:480px){.survivors-grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="vignette-overlay"></div>
+<div class="muzzle-flash" id="muzzleFlash"></div>
+<button class="back-to-top" id="backToTop" title="Retour en haut">↑</button>
+
+<!-- === HEADER === -->
+<header class="main-header">
+<div class="header-top">
+<button class="hamburger" id="hamburgerBtn" aria-label="Menu"><span></span><span></span><span></span></button>
+<div class="twd-logo-container">
+<div class="twd-logo"><span class="the-line">THE</span><span class="walking-dead-line">WALKING DEAD</span></div>
+</div>
+<div class="status-indicator"><span class="status-dot"></span><span>TRANSMISSION EN COURS</span></div>
+</div>
+<div class="header-tagline">DERNIER SIGNAL ACTIF — POSTE ECHO-7</div>
+<nav class="nav-bar">
+<a href="#hero" class="active"><span class="nav-icon">⌂</span> Accueil</a>
+<a href="#countdown"><span class="nav-icon">⏳</span> Extraction</a>
+<a href="#transmissions"><span class="nav-icon">🔒</span> Transmissions</a>
+<a href="#survivants"><span class="nav-icon">🗺️</span> Survivants</a>
+<a href="#radio-chat"><span class="nav-icon">📡</span> Radio</a>
+<a href="#zombie-game"><span class="nav-icon">🎯</span> Défense</a>
+<a href="#dossiers"><span class="nav-icon">📁</span> Dossiers</a>
+<a href="#journal"><span class="nav-icon">💬</span> Journal</a>
+</nav>
+</header>
+
+<nav class="mobile-nav" id="mobileNav">
+<a href="#hero" onclick="closeMobileNav()">⌂ Accueil</a>
+<a href="#countdown" onclick="closeMobileNav()">⏳ Extraction</a>
+<a href="#transmissions" onclick="closeMobileNav()">🔒 Transmissions</a>
+<a href="#survivants" onclick="closeMobileNav()">🗺️ Survivants</a>
+<a href="#radio-chat" onclick="closeMobileNav()">📡 Radio</a>
+<a href="#zombie-game" onclick="closeMobileNav()">🎯 Défense</a>
+<a href="#dossiers" onclick="closeMobileNav()">📁 Dossiers</a>
+<a href="#journal" onclick="closeMobileNav()">💬 Journal</a>
+</nav>
+
+<!-- === HERO VIDEO === -->
+<section id="hero">
+<video class="hero-video-bg" autoplay muted loop playsinline>
+<source src="video.mp4" type="video/mp4">
+</video>
+<div class="hero-overlay"></div>
+<div class="hero-content">
+<div class="hero-logo-big">
+<div class="twd-logo"><span class="the-line">THE</span><span class="walking-dead-line">WALKING DEAD</span></div>
+</div>
+<p class="hero-subtitle">▸ DERNIER SIGNAL ACTIF — POSTE ECHO-7 — FRANCE ◂</p>
+<p style="font-family:var(--font-military);font-size:.85rem;color:var(--rouge-sang);letter-spacing:3px;text-transform:uppercase;margin-bottom:30px">⚠ ALERTE NIVEAU MAXIMUM — CONTAMINATION EN COURS ⚠</p>
+<a href="#countdown" class="hero-cta">▶ ACCÉDER AU POSTE DE COMMANDEMENT</a>
+</div>
+<div class="hero-scroll-arrow">↓</div>
+</section>
+
+<!-- === COUNTDOWN === -->
+<section id="countdown">
+<div class="section-header reveal"><div class="section-label">/// Protocole d'Extraction ///</div><h2 class="section-title">Temps Restant</h2><div class="section-divider"></div></div>
+<div class="countdown-frame reveal" id="countdownFrame">
+<div class="countdown-label">Le Protocole de Confinement expire dans...</div>
+<div class="countdown-display">
+<div class="countdown-unit"><span class="countdown-number" id="cd-days">00</span><span class="countdown-word">Jours</span></div>
+<span class="countdown-sep">:</span>
+<div class="countdown-unit"><span class="countdown-number" id="cd-hours">00</span><span class="countdown-word">Heures</span></div>
+<span class="countdown-sep">:</span>
+<div class="countdown-unit"><span class="countdown-number" id="cd-minutes">00</span><span class="countdown-word">Minutes</span></div>
+<span class="countdown-sep">:</span>
+<div class="countdown-unit"><span class="countdown-number" id="cd-seconds">00</span><span class="countdown-word">Secondes</span></div>
+</div>
+<div class="countdown-message">⚠ APRÈS EXPIRATION, AUCUNE EXTRACTION NE SERA POSSIBLE — PROTOCOLE OMÉGA ACTIVÉ ⚠</div>
+</div>
+</section>
+
+<!-- === TRANSMISSIONS AUDIO === -->
+<section id="transmissions">
+<div class="section-header reveal"><div class="section-label">/// Communications Interceptées ///</div><h2 class="section-title">Transmissions Classifiées</h2><div class="section-divider"></div></div>
+<div class="transmissions-grid">
+<div class="audio-dossier reveal" data-audio="audio/Soldat.mp3">
+<div class="audio-static-overlay"></div><div class="radio-waves"><div class="radio-wave-dot"></div><div class="radio-wave-dot"></div><div class="radio-wave-dot"></div></div>
+<div class="dossier-number">DOSSIER #TW-0047</div><div class="dossier-title">Soldat Disparu — Dernière Transmission</div>
+<div class="dossier-classification"><span class="class-dot"></span>NIVEAU DE CLASSIFICATION : ALPHA ROUGE</div>
+<div class="dossier-date">[ENREGISTREMENT RÉCUPÉRÉ — DATE INCONNUE]</div>
+<div class="audio-player"><button class="play-btn" aria-label="Lecture"><svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg></button><div class="audio-progress-container"><div class="audio-waveform"><div class="audio-progress-overlay" style="width:0%"></div><div class="waveform-bars"></div></div><div class="audio-time"><span class="audio-current">00:00</span><span class="audio-duration">--:--</span></div></div></div>
+</div>
+<div class="audio-dossier reveal reveal-delay-1" data-audio="audio/Effrayée.mp3">
+<div class="audio-static-overlay"></div><div class="radio-waves"><div class="radio-wave-dot"></div><div class="radio-wave-dot"></div><div class="radio-wave-dot"></div></div>
+<div class="dossier-number">DOSSIER #TW-0112</div><div class="dossier-title">Voix Féminine — Message à Lucas</div>
+<div class="dossier-classification"><span class="class-dot"></span>NIVEAU DE CLASSIFICATION : ALPHA ROUGE</div>
+<div class="dossier-date">[ENREGISTREMENT RÉCUPÉRÉ — DATE INCONNUE]</div>
+<div class="audio-player"><button class="play-btn" aria-label="Lecture"><svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg></button><div class="audio-progress-container"><div class="audio-waveform"><div class="audio-progress-overlay" style="width:0%"></div><div class="waveform-bars"></div></div><div class="audio-time"><span class="audio-current">00:00</span><span class="audio-duration">--:--</span></div></div></div>
+</div>
+<div class="audio-dossier reveal reveal-delay-2" data-audio="audio/Le commencement.mp3">
+<div class="audio-static-overlay"></div><div class="radio-waves"><div class="radio-wave-dot"></div><div class="radio-wave-dot"></div><div class="radio-wave-dot"></div></div>
+<div class="dossier-number">DOSSIER #TW-0003</div><div class="dossier-title">Le Narrateur — Le Commencement</div>
+<div class="dossier-classification"><span class="class-dot"></span>NIVEAU DE CLASSIFICATION : OMÉGA NOIR</div>
+<div class="dossier-date">[ENREGISTREMENT RÉCUPÉRÉ — J+0 — PATIENT ZÉRO]</div>
+<div class="audio-player"><button class="play-btn" aria-label="Lecture"><svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg></button><div class="audio-progress-container"><div class="audio-waveform"><div class="audio-progress-overlay" style="width:0%"></div><div class="waveform-bars"></div></div><div class="audio-time"><span class="audio-current">00:00</span><span class="audio-duration">--:--</span></div></div></div>
+</div>
+<div class="audio-dossier reveal reveal-delay-3" data-audio="audio/Propagation.mp3">
+<div class="audio-static-overlay"></div><div class="radio-waves"><div class="radio-wave-dot"></div><div class="radio-wave-dot"></div><div class="radio-wave-dot"></div></div>
+<div class="dossier-number">DOSSIER #TW-0089</div><div class="dossier-title">Rapport de Propagation — Zone Sud</div>
+<div class="dossier-classification"><span class="class-dot"></span>NIVEAU DE CLASSIFICATION : ALPHA ROUGE</div>
+<div class="dossier-date">[ENREGISTREMENT RÉCUPÉRÉ — SECTEUR COMPROMIS]</div>
+<div class="audio-player"><button class="play-btn" aria-label="Lecture"><svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg></button><div class="audio-progress-container"><div class="audio-waveform"><div class="audio-progress-overlay" style="width:0%"></div><div class="waveform-bars"></div></div><div class="audio-time"><span class="audio-current">00:00</span><span class="audio-duration">--:--</span></div></div></div>
+</div>
+</div>
+</section>
+
+<!-- === SURVIVANTS === -->
+<section id="survivants">
+<div class="section-header reveal"><div class="section-label">/// Registre des Survivants ///</div><h2 class="section-title">Mur des Survivants</h2><div class="section-divider"></div></div>
+<div class="cork-board reveal"><div class="survivors-grid" id="survivorsGrid"></div></div>
+<div class="survivor-form-container reveal">
+<h3>📡 Signaler votre Position</h3>
+<div class="form-row">
+<div class="admin-field"><label>Nom de survivant</label><input type="text" id="survName" placeholder="Votre pseudonyme..." maxlength="30"></div>
+<div class="admin-field"><label>Localisation</label><input type="text" id="survLocation" placeholder="Ex: Zone Nord, Lyon..." maxlength="60"></div>
+</div>
+<div class="admin-field"><label>Message (140 caractères max)</label><textarea id="survMessage" placeholder="Votre message aux autres survivants..." maxlength="140" rows="2"></textarea><div class="char-counter"><span id="survCharCount">0</span>/140</div></div>
+<div class="admin-field"><label>Photo (optionnel)</label><input type="file" id="survPhoto" accept="image/*" style="color:var(--parchemin-sombre)"></div>
+<button class="admin-submit" id="addSurvivorBtn" style="width:100%;margin-top:10px">📡 Transmettre ma Position</button>
+<div class="confirmation-msg" id="survConfirm">✓ SIGNAL REÇU — Votre position a été enregistrée par le Poste Echo-7</div>
+</div>
+</section>
+
+<!-- === RADIO CHAT === -->
+<section id="radio-chat">
+<div class="section-header reveal"><div class="section-label">/// Fréquence Radio Ouverte ///</div><h2 class="section-title">Canal de Communication</h2><div class="section-divider"></div></div>
+<div class="chat-container reveal">
+<div class="chat-header">
+<h3>📡 Radio Poste Echo-7 — Canal Ouvert</h3>
+<div class="chat-status"><span class="status-dot"></span>EN LIGNE</div>
+</div>
+<div class="chat-messages" id="chatMessages"></div>
+<div class="chat-pseudo-setup" id="chatSetup">
+<p style="font-family:var(--font-military);color:var(--parchemin);letter-spacing:2px;text-transform:uppercase;font-size:.9rem">Identifiez-vous pour accéder au canal</p>
+<input type="text" id="chatPseudoInput" placeholder="Votre nom de code..." maxlength="20">
+<br>
+<button class="game-btn" onclick="setChatPseudo()">📡 REJOINDRE LE CANAL</button>
+</div>
+<div class="chat-input-area" id="chatInputArea" style="display:none">
+<input type="text" id="chatMsgInput" placeholder="Transmettez votre message..." maxlength="300">
+<button class="chat-send-btn" onclick="sendChatMessage()">ENVOYER</button>
+</div>
+</div>
+</section>
+
+<!-- === ZOMBIE SHOOTING GAME === -->
+<section id="zombie-game">
+<div class="section-header reveal"><div class="section-label">/// Poste de Défense ///</div><h2 class="section-title">Élimination des Menaces</h2><div class="section-divider"></div></div>
+<div class="game-container">
+<div class="game-hud">
+<div class="hud-item">🎯 SCORE : <span id="gameScore">0</span></div>
+<div class="hud-item">❤️ VIE : <span id="gameHealth">100</span></div>
+<div class="hud-item">🧟 VAGUE : <span id="gameWave">1</span></div>
+<div class="hud-item">🔫 MUNITIONS : <span id="gameAmmo">∞</span></div>
+</div>
+<div class="game-canvas-wrapper">
+<canvas id="gameCanvas" width="960" height="500"></canvas>
+<div class="game-over-screen" id="gameOverScreen">
+<h2>TOMBÉ AU COMBAT</h2>
+<div class="final-score">Score final : <span id="finalScore">0</span></div>
+<button class="game-btn" onclick="startGame()">↻ REPRENDRE LES ARMES</button>
+</div>
+</div>
+<div class="game-controls">
+<button class="game-btn active" id="startGameBtn" onclick="startGame()">▶ COMMENCER LA DÉFENSE</button>
+<button class="game-btn" id="pauseGameBtn" onclick="togglePause()">⏸ PAUSE</button>
+</div>
+</div>
+</section>
+
+<!-- === DOSSIERS CONFIDENTIELS === -->
+<section id="dossiers">
+<div class="section-header reveal"><div class="section-label">/// Archives Déclassifiées ///</div><h2 class="section-title">Dossiers Confidentiels</h2><div class="section-divider"></div></div>
+<div class="dossiers-grid" id="dossiersGrid"></div>
+<button class="admin-toggle-btn" id="adminToggleBtn">+ Ajouter un Dossier (Admin)</button>
+<div class="admin-panel" id="adminPanel">
+<h3>⚠ Accès Restreint — Authentification Requise</h3>
+<div class="admin-field" id="adminAuthField"><label>Code d'accès</label><input type="password" id="adminPassword" placeholder="Entrez le code d'accès..."><button class="admin-submit" style="margin-top:10px" id="adminAuthBtn">Authentifier</button></div>
+<div id="adminForm" style="display:none">
+<div class="admin-field"><label>Titre du dossier</label><input type="text" id="newDossierTitle" placeholder="Titre..."></div>
+<div class="admin-field"><label>Contenu complet</label><textarea id="newDossierContent" placeholder="Contenu détaillé du dossier..."></textarea></div>
+<div class="admin-field"><label>Classification</label><select id="newDossierClass"><option value="CONFIDENTIEL">CONFIDENTIEL</option><option value="DÉCLASSIFIÉ">DÉCLASSIFIÉ</option><option value="TOP SECRET">TOP SECRET</option></select></div>
+<button class="admin-submit" id="addDossierBtn">Soumettre le Dossier</button>
+</div>
+</div>
+</section>
+
+<div class="modal-overlay" id="dossierModal">
+<div class="modal-content">
+<button class="modal-close" id="modalClose">✕</button>
+<div class="modal-stamp" id="modalStamp">CONFIDENTIEL</div>
+<div class="modal-body">
+<div class="dossier-card-number" id="modalNumber"></div>
+<div class="dossier-card-date" id="modalDate"></div>
+<h2 class="dossier-card-title" id="modalTitle"></h2>
+<div class="modal-body-text" id="modalText"></div>
+</div>
+</div>
+</div>
+
+<!-- === JOURNAL === -->
+<section id="journal">
+<div class="section-header reveal"><div class="section-label">/// Témoignages Terrain ///</div><h2 class="section-title">Journal de Terrain</h2><div class="section-divider"></div></div>
+<div class="journal-container">
+<div class="journal-entries" id="journalEntries"></div>
+<div class="journal-form-container reveal">
+<h3>✏️ Ajouter une Entrée au Journal</h3>
+<div class="admin-field"><label>Identifiant</label><input type="text" id="journalPseudo" placeholder="Votre nom de code..." maxlength="30"></div>
+<div class="admin-field"><label>Témoignage</label><textarea id="journalMessage" placeholder="Ce que vous avez vu, vécu, entendu..." rows="4"></textarea></div>
+<div class="admin-field"><label>Image (optionnel)</label><input type="file" id="journalPhoto" accept="image/*" style="color:var(--parchemin-sombre)"></div>
+<button class="admin-submit" id="addJournalBtn" style="width:100%">📤 Transmettre le Témoignage</button>
+<div class="confirmation-msg" id="journalConfirm">✓ TRANSMISSION REÇUE — Le Quartier Général a bien enregistré votre signal</div>
+</div>
+</div>
+</section>
+
+<!-- === FOOTER === -->
+<footer id="footer">
+<div class="footer-frequency">📡 Fréquence de Secours : 156.800 MHz</div>
+<div class="footer-gps">48°51'24.0"N 2°21'07.0"E — SIGNAL INTERMITTENT</div>
+<p class="footer-message">Ce poste émetteur est le dernier signal actif connu.<br>Restez en vie. Restez ensemble.</p>
+<div class="footer-links">
+<a href="#hero">Cellule de Crise</a><a href="#countdown">Protocole Extraction</a><a href="#transmissions">Fréquences Radio</a><a href="#survivants">Points de Ralliement</a>
+</div>
+<div class="footer-copyright">POSTE ECHO-7 — RÉSEAU OMÉGA — DERNIER SIGNAL ACTIF<br>&copy; CELLULE DE CRISE NATIONALE — DOCUMENT CLASSIFIÉ</div>
+</footer>
+
+<script>
+// ============================================================
+// === NAVIGATION ===
+// ============================================================
+const hamburgerBtn=document.getElementById('hamburgerBtn'),mobileNav=document.getElementById('mobileNav');
+hamburgerBtn.addEventListener('click',()=>mobileNav.classList.toggle('open'));
+function closeMobileNav(){mobileNav.classList.remove('open')}
+document.addEventListener('click',e=>{if(!mobileNav.contains(e.target)&&!hamburgerBtn.contains(e.target))mobileNav.classList.remove('open')});
+document.querySelectorAll('a[href^="#"]').forEach(a=>{a.addEventListener('click',e=>{e.preventDefault();const t=document.querySelector(a.getAttribute('href'));if(t)t.scrollIntoView({behavior:'smooth',block:'start'})})});
+const sections=document.querySelectorAll('section,footer'),navLinks=document.querySelectorAll('.nav-bar a');
+function updateActiveNav(){let c='';sections.forEach(s=>{if(window.scrollY>=s.offsetTop-150)c=s.getAttribute('id')});navLinks.forEach(l=>{l.classList.remove('active');if(l.getAttribute('href')==='#'+c)l.classList.add('active')})}
+window.addEventListener('scroll',updateActiveNav);
+const backToTop=document.getElementById('backToTop');
+window.addEventListener('scroll',()=>{backToTop.classList.toggle('visible',window.scrollY>400)});
+backToTop.addEventListener('click',()=>window.scrollTo({top:0,behavior:'smooth'}));
+
+// === REVEAL ===
+const revealObs=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible')})},{threshold:.1,rootMargin:'0px 0px -50px 0px'});
+document.querySelectorAll('.reveal').forEach(el=>revealObs.observe(el));
+
+
+// ============================================================
+// === COUNTDOWN ===
+// ============================================================
+(function(){
+const K='twd_echo7_countdown_start',D=60;
+let s=localStorage.getItem(K);if(!s){s=Date.now();localStorage.setItem(K,s)}else s=parseInt(s);
+const end=s+(D*864e5);
+function up(){let d=end-Date.now();const f=document.getElementById('countdownFrame');
+if(d<=0){d=0;['cd-days','cd-hours','cd-minutes','cd-seconds'].forEach(i=>document.getElementById(i).textContent='00');f.classList.add('alert');return}
+const dy=Math.floor(d/864e5),hr=Math.floor(d%864e5/36e5),mn=Math.floor(d%36e5/6e4),sc=Math.floor(d%6e4/1e3);
+document.getElementById('cd-days').textContent=String(dy).padStart(2,'0');
+document.getElementById('cd-hours').textContent=String(hr).padStart(2,'0');
+document.getElementById('cd-minutes').textContent=String(mn).padStart(2,'0');
+document.getElementById('cd-seconds').textContent=String(sc).padStart(2,'0');
+f.classList.toggle('alert',dy<7)}
+up();setInterval(up,1000);
+})();
+
+// ============================================================
+// === AUDIO PLAYERS ===
+// ============================================================
+(function(){
+document.querySelectorAll('.audio-dossier').forEach(dos=>{
+const src=dos.getAttribute('data-audio'),audio=new Audio(src);
+const playBtn=dos.querySelector('.play-btn'),wfCont=dos.querySelector('.waveform-bars');
+const progOv=dos.querySelector('.audio-progress-overlay'),curEl=dos.querySelector('.audio-current'),durEl=dos.querySelector('.audio-duration');
+const wfArea=dos.querySelector('.audio-waveform');let playing=false;
+const bars=[];for(let i=0;i<60;i++){const b=document.createElement('div');b.className='waveform-bar';b.style.height=(Math.random()*80+15)+'%';wfCont.appendChild(b);bars.push(b)}
+function fmt(s){if(isNaN(s))return'--:--';return String(Math.floor(s/60)).padStart(2,'0')+':'+String(Math.floor(s%60)).padStart(2,'0')}
+audio.addEventListener('loadedmetadata',()=>durEl.textContent=fmt(audio.duration));
+audio.addEventListener('timeupdate',()=>{const p=audio.currentTime/audio.duration*100;progOv.style.width=p+'%';curEl.textContent=fmt(audio.currentTime);const ai=Math.floor(p/100*60);bars.forEach((b,i)=>b.classList.toggle('active',i<=ai))});
+audio.addEventListener('ended',()=>{playing=false;dos.classList.remove('playing');playBtn.innerHTML='<svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg>';bars.forEach(b=>b.classList.remove('active'))});
+playBtn.addEventListener('click',()=>{
+if(playing){audio.pause();playing=false;dos.classList.remove('playing');playBtn.innerHTML='<svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg>'}
+else{document.querySelectorAll('.audio-dossier').forEach(d=>{if(d!==dos&&d._audio){d._audio.pause();d.classList.remove('playing');d.querySelector('.play-btn').innerHTML='<svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg>'}});
+audio.play();playing=true;dos.classList.add('playing');playBtn.innerHTML='<svg viewBox="0 0 24 24"><rect x="5" y="3" width="4" height="18"/><rect x="15" y="3" width="4" height="18"/></svg>'}});
+wfArea.addEventListener('click',e=>{const r=wfArea.getBoundingClientRect();if(audio.duration)audio.currentTime=(e.clientX-r.left)/r.width*audio.duration});
+dos._audio=audio;
+})})();
+
+// ============================================================
+// === ZOMBIE SHOOTING GAME ===
+// ============================================================
+const gameCanvas=document.getElementById('gameCanvas'),gctx=gameCanvas.getContext('2d');
+let gameRunning=false,gamePaused=false,gameScore=0,gameHealth=100,gameWave=1;
+let zombies=[],bullets=[],explosions=[],spawnTimer=0,waveTimer=0;
+const muzzleFlash=document.getElementById('muzzleFlash');
+
+class Zombie{
+constructor(wave){
+this.x=gameCanvas.width+Math.random()*100;
+this.y=100+Math.random()*(gameCanvas.height-160);
+this.w=35;this.h=55;
+this.speed=(0.5+Math.random()*1+wave*0.15);
+this.health=1+Math.floor(wave/3);
+this.maxHealth=this.health;
+this.frame=0;this.frameTimer=0;
+this.type=Math.random()<0.2?'runner':'walker';
+if(this.type==='runner')this.speed*=1.8;
+this.color=this.type==='runner'?'#8B0000':'#4a5240';
+this.hit=false;this.hitTimer=0;
+}
+update(){
+if(this.hit){this.hitTimer--;if(this.hitTimer<=0)this.hit=false}
+this.x-=this.speed;
+this.frameTimer++;if(this.frameTimer>10){this.frame=(this.frame+1)%4;this.frameTimer=0}
+if(this.x<-50)return'passed';
+return this.health<=0?'dead':'alive';
+}
+draw(ctx){
+ctx.save();
+// Corps
+ctx.fillStyle=this.hit?'#ff4444':this.color;
+const wobble=Math.sin(this.frame*Math.PI/2)*3;
+// Tête
+ctx.beginPath();ctx.arc(this.x+this.w/2,this.y-5+wobble,10,0,Math.PI*2);ctx.fill();
+// Torse
+ctx.fillRect(this.x+8,this.y+5+wobble,this.w-16,25);
+// Bras (tendus vers l'avant)
+ctx.fillRect(this.x-15,this.y+8+wobble,20,5);
+ctx.fillRect(this.x+this.w-5,this.y+12+wobble,15,5);
+// Jambes
+const legOff=Math.sin(this.frame*Math.PI/2)*6;
+ctx.fillRect(this.x+10,this.y+30+wobble,6,20+legOff);
+ctx.fillRect(this.x+this.w-16,this.y+30+wobble,6,20-legOff);
+// Yeux rouges
+ctx.fillStyle='#ff0000';
+ctx.fillRect(this.x+this.w/2-6,this.y-8+wobble,3,3);
+ctx.fillRect(this.x+this.w/2+3,this.y-8+wobble,3,3);
+// Barre de vie
+if(this.health<this.maxHealth){
+ctx.fillStyle='#333';ctx.fillRect(this.x,this.y-20,this.w,4);
+ctx.fillStyle='#CC0000';ctx.fillRect(this.x,this.y-20,this.w*(this.health/this.maxHealth),4);
+}
+ctx.restore();
+}
+}
+
+class Explosion{
+constructor(x,y){this.x=x;this.y=y;this.life=15;this.maxLife=15;this.particles=[];
+for(let i=0;i<8;i++)this.particles.push({x:0,y:0,vx:(Math.random()-.5)*6,vy:(Math.random()-.5)*6,s:Math.random()*3+1})}
+update(){this.life--;this.particles.forEach(p=>{p.x+=p.vx;p.y+=p.vy;p.vx*=.95;p.vy*=.95});return this.life>0}
+draw(ctx){const a=this.life/this.maxLife;ctx.save();ctx.globalAlpha=a;
+this.particles.forEach(p=>{ctx.fillStyle=Math.random()>.5?'#CC0000':'#ff6600';ctx.beginPath();ctx.arc(this.x+p.x,this.y+p.y,p.s*a,0,Math.PI*2);ctx.fill()});
+ctx.restore()}
+}
+
+function startGame(){
+gameScore=0;gameHealth=100;gameWave=1;zombies=[];explosions=[];
+spawnTimer=0;waveTimer=0;gameRunning=true;gamePaused=false;
+document.getElementById('gameOverScreen').classList.remove('active');
+updateHUD();
+requestAnimationFrame(gameLoop);
+}
+
+function togglePause(){if(!gameRunning)return;gamePaused=!gamePaused;if(!gamePaused)requestAnimationFrame(gameLoop)}
+
+function updateHUD(){
+document.getElementById('gameScore').textContent=gameScore;
+document.getElementById('gameHealth').textContent=Math.max(0,gameHealth);
+document.getElementById('gameWave').textContent=gameWave;
+}
+
+function gameLoop(){
+if(!gameRunning||gamePaused)return;
+gctx.clearRect(0,0,gameCanvas.width,gameCanvas.height);
+// Fond
+gctx.fillStyle='#0a0a0a';gctx.fillRect(0,0,gameCanvas.width,gameCanvas.height);
+// Sol
+gctx.fillStyle='#1a1510';gctx.fillRect(0,gameCanvas.height-60,gameCanvas.width,60);
+gctx.strokeStyle='#2a2015';gctx.lineWidth=1;
+for(let i=0;i<gameCanvas.width;i+=30){gctx.beginPath();gctx.moveTo(i,gameCanvas.height-60);gctx.lineTo(i,gameCanvas.height);gctx.stroke()}
+// Brouillard
+const fg=gctx.createLinearGradient(0,0,0,gameCanvas.height);
+fg.addColorStop(0,'rgba(20,20,15,.3)');fg.addColorStop(.5,'rgba(10,10,8,.1)');fg.addColorStop(1,'rgba(15,12,8,.4)');
+gctx.fillStyle=fg;gctx.fillRect(0,0,gameCanvas.width,gameCanvas.height);
+
+// Spawn
+spawnTimer++;waveTimer++;
+const spawnRate=Math.max(30,90-gameWave*5);
+if(spawnTimer>=spawnRate){spawnTimer=0;zombies.push(new Zombie(gameWave))}
+if(waveTimer>600){waveTimer=0;gameWave++;updateHUD()}
+
+// Update zombies
+zombies=zombies.filter(z=>{
+const st=z.update();
+if(st==='passed'){gameHealth-=10;updateHUD();if(gameHealth<=0){gameRunning=false;document.getElementById('finalScore').textContent=gameScore;document.getElementById('gameOverScreen').classList.add('active');return false}return false}
+if(st==='dead'){gameScore+=10*(z.type==='runner'?2:1);explosions.push(new Explosion(z.x+z.w/2,z.y+z.h/2));updateHUD();return false}
+z.draw(gctx);return true});
+
+// Explosions
+explosions=explosions.filter(e=>{const alive=e.update();e.draw(gctx);return alive});
+
+// Vague text
+gctx.fillStyle='rgba(139,0,0,.15)';gctx.font='bold 60px Arial';gctx.textAlign='center';
+gctx.fillText('VAGUE '+gameWave,gameCanvas.width/2,gameCanvas.height/2);
+
+// Bordure alerte si santé basse
+if(gameHealth<=30){gctx.strokeStyle=`rgba(204,0,0,${.3+Math.sin(Date.now()/200)*.3})`;gctx.lineWidth=4;gctx.strokeRect(0,0,gameCanvas.width,gameCanvas.height)}
+
+requestAnimationFrame(gameLoop);
+}
+
+// Tir au clic
+gameCanvas.addEventListener('click',e=>{
+if(!gameRunning||gamePaused)return;
+const rect=gameCanvas.getBoundingClientRect();
+const scaleX=gameCanvas.width/rect.width;
+const scaleY=gameCanvas.height/rect.height;
+const mx=(e.clientX-rect.left)*scaleX;
+const my=(e.clientY-rect.top)*scaleY;
+// Flash
+muzzleFlash.classList.add('active');setTimeout(()=>muzzleFlash.classList.remove('active'),50);
+// Hit detection
+let hit=false;
+for(let i=zombies.length-1;i>=0;i--){
+const z=zombies[i];
+if(mx>=z.x-5&&mx<=z.x+z.w+5&&my>=z.y-15&&my<=z.y+z.h+5){
+z.health--;z.hit=true;z.hitTimer=5;hit=true;break;
+}}
+if(!hit){explosions.push(new Explosion(mx,my))}
+});
+
+// ============================================================
+// === CHAT RADIO ===
+// ============================================================
+let chatPseudo=localStorage.getItem('twd_chat_pseudo')||'';
+const chatMessages=document.getElementById('chatMessages');
+
+function getChatHistory(){return JSON.parse(localStorage.getItem('twd_chat_msgs')||'[]')}
+function saveChatHistory(msgs){localStorage.setItem('twd_chat_msgs',JSON.stringify(msgs.slice(-100)))}
+
+const DEFAULT_CHAT=[
+{pseudo:'POSTE ECHO-7',text:'Canal radio ouvert. Identifiez-vous et transmettez vos coordonnées. Restez sur cette fréquence.',time:'06:00',system:true},
+{pseudo:'SENTINELLE_NORD',text:'Reçu Echo-7. Position sécurisée au nord de Paris. Pas de mouvement hostile depuis 48h.',time:'06:12',system:false},
+{pseudo:'DR. MARCHAND',text:'À tous les postes : nous avons besoin de fournitures médicales. Le sérum expérimental montre des résultats prometteurs.',time:'06:45',system:false},
+{pseudo:'LOUP_NOIR',text:'La forêt de Brocéliande est sûre. On peut accueillir 20 personnes supplémentaires. Coordonnées sur demande.',time:'07:30',system:false},
+];
+
+function initChat(){
+if(!getChatHistory().length)saveChatHistory(DEFAULT_CHAT);
+if(chatPseudo){
+document.getElementById('chatSetup').style.display='none';
+document.getElementById('chatInputArea').style.display='flex';
+}
+renderChat();
+}
+
+function renderChat(){
+const msgs=getChatHistory();
+chatMessages.innerHTML='';
+msgs.forEach(m=>{
+const div=document.createElement('div');
+div.className='chat-msg '+(m.system?'received':(m.pseudo===chatPseudo?'sent':'received'));
+div.innerHTML=`<div class="chat-msg-pseudo">${sanitize(m.pseudo)}</div><div class="chat-msg-text">${sanitize(m.text)}</div><div class="chat-msg-time">${m.time}</div>`;
+chatMessages.appendChild(div);
+});
+chatMessages.scrollTop=chatMessages.scrollHeight;
+}
+
+function sanitize(s){const d=document.createElement('div');d.textContent=s;return d.innerHTML}
+
+function setChatPseudo(){
+const v=document.getElementById('chatPseudoInput').value.trim();
+if(!v)return;
+chatPseudo=v.toUpperCase();
+localStorage.setItem('twd_chat_pseudo',chatPseudo);
+document.getElementById('chatSetup').style.display='none';
+document.getElementById('chatInputArea').style.display='flex';
+// Message système
+const msgs=getChatHistory();
+const now=new Date();
+msgs.push({pseudo:'SYSTÈME',text:`${chatPseudo} a rejoint le canal radio.`,time:now.getHours().toString().padStart(2,'0')+':'+now.getMinutes().toString().padStart(2,'0'),system:true});
+saveChatHistory(msgs);renderChat();
+}
+
+function sendChatMessage(){
+const input=document.getElementById('chatMsgInput');
+const text=input.value.trim();
+if(!text)return;
+const now=new Date();
+const msgs=getChatHistory();
+msgs.push({pseudo:chatPseudo,text:text,time:now.getHours().toString().padStart(2,'0')+':'+now.getMinutes().toString().padStart(2,'0'),system:false});
+saveChatHistory(msgs);input.value='';renderChat();
+// Réponse auto simulée aléatoire
+if(Math.random()<0.4){
+const responses=['Reçu, on reste en alerte.','Compris. Restez sur cette fréquence.','Roger. Faites attention là-bas.','Bien noté. Les patrouilles confirment vos observations.','La zone est instable. Préparez un plan B.','On a perdu le contact avec le secteur Est. Quelqu\'un peut confirmer ?','Tenez bon. L\'extraction est en cours de planification.'];
+setTimeout(()=>{
+const ms=getChatHistory();
+ms.push({pseudo:'POSTE ECHO-7',text:responses[Math.floor(Math.random()*responses.length)],time:new Date().getHours().toString().padStart(2,'0')+':'+new Date().getMinutes().toString().padStart(2,'0'),system:true});
+saveChatHistory(ms);renderChat();
+},1500+Math.random()*3000);
+}
+}
+
+document.getElementById('chatMsgInput')?.addEventListener('keydown',e=>{if(e.key==='Enter')sendChatMessage()});
+initChat();
+
+// ============================================================
+// === DOSSIERS ===
+// ============================================================
+const DEFAULT_DOSSIERS=[
+{id:'D001',number:'DOSSIER #TW-0001',date:'J+0',title:'Patient Zéro — Aéroport Charles de Gaulle',stamp:'CONFIDENTIEL',excerpt:'Vol AF-447 en provenance d\'Atlanta. Le passager du siège 23C présentait des symptômes inconnus...',content:'<p>Vol AF-447, atterrissage à 06h47. Le passager du siège 23C, Marc Duval, 43 ans, présentait une fièvre extrême (42.3°C), agressivité croissante, plaie au bras gauche refusant de cicatriser.</p><p>Le personnel médical l\'a placé en quarantaine. À 08h12, il a mordu l\'infirmière de garde. À 09h30, elle présentait les mêmes symptômes. À 11h00, quatre autres étaient infectés.</p><p>L\'aéroport n\'a été fermé qu\'à 14h00. Trop tard — des centaines de passagers avaient déjà quitté vers Paris.</p>'},
+{id:'D002',number:'DOSSIER #TW-0015',date:'J+3',title:'Paris en Quarantaine — Ordre du Préfet',stamp:'DÉCLASSIFIÉ',excerpt:'La capitale est bouclée. Le périphérique est devenu une zone de non-droit...',content:'<p>Les forces armées ont installé des checkpoints sur toutes les portes du périphérique. Les hôpitaux sont débordés. La Pitié-Salpêtrière a été évacuée.</p><p>La population civile tente de fuir. La Gare de Lyon est inaccessible — les tunnels du RER sont compromis. Couvre-feu total décrété.</p>'},
+{id:'D003',number:'DOSSIER #TW-0034',date:'J+14',title:'Effondrement du Réseau Électrique',stamp:'TOP SECRET',excerpt:'Les centrales nucléaires passent en arrêt automatique. La France est plongée dans le noir...',content:'<p>Gravelines a été la première à s\'arrêter. Puis Cattenom. Puis Flamanville. Sans opérateurs, les réacteurs se sont mis en sécurité.</p><p>Le Poste Echo-7 fonctionne sur son propre générateur — autonomie estimée : 90 jours. Plus de réfrigération, plus de pompage d\'eau, plus de communications civiles.</p>'},
+{id:'D004',number:'DOSSIER #TW-0058',date:'J+30',title:'Création de la Cellule Oméga',stamp:'CONFIDENTIEL',excerpt:'Face à l\'effondrement total, un groupe de militaires et scientifiques forme la Cellule Oméga...',content:'<p>Le Colonel Vautrin et le Dr. Marchand ont fondé la Cellule Oméga depuis la base souterraine de Taverny. Objectif : coordonner les poches de résistance et chercher un remède.</p><p>Douze postes relais ont été établis. Le Poste Echo-7 est l\'un d\'entre eux.</p>'},
+{id:'D005',number:'DOSSIER #TW-0071',date:'J+45',title:'Perte de Contact avec le Sud',stamp:'CONFIDENTIEL',excerpt:'Les postes de Marseille, Montpellier et Toulouse ne répondent plus...',content:'<p>Dernier message de Marseille (Echo-3) à 03h47 : "Ils sont partout. Le Vieux-Port est tombé. Ne venez PAS au sud."</p><p>Les zones rurales du Massif Central tiennent. Recommandation : ligne de front au niveau de la Loire.</p>'}
+];
+
+function getDossiers(){const s=localStorage.getItem('twd_dossiers');if(s)return JSON.parse(s);localStorage.setItem('twd_dossiers',JSON.stringify(DEFAULT_DOSSIERS));return DEFAULT_DOSSIERS}
+function saveDossiers(d){localStorage.setItem('twd_dossiers',JSON.stringify(d))}
+
+function renderDossiers(){
+const grid=document.getElementById('dossiersGrid'),dos=getDossiers();grid.innerHTML='';
+dos.forEach((d,i)=>{
+const c=document.createElement('div');c.className='dossier-card reveal'+(i?' reveal-delay-'+Math.min(i,4):'');
+c.innerHTML=`<div class="dossier-stamp${d.stamp==='DÉCLASSIFIÉ'?' declassified':''}">${d.stamp}</div><div class="dossier-card-number">${d.number}</div><div class="dossier-card-date">${d.date}</div><h3 class="dossier-card-title">${d.title}</h3><p class="dossier-card-excerpt">${d.excerpt}</p><button class="dossier-card-btn" data-id="${d.id}">▶ OUVRIR LE DOSSIER</button>`;
+grid.appendChild(c);revealObs.observe(c);
+});
+grid.querySelectorAll('.dossier-card-btn').forEach(b=>b.addEventListener('click',e=>{e.stopPropagation();openDossierModal(b.getAttribute('data-id'))}));
+}
+
+function openDossierModal(id){
+const d=getDossiers().find(x=>x.id===id);if(!d)return;
+document.getElementById('modalStamp').textContent=d.stamp;document.getElementById('modalNumber').textContent=d.number;
+document.getElementById('modalDate').textContent=d.date;document.getElementById('modalTitle').textContent=d.title;
+document.getElementById('modalText').innerHTML=d.content;
+document.getElementById('dossierModal').classList.add('active');document.body.style.overflow='hidden';
+}
+document.getElementById('modalClose').addEventListener('click',()=>{document.getElementById('dossierModal').classList.remove('active');document.body.style.overflow=''});
+document.getElementById('dossierModal').addEventListener('click',e=>{if(e.target===e.currentTarget){document.getElementById('dossierModal').classList.remove('active');document.body.style.overflow=''}});
+
+document.getElementById('adminToggleBtn').addEventListener('click',()=>document.getElementById('adminPanel').classList.toggle('active'));
+document.getElementById('adminAuthBtn').addEventListener('click',()=>{
+if(document.getElementById('adminPassword').value==='ECHO7'){document.getElementById('adminAuthField').style.display='none';document.getElementById('adminForm').style.display='block'}
+else alert('⚠ CODE D\'ACCÈS INVALIDE')});
+document.getElementById('addDossierBtn').addEventListener('click',()=>{
+const t=document.getElementById('newDossierTitle').value.trim(),c=document.getElementById('newDossierContent').value.trim();
+if(!t||!c)return alert('⚠ Champs obligatoires');
+const dos=getDossiers(),n=dos.length+1;
+dos.push({id:'D'+String(n).padStart(3,'0'),number:'DOSSIER #TW-'+String(Math.floor(Math.random()*9000)+1000),date:'J+?',title:t.toUpperCase(),stamp:document.getElementById('newDossierClass').value,excerpt:c.substring(0,150)+'...',content:'<p>'+c.replace(/\n\n/g,'</p><p>')+'</p>'});
+saveDossiers(dos);renderDossiers();document.getElementById('newDossierTitle').value='';document.getElementById('newDossierContent').value='';
+});
+renderDossiers();
+
+// ============================================================
+// === SURVIVANTS ===
+// ============================================================
+function getSurvivors(){const s=localStorage.getItem('twd_survivors');const v=localStorage.getItem('twd_survivors_v');if(s&&v==='3')return JSON.parse(s);localStorage.setItem('twd_survivors_v','3');const d=[{name:'FANTÔME_13',location:'Métro Châtelet, Paris',message:'On est 12 dans les tunnels. La ligne 4 est sûre entre Cité et Les Halles. Ne descendez pas au niveau -3.',photo:'images/tunnel.png',date:'J+7'},{name:'DR. LENA',location:'CHU Purpan, Toulouse',message:'J\'ai barricadé l\'aile est. Le sérum expérimental progresse. Envoyez des fournitures.',photo:'images/hopital.png',date:'J+12'},{name:'LOUP_NOIR',location:'Forêt de Brocéliande, Bretagne',message:'La forêt est calme. Ils ne viennent pas ici. Rejoignez-nous. Coordonnées sur demande.',photo:'images/foret.png',date:'J+18'}];localStorage.setItem('twd_survivors',JSON.stringify(d));return d}
+function saveSurvivors(l){localStorage.setItem('twd_survivors',JSON.stringify(l))}
+function renderSurvivors(){
+const g=document.getElementById('survivorsGrid'),s=getSurvivors();g.innerHTML='';
+s.forEach(sv=>{const c=document.createElement('div');c.className='survivor-card';
+c.innerHTML=`<div class="survivor-photo">${sv.photo?`<img src="${sv.photo}" alt="${sanitize(sv.name)}">`:'<div class="no-photo">📷 PAS DE PHOTO</div>'}</div><div class="survivor-info"><div class="survivor-name">${sanitize(sv.name)}</div><div class="survivor-location">📍 ${sanitize(sv.location)}</div><div class="survivor-message">"${sanitize(sv.message)}"</div></div><div class="survivor-date">${sv.date}</div>`;
+g.appendChild(c)})
+}
+document.getElementById('survMessage').addEventListener('input',function(){document.getElementById('survCharCount').textContent=this.value.length});
+document.getElementById('addSurvivorBtn').addEventListener('click',()=>{
+const n=document.getElementById('survName').value.trim(),l=document.getElementById('survLocation').value.trim(),m=document.getElementById('survMessage').value.trim(),pi=document.getElementById('survPhoto');
+if(!n||!l||!m)return alert('⚠ Champs obligatoires');
+function add(ph){const s=getSurvivors();s.push({name:n.toUpperCase(),location:l,message:m,photo:ph||'',date:'J+?'});saveSurvivors(s);renderSurvivors();
+['survName','survLocation','survMessage'].forEach(id=>document.getElementById(id).value='');document.getElementById('survPhoto').value='';document.getElementById('survCharCount').textContent='0';
+const cf=document.getElementById('survConfirm');cf.classList.add('show');setTimeout(()=>cf.classList.remove('show'),4000)}
+if(pi.files&&pi.files[0]){const r=new FileReader();r.onload=e=>add(e.target.result);r.readAsDataURL(pi.files[0])}else add('')
+});
+renderSurvivors();
+
+// ============================================================
+// === JOURNAL ===
+// ============================================================
+function getJournal(){const s=localStorage.getItem('twd_journal');if(s)return JSON.parse(s);const d=[
+{pseudo:'SENTINELLE_NORD',message:'Les nuits sont les pires. On les entend dehors, contre les murs. Ce bruit de grattement qui ne s\'arrête jamais.',image:'',date:'J+5 — 03:47'},
+{pseudo:'MAMAN_DE_LUCAS',message:'Lucas a 7 ans. Il ne comprend pas pourquoi on ne peut plus sortir. Hier, il m\'a demandé quand papa allait revenir.',image:'',date:'J+11 — 22:15'},
+{pseudo:'SERGENT_VAUTRIN',message:'La ligne de défense sur la Loire a cédé au niveau de Tours. Repli sur le dispositif Bravo-2.',image:'',date:'J+23 — 06:00'},
+{pseudo:'ANONYME',message:'Un groupe d\'entre eux, immobiles, tournés vers le soleil levant. Comme s\'ils se souvenaient de quelque chose.',image:'',date:'J+31 — 17:30'}
+];localStorage.setItem('twd_journal',JSON.stringify(d));return d}
+function saveJournal(e){localStorage.setItem('twd_journal',JSON.stringify(e))}
+function renderJournal(){
+const c=document.getElementById('journalEntries'),es=getJournal();c.innerHTML='';
+es.forEach(e=>{const d=document.createElement('div');d.className='journal-entry reveal';
+d.innerHTML=`<div class="journal-entry-header"><span class="journal-pseudo">☠ ${sanitize(e.pseudo)}</span><span class="journal-date">${e.date}</span></div><p class="journal-text">${sanitize(e.message)}</p>${e.image?`<img src="${e.image}" alt="Image" class="journal-image">`:''}<button class="journal-report-btn" onclick="this.textContent='⚠ SIGNALÉ';this.disabled=true">⚐ SIGNALER</button>`;
+c.appendChild(d);revealObs.observe(d)})
+}
+document.getElementById('addJournalBtn').addEventListener('click',()=>{
+const p=document.getElementById('journalPseudo').value.trim(),m=document.getElementById('journalMessage').value.trim(),pi=document.getElementById('journalPhoto');
+if(!p||!m)return alert('⚠ Champs obligatoires');
+function add(img){const now=new Date(),t=now.getHours().toString().padStart(2,'0')+':'+now.getMinutes().toString().padStart(2,'0');
+const es=getJournal();es.push({pseudo:p.toUpperCase(),message:m,image:img||'',date:'J+? — '+t});saveJournal(es);renderJournal();
+document.getElementById('journalPseudo').value='';document.getElementById('journalMessage').value='';document.getElementById('journalPhoto').value='';
+const cf=document.getElementById('journalConfirm');cf.classList.add('show');setTimeout(()=>cf.classList.remove('show'),4000)}
+if(pi.files&&pi.files[0]){const r=new FileReader();r.onload=e=>add(e.target.result);r.readAsDataURL(pi.files[0])}else add('')
+});
+renderJournal();
+
+// ============================================================
+// === PARTICULES GLOBALES ===
+// ============================================================
+(function(){
+const cv=document.createElement('canvas');cv.style.cssText='position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:9998;opacity:.3';
+document.body.appendChild(cv);const cx=cv.getContext('2d');
+function rsz(){cv.width=window.innerWidth;cv.height=window.innerHeight}rsz();window.addEventListener('resize',rsz);
+const ps=[];for(let i=0;i<35;i++)ps.push({x:Math.random()*cv.width,y:Math.random()*cv.height,s:Math.random()*2+.5,sx:(Math.random()-.5)*.3,sy:Math.random()*.2+.05,o:Math.random()*.5+.1});
+function anim(){cx.clearRect(0,0,cv.width,cv.height);ps.forEach(p=>{p.x+=p.sx;p.y+=p.sy;if(p.y>cv.height){p.y=-5;p.x=Math.random()*cv.width}if(p.x>cv.width)p.x=0;if(p.x<0)p.x=cv.width;cx.beginPath();cx.arc(p.x,p.y,p.s,0,Math.PI*2);cx.fillStyle=`rgba(168,155,122,${p.o})`;cx.fill()});requestAnimationFrame(anim)}
+anim()})();
+
+// === ESCAPE KEY ===
+document.addEventListener('keydown',e=>{if(e.key==='Escape'){document.getElementById('dossierModal').classList.remove('active');document.body.style.overflow='';mobileNav.classList.remove('open')}});
+</script>
+</body>
+</html>
