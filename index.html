@@ -255,6 +255,11 @@ section{min-height:100vh;padding:120px 20px 80px;position:relative}
 .back-to-top:hover{background:rgba(139,0,0,.2);box-shadow:0 0 15px rgba(139,0,0,.5);transform:translateY(-3px)}
 
 /* === MUZZLE FLASH === */
+/* === MUSIC TOGGLE === */
+.music-toggle{position:fixed;bottom:30px;left:30px;width:45px;height:45px;border:1px solid var(--rouge-sang);background:rgba(10,10,10,.9);color:var(--parchemin);font-size:1.1rem;cursor:pointer;display:flex;align-items:center;justify-content:center;z-index:8000;border-radius:50%;transition:.3s;opacity:.7}
+.music-toggle:hover{opacity:1;background:rgba(139,0,0,.2);box-shadow:0 0 15px rgba(139,0,0,.5)}
+.music-toggle.playing{border-color:var(--vert-mil);animation:pulse-glow 3s infinite}
+
 .muzzle-flash{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(255,200,50,.15);pointer-events:none;z-index:99999;opacity:0;transition:opacity .05s}
 .muzzle-flash.active{opacity:1}
 
@@ -278,6 +283,8 @@ section{padding:100px 15px 60px}
 <div class="vignette-overlay"></div>
 <div class="muzzle-flash" id="muzzleFlash"></div>
 <button class="back-to-top" id="backToTop" title="Retour en haut">↑</button>
+<audio id="bgMusic" src="audio/theme.mp3" loop preload="auto"></audio>
+<button class="music-toggle" id="musicToggle" title="Musique ON/OFF">🔇</button>
 
 <!-- === HEADER === -->
 <header class="main-header">
@@ -555,11 +562,11 @@ const bars=[];for(let i=0;i<60;i++){const b=document.createElement('div');b.clas
 function fmt(s){if(isNaN(s))return'--:--';return String(Math.floor(s/60)).padStart(2,'0')+':'+String(Math.floor(s%60)).padStart(2,'0')}
 audio.addEventListener('loadedmetadata',()=>durEl.textContent=fmt(audio.duration));
 audio.addEventListener('timeupdate',()=>{const p=audio.currentTime/audio.duration*100;progOv.style.width=p+'%';curEl.textContent=fmt(audio.currentTime);const ai=Math.floor(p/100*60);bars.forEach((b,i)=>b.classList.toggle('active',i<=ai))});
-audio.addEventListener('ended',()=>{playing=false;dos.classList.remove('playing');playBtn.innerHTML='<svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg>';bars.forEach(b=>b.classList.remove('active'))});
+audio.addEventListener('ended',()=>{playing=false;dos.classList.remove('playing');playBtn.innerHTML='<svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg>';bars.forEach(b=>b.classList.remove('active'));if(typeof unduckBgMusic==='function')unduckBgMusic()});
 playBtn.addEventListener('click',()=>{
-if(playing){audio.pause();playing=false;dos.classList.remove('playing');playBtn.innerHTML='<svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg>'}
+if(playing){audio.pause();playing=false;dos.classList.remove('playing');playBtn.innerHTML='<svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg>';if(typeof unduckBgMusic==='function')unduckBgMusic()}
 else{document.querySelectorAll('.audio-dossier').forEach(d=>{if(d!==dos&&d._audio){d._audio.pause();d.classList.remove('playing');d.querySelector('.play-btn').innerHTML='<svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg>'}});
-audio.play();playing=true;dos.classList.add('playing');playBtn.innerHTML='<svg viewBox="0 0 24 24"><rect x="5" y="3" width="4" height="18"/><rect x="15" y="3" width="4" height="18"/></svg>'}});
+audio.play();playing=true;dos.classList.add('playing');playBtn.innerHTML='<svg viewBox="0 0 24 24"><rect x="5" y="3" width="4" height="18"/><rect x="15" y="3" width="4" height="18"/></svg>';if(typeof duckBgMusic==='function')duckBgMusic()}});
 wfArea.addEventListener('click',e=>{const r=wfArea.getBoundingClientRect();if(audio.duration)audio.currentTime=(e.clientX-r.left)/r.width*audio.duration});
 dos._audio=audio;
 })})();
@@ -636,6 +643,7 @@ gameScore=0;gameHealth=100;gameWave=1;zombies=[];explosions=[];
 spawnTimer=0;waveTimer=0;gameRunning=true;gamePaused=false;
 document.getElementById('gameOverScreen').classList.remove('active');
 updateHUD();
+duckBgMusic();
 requestAnimationFrame(gameLoop);
 }
 
@@ -670,7 +678,7 @@ if(waveTimer>600){waveTimer=0;gameWave++;updateHUD()}
 // Update zombies
 zombies=zombies.filter(z=>{
 const st=z.update();
-if(st==='passed'){gameHealth-=10;updateHUD();if(gameHealth<=0){gameRunning=false;document.getElementById('finalScore').textContent=gameScore;document.getElementById('gameOverScreen').classList.add('active');return false}return false}
+if(st==='passed'){gameHealth-=10;updateHUD();if(gameHealth<=0){gameRunning=false;document.getElementById('finalScore').textContent=gameScore;document.getElementById('gameOverScreen').classList.add('active');unduckBgMusic();return false}return false}
 if(st==='dead'){gameScore+=10*(z.type==='runner'?2:1);explosions.push(new Explosion(z.x+z.w/2,z.y+z.h/2));updateHUD();return false}
 z.draw(gctx);return true});
 
@@ -888,6 +896,77 @@ function rsz(){cv.width=window.innerWidth;cv.height=window.innerHeight}rsz();win
 const ps=[];for(let i=0;i<35;i++)ps.push({x:Math.random()*cv.width,y:Math.random()*cv.height,s:Math.random()*2+.5,sx:(Math.random()-.5)*.3,sy:Math.random()*.2+.05,o:Math.random()*.5+.1});
 function anim(){cx.clearRect(0,0,cv.width,cv.height);ps.forEach(p=>{p.x+=p.sx;p.y+=p.sy;if(p.y>cv.height){p.y=-5;p.x=Math.random()*cv.width}if(p.x>cv.width)p.x=0;if(p.x<0)p.x=cv.width;cx.beginPath();cx.arc(p.x,p.y,p.s,0,Math.PI*2);cx.fillStyle=`rgba(168,155,122,${p.o})`;cx.fill()});requestAnimationFrame(anim)}
 anim()})();
+
+// ============================================================
+// === MUSIQUE DE FOND ===
+// ============================================================
+const bgMusic=document.getElementById('bgMusic');
+const musicToggle=document.getElementById('musicToggle');
+const BG_VOLUME=0.15; // Volume de fond (pas trop fort)
+const DUCK_VOLUME=0.0; // Volume quand audio/jeu actif (silence)
+const FADE_DURATION=800; // Durée du fondu en ms
+let bgMusicEnabled=false;
+let bgFadeInterval=null;
+let bgDucked=false;
+
+function fadeBgMusic(targetVol,duration,callback){
+clearInterval(bgFadeInterval);
+const startVol=bgMusic.volume;
+const diff=targetVol-startVol;
+const steps=30;
+const stepTime=duration/steps;
+let step=0;
+bgFadeInterval=setInterval(()=>{
+step++;
+bgMusic.volume=Math.max(0,Math.min(1,startVol+diff*(step/steps)));
+if(step>=steps){clearInterval(bgFadeInterval);bgMusic.volume=targetVol;if(callback)callback()}
+},stepTime);
+}
+
+function startBgMusic(){
+bgMusic.volume=0;
+bgMusic.play().then(()=>{
+bgMusicEnabled=true;
+musicToggle.textContent='🔊';
+musicToggle.classList.add('playing');
+fadeBgMusic(bgDucked?DUCK_VOLUME:BG_VOLUME,FADE_DURATION);
+}).catch(()=>{});
+}
+
+function stopBgMusic(){
+fadeBgMusic(0,FADE_DURATION,()=>{
+bgMusic.pause();
+bgMusicEnabled=false;
+musicToggle.textContent='🔇';
+musicToggle.classList.remove('playing');
+});
+}
+
+function duckBgMusic(){
+if(!bgMusicEnabled)return;
+bgDucked=true;
+fadeBgMusic(DUCK_VOLUME,FADE_DURATION);
+}
+
+function unduckBgMusic(){
+if(!bgMusicEnabled)return;
+bgDucked=false;
+fadeBgMusic(BG_VOLUME,FADE_DURATION);
+}
+
+musicToggle.addEventListener('click',()=>{
+if(bgMusicEnabled)stopBgMusic();else startBgMusic();
+});
+
+// Auto-start on first user interaction (navigateurs modernes bloquent l'autoplay)
+let bgMusicAutoStarted=false;
+function autoStartMusic(){
+if(bgMusicAutoStarted)return;
+bgMusicAutoStarted=true;
+startBgMusic();
+}
+document.addEventListener('click',autoStartMusic,{once:true});
+document.addEventListener('scroll',autoStartMusic,{once:true});
 
 // === ESCAPE KEY ===
 document.addEventListener('keydown',e=>{if(e.key==='Escape'){document.getElementById('dossierModal').classList.remove('active');document.body.style.overflow='';mobileNav.classList.remove('open')}});
