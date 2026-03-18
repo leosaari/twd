@@ -5,14 +5,14 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>THE WALKING DEAD — POSTE ECHO-7 — DERNIER SIGNAL ACTIF</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Special+Elite&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Special+Elite&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Share+Tech+Mono&family=Oswald:wght@400;600;700&family=Barlow:wght@300;400;500&family=Barlow+Condensed:wght@400;600;700&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
 :root{
 --noir:#0a0a0a;--rouge-sang:#8B0000;--rouge-vif:#CC0000;--rouge-alerte:#ff1a1a;
 --vert-kaki:#4a5240;--vert-mil:#5a6a4a;--parchemin:#d4c9a8;--parchemin-sombre:#a89b7a;
 --gris-acier:#2a2a2a;--blanc-casse:#e8e0d0;
---font-military:'Special Elite',cursive;--font-body:'Libre Baskerville',serif;--font-mono:'Share Tech Mono',monospace;
+--font-military:'Special Elite',cursive;--font-body:'Barlow',sans-serif;--font-mono:'Share Tech Mono',monospace;--font-heading:'Oswald',sans-serif;--font-condensed:'Barlow Condensed',sans-serif;
 }
 html{cursor:url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32"><circle cx="16" cy="16" r="10" fill="none" stroke="%238B0000" stroke-width="1.5" opacity="0.8"/><line x1="16" y1="2" x2="16" y2="10" stroke="%238B0000" stroke-width="1.5"/><line x1="16" y1="22" x2="16" y2="30" stroke="%238B0000" stroke-width="1.5"/><line x1="2" y1="16" x2="10" y2="16" stroke="%238B0000" stroke-width="1.5"/><line x1="22" y1="16" x2="30" y2="16" stroke="%238B0000" stroke-width="1.5"/><circle cx="16" cy="16" r="2" fill="%238B0000"/></svg>') 16 16,crosshair;scroll-behavior:smooth}
 body{background:var(--noir);color:var(--parchemin);font-family:var(--font-body);overflow-x:hidden;line-height:1.6}
@@ -34,18 +34,19 @@ body::after{content:'';position:fixed;top:0;left:0;width:100%;height:100%;backgr
 @keyframes blood-drip{0%{height:0;opacity:0}30%{opacity:.3}100%{height:120px;opacity:0}}
 @keyframes ken-burns{0%{transform:scale(1) translate(0,0)}50%{transform:scale(1.08) translate(-1%,-1%)}100%{transform:scale(1) translate(0,0)}}
 @keyframes crosshair-pulse{0%,100%{transform:translate(-50%,-50%) scale(1);opacity:.7}50%{transform:translate(-50%,-50%) scale(1.3);opacity:1}}
+@keyframes glitch-logo{0%,90%,100%{transform:none;text-shadow:0 0 30px rgba(139,0,0,.6),0 0 60px rgba(139,0,0,.2)}91%{transform:translate(-2px,1px) skewX(-1deg);text-shadow:-3px 0 rgba(204,0,0,.7),3px 0 rgba(0,255,0,.15)}93%{transform:translate(1px,-1px) skewX(1deg);text-shadow:2px 0 rgba(204,0,0,.7),-2px 0 rgba(0,100,255,.15)}95%{transform:translate(-1px,0);text-shadow:0 0 30px rgba(139,0,0,.6)}97%{transform:translate(2px,1px) skewX(-0.5deg);text-shadow:-2px 0 rgba(204,0,0,.5),2px 0 rgba(0,255,0,.1)}}
 
 /* === HEADER === */
 .main-header{position:fixed;top:0;left:0;right:0;z-index:9000;background:linear-gradient(180deg,rgba(10,10,10,.97),rgba(10,10,10,.85));border-bottom:1px solid rgba(139,0,0,.4);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
 .header-top{display:flex;align-items:center;justify-content:center;padding:10px 20px 5px;position:relative}
 .header-top .status-indicator{position:absolute;right:20px;top:50%;transform:translateY(-50%);display:flex;align-items:center;gap:8px;font-family:var(--font-mono);font-size:.7rem;color:var(--rouge-vif);text-transform:uppercase;letter-spacing:2px}
 .status-dot{width:8px;height:8px;background:var(--rouge-vif);border-radius:50%;animation:blink-red 1s infinite;box-shadow:0 0 8px var(--rouge-vif)}
-.twd-logo{font-family:'Arial Black','Impact',sans-serif;font-weight:900;text-transform:uppercase;letter-spacing:2px;line-height:1;user-select:none}
-.twd-logo .the-line{font-size:1rem;letter-spacing:12px;color:var(--parchemin);display:block;margin-bottom:-2px}
-.twd-logo .walking-dead-line{font-size:1.8rem;color:var(--parchemin);display:block;text-shadow:0 0 10px rgba(139,0,0,.5)}
+.twd-logo{font-family:var(--font-heading);font-weight:700;text-transform:uppercase;letter-spacing:4px;line-height:1;user-select:none}
+.twd-logo .the-line{font-size:.85rem;letter-spacing:14px;color:rgba(212,201,168,.6);display:block;margin-bottom:0;font-weight:400}
+.twd-logo .walking-dead-line{font-size:1.8rem;color:var(--parchemin);display:block;text-shadow:0 0 10px rgba(139,0,0,.5);font-weight:700}
 .header-tagline{text-align:center;font-family:var(--font-mono);font-size:.65rem;color:var(--vert-kaki);letter-spacing:4px;text-transform:uppercase;padding-bottom:6px;animation:flicker 4s infinite}
 .nav-bar{display:flex;justify-content:center;gap:0;border-top:1px solid rgba(74,82,64,.3);overflow-x:auto}
-.nav-bar a{display:flex;align-items:center;gap:6px;padding:10px 16px;color:var(--parchemin-sombre);text-decoration:none;font-family:var(--font-military);font-size:.75rem;text-transform:uppercase;letter-spacing:1px;border-right:1px solid rgba(74,82,64,.2);transition:.3s;white-space:nowrap;position:relative}
+.nav-bar a{display:flex;align-items:center;gap:6px;padding:10px 18px;color:var(--parchemin-sombre);text-decoration:none;font-family:var(--font-condensed);font-size:.75rem;font-weight:600;text-transform:uppercase;letter-spacing:3px;border-right:1px solid rgba(74,82,64,.15);transition:.3s;white-space:nowrap;position:relative}
 .nav-bar a:first-child{border-left:1px solid rgba(74,82,64,.2)}
 .nav-bar a:hover,.nav-bar a.active{color:var(--rouge-vif);background:rgba(139,0,0,.1)}
 .nav-bar a.active::after{content:'';position:absolute;bottom:0;left:0;right:0;height:2px;background:var(--rouge-vif);box-shadow:0 0 10px var(--rouge-vif)}
@@ -59,10 +60,11 @@ body::after{content:'';position:fixed;top:0;left:0;width:100%;height:100%;backgr
 /* === SECTIONS === */
 section{min-height:100vh;padding:120px 20px 80px;position:relative}
 .section-header{text-align:center;margin-bottom:50px}
-.section-label{font-family:var(--font-mono);font-size:.7rem;color:var(--vert-kaki);letter-spacing:6px;text-transform:uppercase;margin-bottom:10px}
-.section-title{font-family:var(--font-military);font-size:clamp(1.8rem,4vw,3rem);color:var(--parchemin);text-transform:uppercase;letter-spacing:3px;text-shadow:0 0 20px rgba(139,0,0,.3);display:inline-block}
-.section-title::before,.section-title::after{content:'///';color:var(--rouge-sang);margin:0 15px;font-size:.6em;vertical-align:middle;opacity:.6}
-.section-divider{width:120px;height:1px;background:linear-gradient(90deg,transparent,var(--rouge-sang),transparent);margin:20px auto}
+.section-label{font-family:var(--font-mono);font-size:.6rem;color:var(--vert-kaki);letter-spacing:6px;text-transform:uppercase;margin-bottom:8px;opacity:.6}
+.section-title{font-family:var(--font-heading);font-size:clamp(1.8rem,4vw,3rem);color:var(--parchemin);text-transform:uppercase;letter-spacing:6px;display:inline-block;font-weight:700;position:relative;padding:0 25px}
+.section-title::before,.section-title::after{content:'';position:absolute;top:50%;width:40px;height:1px;background:var(--rouge-sang);opacity:.4}
+.section-title::before{right:100%}.section-title::after{left:100%}
+.section-divider{width:80px;height:1px;background:linear-gradient(90deg,transparent,rgba(139,0,0,.4),transparent);margin:15px auto}
 .reveal{opacity:0;transform:translateY(40px);transition:opacity .8s ease,transform .8s ease}
 .reveal.visible{opacity:1;transform:translateY(0)}
 .reveal-delay-1{transition-delay:.1s}.reveal-delay-2{transition-delay:.2s}.reveal-delay-3{transition-delay:.3s}.reveal-delay-4{transition-delay:.4s}
@@ -72,8 +74,8 @@ section{min-height:100vh;padding:120px 20px 80px;position:relative}
 .hero-video-bg{position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;z-index:0;filter:brightness(0.4) contrast(1.2) saturate(0.8)}
 .hero-overlay{position:absolute;top:0;left:0;width:100%;height:100%;background:linear-gradient(180deg,rgba(10,10,10,.5) 0%,rgba(10,10,10,.2) 40%,rgba(10,10,10,.3) 60%,rgba(10,10,10,.8) 100%);z-index:1}
 .hero-content{position:relative;z-index:2;padding:20px}
-.hero-logo-big .twd-logo .the-line{font-size:1.5rem;letter-spacing:18px}
-.hero-logo-big .twd-logo .walking-dead-line{font-size:clamp(2.5rem,7vw,5rem);text-shadow:0 0 30px rgba(139,0,0,.6),0 0 60px rgba(139,0,0,.2)}
+.hero-logo-big .twd-logo .the-line{font-size:1.2rem;letter-spacing:22px;font-weight:400;color:rgba(212,201,168,.5)}
+.hero-logo-big .twd-logo .walking-dead-line{font-size:clamp(2.5rem,7vw,5rem);text-shadow:0 0 30px rgba(139,0,0,.6),0 0 60px rgba(139,0,0,.2);animation:glitch-logo 8s infinite;font-weight:700}
 .hero-subtitle{font-family:var(--font-mono);font-size:clamp(.7rem,1.5vw,.9rem);color:var(--vert-kaki);letter-spacing:6px;text-transform:uppercase;margin:15px 0 30px;animation:flicker 5s infinite}
 .hero-cta{display:inline-block;font-family:var(--font-mono);font-size:.75rem;color:var(--parchemin);letter-spacing:4px;text-transform:uppercase;border:1px solid var(--rouge-sang);padding:14px 35px;text-decoration:none;background:rgba(139,0,0,.15);transition:.3s;position:relative;overflow:hidden}
 .hero-cta:hover{background:rgba(139,0,0,.4);box-shadow:0 0 30px rgba(139,0,0,.5);animation:shake .4s}
@@ -97,10 +99,11 @@ section{min-height:100vh;padding:120px 20px 80px;position:relative}
 /* === TRANSMISSIONS AUDIO === */
 #transmissions{background:linear-gradient(180deg,var(--noir),#080808)}
 .transmissions-grid{max-width:900px;margin:0 auto;display:flex;flex-direction:column;gap:40px}
-.audio-dossier{background:linear-gradient(135deg,#0f0f0f,#141414);border:1px solid rgba(74,82,64,.3);padding:30px;position:relative;overflow:hidden;transition:border-color .3s}
-.audio-dossier:hover{border-color:rgba(139,0,0,.5)}
+.audio-dossier{background:linear-gradient(135deg,#0f0f0f,#141414);border:1px solid rgba(74,82,64,.25);padding:30px 30px 30px 35px;position:relative;overflow:hidden;transition:border-color .3s}
+.audio-dossier::before{content:'';position:absolute;top:0;left:0;width:3px;height:100%;background:var(--rouge-sang);opacity:.5}
+.audio-dossier:hover{border-color:rgba(139,0,0,.4)}
 .dossier-number{font-family:var(--font-mono);font-size:.65rem;color:var(--rouge-sang);letter-spacing:4px;text-transform:uppercase;margin-bottom:6px}
-.dossier-title{font-family:var(--font-military);font-size:1.2rem;color:var(--parchemin);text-transform:uppercase;letter-spacing:2px;margin-bottom:4px}
+.dossier-title{font-family:var(--font-heading);font-size:1.1rem;color:var(--parchemin);text-transform:uppercase;letter-spacing:3px;margin-bottom:4px;font-weight:600}
 .dossier-classification{font-family:var(--font-mono);font-size:.6rem;color:var(--rouge-vif);letter-spacing:3px;text-transform:uppercase;margin-bottom:4px;display:flex;align-items:center;gap:8px}
 .class-dot{width:6px;height:6px;background:var(--rouge-vif);border-radius:50%;animation:blink-red 1.5s infinite}
 .dossier-date{font-family:var(--font-mono);font-size:.6rem;color:var(--vert-kaki);letter-spacing:2px;margin-bottom:20px;opacity:.7}
@@ -131,7 +134,7 @@ section{min-height:100vh;padding:120px 20px 80px;position:relative}
 .dossier-stamp.declassified{color:var(--vert-mil);border-color:var(--vert-mil)}
 .dossier-card-number{font-family:var(--font-mono);font-size:.6rem;color:var(--vert-kaki);letter-spacing:3px;margin-bottom:10px}
 .dossier-card-date{font-family:var(--font-mono);font-size:.65rem;color:var(--rouge-sang);letter-spacing:2px;margin-bottom:10px}
-.dossier-card-title{font-family:var(--font-military);font-size:1.1rem;color:var(--parchemin);text-transform:uppercase;letter-spacing:1px;margin-bottom:12px;line-height:1.3}
+.dossier-card-title{font-family:var(--font-heading);font-size:1.05rem;color:var(--parchemin);text-transform:uppercase;letter-spacing:2px;margin-bottom:12px;line-height:1.3;font-weight:600}
 .dossier-card-excerpt{font-family:var(--font-body);font-size:.85rem;color:var(--parchemin-sombre);line-height:1.5;margin-bottom:20px}
 .dossier-card-btn{display:inline-block;font-family:var(--font-mono);font-size:.7rem;color:var(--rouge-vif);letter-spacing:3px;text-transform:uppercase;border:1px solid var(--rouge-sang);padding:8px 20px;background:rgba(139,0,0,.05);cursor:pointer;transition:.3s}
 .dossier-card-btn:hover{background:rgba(139,0,0,.2);box-shadow:0 0 15px rgba(139,0,0,.3)}
@@ -332,26 +335,26 @@ section{padding:100px 15px 60px}
 </div>
 <div class="header-tagline">DERNIER SIGNAL ACTIF — POSTE ECHO-7</div>
 <nav class="nav-bar">
-<a href="#hero" class="active"><span class="nav-icon">⌂</span> Accueil</a>
-<a href="#countdown"><span class="nav-icon">⏳</span> Extraction</a>
-<a href="#transmissions"><span class="nav-icon">🔒</span> Transmissions</a>
-<a href="#survivants"><span class="nav-icon">🗺️</span> Survivants</a>
-<a href="#radio-chat"><span class="nav-icon">📡</span> Radio</a>
-<a href="#zombie-game"><span class="nav-icon">🎯</span> Défense</a>
-<a href="#dossiers"><span class="nav-icon">📁</span> Dossiers</a>
-<a href="#journal"><span class="nav-icon">💬</span> Journal</a>
+<a href="#hero" class="active">Accueil</a>
+<a href="#countdown">Extraction</a>
+<a href="#transmissions">Transmissions</a>
+<a href="#survivants">Survivants</a>
+<a href="#radio-chat">Radio</a>
+<a href="#zombie-game">Défense</a>
+<a href="#dossiers">Dossiers</a>
+<a href="#journal">Journal</a>
 </nav>
 </header>
 
 <nav class="mobile-nav" id="mobileNav">
-<a href="#hero" onclick="closeMobileNav()">⌂ Accueil</a>
-<a href="#countdown" onclick="closeMobileNav()">⏳ Extraction</a>
-<a href="#transmissions" onclick="closeMobileNav()">🔒 Transmissions</a>
-<a href="#survivants" onclick="closeMobileNav()">🗺️ Survivants</a>
-<a href="#radio-chat" onclick="closeMobileNav()">📡 Radio</a>
-<a href="#zombie-game" onclick="closeMobileNav()">🎯 Défense</a>
-<a href="#dossiers" onclick="closeMobileNav()">📁 Dossiers</a>
-<a href="#journal" onclick="closeMobileNav()">💬 Journal</a>
+<a href="#hero" onclick="closeMobileNav()">Accueil</a>
+<a href="#countdown" onclick="closeMobileNav()">Extraction</a>
+<a href="#transmissions" onclick="closeMobileNav()">Transmissions</a>
+<a href="#survivants" onclick="closeMobileNav()">Survivants</a>
+<a href="#radio-chat" onclick="closeMobileNav()">Radio</a>
+<a href="#zombie-game" onclick="closeMobileNav()">Défense</a>
+<a href="#dossiers" onclick="closeMobileNav()">Dossiers</a>
+<a href="#journal" onclick="closeMobileNav()">Journal</a>
 </nav>
 
 <!-- === HERO VIDEO === -->
@@ -364,16 +367,16 @@ section{padding:100px 15px 60px}
 <div class="hero-logo-big">
 <div class="twd-logo"><span class="the-line">THE</span><span class="walking-dead-line">WALKING DEAD</span></div>
 </div>
-<p class="hero-subtitle">▸ DERNIER SIGNAL ACTIF — POSTE ECHO-7 — FRANCE ◂</p>
-<p style="font-family:var(--font-military);font-size:.85rem;color:var(--rouge-sang);letter-spacing:3px;text-transform:uppercase;margin-bottom:30px">⚠ ALERTE NIVEAU MAXIMUM — CONTAMINATION EN COURS ⚠</p>
-<a href="#countdown" class="hero-cta">▶ ACCÉDER AU POSTE DE COMMANDEMENT</a>
+<p class="hero-subtitle">DERNIER SIGNAL ACTIF — POSTE ECHO-7 — FRANCE</p>
+<p style="font-family:var(--font-mono);font-size:.75rem;color:var(--rouge-sang);letter-spacing:4px;text-transform:uppercase;margin-bottom:30px">ALERTE NIVEAU MAXIMUM — CONTAMINATION EN COURS</p>
+<a href="#countdown" class="hero-cta">ACCÉDER AU POSTE DE COMMANDEMENT</a>
 </div>
 <div class="hero-scroll-arrow">↓</div>
 </section>
 
 <!-- === COUNTDOWN === -->
 <section id="countdown">
-<div class="section-header reveal"><div class="section-label">/// Protocole d'Extraction ///</div><h2 class="section-title">Temps Restant</h2><div class="section-divider"></div></div>
+<div class="section-header reveal"><div class="section-label">PROTOCOLE D'EXTRACTION</div><h2 class="section-title">Temps Restant</h2><div class="section-divider"></div></div>
 <div class="countdown-frame reveal" id="countdownFrame">
 <div class="countdown-label">Le Protocole de Confinement expire dans...</div>
 <div class="countdown-display">
@@ -385,13 +388,13 @@ section{padding:100px 15px 60px}
 <span class="countdown-sep">:</span>
 <div class="countdown-unit"><span class="countdown-number" id="cd-seconds">00</span><span class="countdown-word">Secondes</span></div>
 </div>
-<div class="countdown-message">⚠ APRÈS EXPIRATION, AUCUNE EXTRACTION NE SERA POSSIBLE — PROTOCOLE OMÉGA ACTIVÉ ⚠</div>
+<div class="countdown-message">APRÈS EXPIRATION, AUCUNE EXTRACTION NE SERA POSSIBLE — PROTOCOLE OMÉGA ACTIVÉ</div>
 </div>
 </section>
 
 <!-- === TRANSMISSIONS AUDIO === -->
 <section id="transmissions">
-<div class="section-header reveal"><div class="section-label">/// Communications Interceptées ///</div><h2 class="section-title">Transmissions Classifiées</h2><div class="section-divider"></div></div>
+<div class="section-header reveal"><div class="section-label">COMMUNICATIONS INTERCEPTÉES</div><h2 class="section-title">Transmissions Classifiées</h2><div class="section-divider"></div></div>
 <div class="transmissions-grid">
 <div class="audio-dossier reveal" data-audio="audio/Soldat.mp3">
 <div class="audio-static-overlay"></div><div class="radio-waves"><div class="radio-wave-dot"></div><div class="radio-wave-dot"></div><div class="radio-wave-dot"></div></div>
@@ -426,27 +429,27 @@ section{padding:100px 15px 60px}
 
 <!-- === SURVIVANTS === -->
 <section id="survivants">
-<div class="section-header reveal"><div class="section-label">/// Registre des Survivants ///</div><h2 class="section-title">Mur des Survivants</h2><div class="section-divider"></div></div>
+<div class="section-header reveal"><div class="section-label">REGISTRE DES SURVIVANTS</div><h2 class="section-title">Mur des Survivants</h2><div class="section-divider"></div></div>
 <div class="cork-board reveal"><div class="survivors-grid" id="survivorsGrid"></div></div>
 <div class="survivor-form-container reveal">
-<h3>📡 Signaler votre Position</h3>
+<h3>SIGNALER VOTRE POSITION</h3>
 <div class="form-row">
 <div class="admin-field"><label>Nom de survivant</label><input type="text" id="survName" placeholder="Votre pseudonyme..." maxlength="30"></div>
 <div class="admin-field"><label>Localisation</label><input type="text" id="survLocation" placeholder="Ex: Zone Nord, Lyon..." maxlength="60"></div>
 </div>
 <div class="admin-field"><label>Message (140 caractères max)</label><textarea id="survMessage" placeholder="Votre message aux autres survivants..." maxlength="140" rows="2"></textarea><div class="char-counter"><span id="survCharCount">0</span>/140</div></div>
 <div class="admin-field"><label>Photo (optionnel)</label><input type="file" id="survPhoto" accept="image/*" style="color:var(--parchemin-sombre)"></div>
-<button class="admin-submit" id="addSurvivorBtn" style="width:100%;margin-top:10px">📡 Transmettre ma Position</button>
-<div class="confirmation-msg" id="survConfirm">✓ SIGNAL REÇU — Votre position a été enregistrée par le Poste Echo-7</div>
+<button class="admin-submit" id="addSurvivorBtn" style="width:100%;margin-top:10px">TRANSMETTRE MA POSITION</button>
+<div class="confirmation-msg" id="survConfirm">SIGNAL REÇU — Votre position a été enregistrée par le Poste Echo-7</div>
 </div>
 </section>
 
 <!-- === RADIO CHAT === -->
 <section id="radio-chat">
-<div class="section-header reveal"><div class="section-label">/// Fréquence Radio Ouverte ///</div><h2 class="section-title">Canal de Communication</h2><div class="section-divider"></div></div>
+<div class="section-header reveal"><div class="section-label">FRÉQUENCE RADIO OUVERTE</div><h2 class="section-title">Canal de Communication</h2><div class="section-divider"></div></div>
 <div class="chat-container reveal">
 <div class="chat-header">
-<h3>📡 Radio Poste Echo-7 — Canal Ouvert</h3>
+<h3>RADIO POSTE ECHO-7 — CANAL OUVERT</h3>
 <div class="chat-status"><span class="status-dot"></span>EN LIGNE</div>
 </div>
 <div class="chat-messages" id="chatMessages"></div>
@@ -454,7 +457,7 @@ section{padding:100px 15px 60px}
 <p style="font-family:var(--font-military);color:var(--parchemin);letter-spacing:2px;text-transform:uppercase;font-size:.9rem">Identifiez-vous pour accéder au canal</p>
 <input type="text" id="chatPseudoInput" placeholder="Votre nom de code..." maxlength="20">
 <br>
-<button class="game-btn" onclick="setChatPseudo()">📡 REJOINDRE LE CANAL</button>
+<button class="game-btn" onclick="setChatPseudo()">REJOINDRE LE CANAL</button>
 </div>
 <div class="chat-input-area" id="chatInputArea" style="display:none">
 <input type="text" id="chatMsgInput" placeholder="Transmettez votre message..." maxlength="300">
@@ -465,36 +468,36 @@ section{padding:100px 15px 60px}
 
 <!-- === ZOMBIE SHOOTING GAME === -->
 <section id="zombie-game">
-<div class="section-header reveal"><div class="section-label">/// Poste de Défense ///</div><h2 class="section-title">Élimination des Menaces</h2><div class="section-divider"></div></div>
+<div class="section-header reveal"><div class="section-label">POSTE DE DÉFENSE</div><h2 class="section-title">Élimination des Menaces</h2><div class="section-divider"></div></div>
 <div class="game-container">
 <div class="game-hud">
-<div class="hud-item">🎯 SCORE : <span id="gameScore">0</span></div>
-<div class="hud-item">❤️ VIE : <span id="gameHealth">100</span></div>
-<div class="hud-item">🧟 VAGUE : <span id="gameWave">1</span></div>
-<div class="hud-item">🔫 MUNITIONS : <span id="gameAmmo">∞</span></div>
+<div class="hud-item">SCORE : <span id="gameScore">0</span></div>
+<div class="hud-item">VIE : <span id="gameHealth">100</span></div>
+<div class="hud-item">VAGUE : <span id="gameWave">1</span></div>
+<div class="hud-item">MUNITIONS : <span id="gameAmmo">∞</span></div>
 </div>
 <div class="game-canvas-wrapper">
 <canvas id="gameCanvas" width="960" height="500"></canvas>
 <div class="game-over-screen" id="gameOverScreen">
 <h2>TOMBÉ AU COMBAT</h2>
 <div class="final-score">Score final : <span id="finalScore">0</span></div>
-<button class="game-btn" onclick="startGame()">↻ REPRENDRE LES ARMES</button>
+<button class="game-btn" onclick="startGame()">REPRENDRE LES ARMES</button>
 </div>
 </div>
 <div class="game-controls">
-<button class="game-btn active" id="startGameBtn" onclick="startGame()">▶ COMMENCER LA DÉFENSE</button>
-<button class="game-btn" id="pauseGameBtn" onclick="togglePause()">⏸ PAUSE</button>
+<button class="game-btn active" id="startGameBtn" onclick="startGame()">COMMENCER LA DÉFENSE</button>
+<button class="game-btn" id="pauseGameBtn" onclick="togglePause()">PAUSE</button>
 </div>
 </div>
 </section>
 
 <!-- === DOSSIERS CONFIDENTIELS === -->
 <section id="dossiers">
-<div class="section-header reveal"><div class="section-label">/// Archives Déclassifiées ///</div><h2 class="section-title">Dossiers Confidentiels</h2><div class="section-divider"></div></div>
+<div class="section-header reveal"><div class="section-label">ARCHIVES DÉCLASSIFIÉES</div><h2 class="section-title">Dossiers Confidentiels</h2><div class="section-divider"></div></div>
 <div class="dossiers-grid" id="dossiersGrid"></div>
 <button class="admin-toggle-btn" id="adminToggleBtn">+ Ajouter un Dossier (Admin)</button>
 <div class="admin-panel" id="adminPanel">
-<h3>⚠ Accès Restreint — Authentification Requise</h3>
+<h3>ACCÈS RESTREINT — AUTHENTIFICATION REQUISE</h3>
 <div class="admin-field" id="adminAuthField"><label>Code d'accès</label><input type="password" id="adminPassword" placeholder="Entrez le code d'accès..."><button class="admin-submit" style="margin-top:10px" id="adminAuthBtn">Authentifier</button></div>
 <div id="adminForm" style="display:none">
 <div class="admin-field"><label>Titre du dossier</label><input type="text" id="newDossierTitle" placeholder="Titre..."></div>
@@ -520,23 +523,23 @@ section{padding:100px 15px 60px}
 
 <!-- === JOURNAL === -->
 <section id="journal">
-<div class="section-header reveal"><div class="section-label">/// Témoignages Terrain ///</div><h2 class="section-title">Journal de Terrain</h2><div class="section-divider"></div></div>
+<div class="section-header reveal"><div class="section-label">TÉMOIGNAGES TERRAIN</div><h2 class="section-title">Journal de Terrain</h2><div class="section-divider"></div></div>
 <div class="journal-container">
 <div class="journal-entries" id="journalEntries"></div>
 <div class="journal-form-container reveal">
-<h3>✏️ Ajouter une Entrée au Journal</h3>
+<h3>AJOUTER UNE ENTRÉE AU JOURNAL</h3>
 <div class="admin-field"><label>Identifiant</label><input type="text" id="journalPseudo" placeholder="Votre nom de code..." maxlength="30"></div>
 <div class="admin-field"><label>Témoignage</label><textarea id="journalMessage" placeholder="Ce que vous avez vu, vécu, entendu..." rows="4"></textarea></div>
 <div class="admin-field"><label>Image (optionnel)</label><input type="file" id="journalPhoto" accept="image/*" style="color:var(--parchemin-sombre)"></div>
-<button class="admin-submit" id="addJournalBtn" style="width:100%">📤 Transmettre le Témoignage</button>
-<div class="confirmation-msg" id="journalConfirm">✓ TRANSMISSION REÇUE — Le Quartier Général a bien enregistré votre signal</div>
+<button class="admin-submit" id="addJournalBtn" style="width:100%">TRANSMETTRE LE TÉMOIGNAGE</button>
+<div class="confirmation-msg" id="journalConfirm">TRANSMISSION REÇUE — Le Quartier Général a bien enregistré votre signal</div>
 </div>
 </div>
 </section>
 
 <!-- === FOOTER === -->
 <footer id="footer">
-<div class="footer-frequency">📡 Fréquence de Secours : 156.800 MHz</div>
+<div class="footer-frequency">FRÉQUENCE DE SECOURS : 156.800 MHz</div>
 <div class="footer-gps">48°51'24.0"N 2°21'07.0"E — SIGNAL INTERMITTENT</div>
 <p class="footer-message">Ce poste émetteur est le dernier signal actif connu.<br>Restez en vie. Restez ensemble.</p>
 <div class="footer-links">
@@ -880,7 +883,7 @@ function saveSurvivors(l){localStorage.setItem('twd_survivors',JSON.stringify(l)
 function renderSurvivors(){
 const g=document.getElementById('survivorsGrid'),s=getSurvivors();g.innerHTML='';
 s.forEach(sv=>{const c=document.createElement('div');c.className='survivor-card';
-c.innerHTML=`<div class="survivor-photo">${sv.photo?`<img src="${sv.photo}" alt="${sanitize(sv.name)}">`:'<div class="no-photo">📷 PAS DE PHOTO</div>'}</div><div class="survivor-info"><div class="survivor-name">${sanitize(sv.name)}</div><div class="survivor-location">📍 ${sanitize(sv.location)}</div><div class="survivor-message">"${sanitize(sv.message)}"</div></div><div class="survivor-date">${sv.date}</div>`;
+c.innerHTML=`<div class="survivor-photo">${sv.photo?`<img src="${sv.photo}" alt="${sanitize(sv.name)}">`:'<div class="no-photo">PAS DE PHOTO</div>'}</div><div class="survivor-info"><div class="survivor-name">${sanitize(sv.name)}</div><div class="survivor-location">${sanitize(sv.location)}</div><div class="survivor-message">"${sanitize(sv.message)}"</div></div><div class="survivor-date">${sv.date}</div>`;
 g.appendChild(c)})
 }
 document.getElementById('survMessage').addEventListener('input',function(){document.getElementById('survCharCount').textContent=this.value.length});
@@ -907,7 +910,7 @@ function saveJournal(e){localStorage.setItem('twd_journal',JSON.stringify(e))}
 function renderJournal(){
 const c=document.getElementById('journalEntries'),es=getJournal();c.innerHTML='';
 es.forEach(e=>{const d=document.createElement('div');d.className='journal-entry reveal';
-d.innerHTML=`<div class="journal-entry-header"><span class="journal-pseudo">☠ ${sanitize(e.pseudo)}</span><span class="journal-date">${e.date}</span></div><p class="journal-text">${sanitize(e.message)}</p>${e.image?`<img src="${e.image}" alt="Image" class="journal-image">`:''}<button class="journal-report-btn" onclick="this.textContent='⚠ SIGNALÉ';this.disabled=true">⚐ SIGNALER</button>`;
+d.innerHTML=`<div class="journal-entry-header"><span class="journal-pseudo">${sanitize(e.pseudo)}</span><span class="journal-date">${e.date}</span></div><p class="journal-text">${sanitize(e.message)}</p>${e.image?`<img src="${e.image}" alt="Image" class="journal-image">`:''}<button class="journal-report-btn" onclick="this.textContent='SIGNALÉ';this.disabled=true">SIGNALER</button>`;
 c.appendChild(d);revealObs.observe(d)})
 }
 document.getElementById('addJournalBtn').addEventListener('click',()=>{
