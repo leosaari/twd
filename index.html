@@ -285,6 +285,34 @@ section{min-height:100vh;padding:120px 20px 80px;position:relative}
 .chat-pseudo-setup input{padding:10px;background:rgba(0,0,0,.5);border:1px solid rgba(74,82,64,.3);color:var(--parchemin);font-family:var(--font-military);font-size:1rem;text-align:center;outline:none;width:250px;margin:10px}
 .chat-pseudo-setup input:focus{border-color:var(--rouge-sang)}
 
+/* === MÉMORIAL DES CONTAMINÉS === */
+#memorial{min-height:100vh;background:linear-gradient(180deg,#050505,#0a0808,#050505);padding:120px 20px 80px}
+.memorial-subtitle{text-align:center;font-family:var(--font-body);font-size:.9rem;color:var(--parchemin-sombre);font-style:italic;max-width:550px;margin:0 auto 50px;line-height:1.7;opacity:.7}
+.memorial-grid{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:40px;margin-bottom:50px}
+.memorial-card{position:relative;background:linear-gradient(145deg,#0d0d0d,#080808);border:1px solid rgba(139,0,0,.2);overflow:hidden;transition:.4s}
+.memorial-card:hover{border-color:rgba(139,0,0,.5);box-shadow:0 0 30px rgba(139,0,0,.15)}
+.memorial-photo{width:100%;height:320px;overflow:hidden;position:relative}
+.memorial-photo img{width:100%;height:100%;object-fit:cover;object-position:top;filter:grayscale(.6) contrast(1.1) brightness(.85);transition:filter .5s}
+.memorial-card:hover .memorial-photo img{filter:grayscale(.3) contrast(1.1) brightness(.9)}
+.memorial-photo::after{content:'';position:absolute;bottom:0;left:0;width:100%;height:50%;background:linear-gradient(180deg,transparent,rgba(8,8,8,.95));pointer-events:none}
+.memorial-photo .cross-overlay{position:absolute;top:12px;right:12px;width:28px;height:28px;opacity:.4}
+.memorial-photo .cross-overlay::before,.memorial-photo .cross-overlay::after{content:'';position:absolute;background:var(--rouge-sang)}
+.memorial-photo .cross-overlay::before{width:2px;height:100%;left:50%;transform:translateX(-50%)}
+.memorial-photo .cross-overlay::after{height:2px;width:100%;top:50%;transform:translateY(-50%)}
+.memorial-info{padding:20px 22px 25px;position:relative}
+.memorial-name{font-family:var(--font-heading);font-size:1.15rem;color:var(--parchemin);text-transform:uppercase;letter-spacing:3px;font-weight:700;margin-bottom:4px}
+.memorial-dates{font-family:var(--font-mono);font-size:.6rem;color:var(--rouge-sang);letter-spacing:2px;margin-bottom:10px}
+.memorial-role{font-family:var(--font-mono);font-size:.6rem;color:var(--vert-kaki);letter-spacing:2px;text-transform:uppercase;margin-bottom:10px}
+.memorial-epitaph{font-family:var(--font-body);font-size:.85rem;color:var(--parchemin-sombre);font-style:italic;line-height:1.6;border-left:2px solid rgba(139,0,0,.3);padding-left:12px}
+.memorial-status{position:absolute;top:-14px;right:15px;font-family:var(--font-mono);font-size:.55rem;color:var(--rouge-vif);letter-spacing:3px;text-transform:uppercase;background:#080808;padding:4px 12px;border:1px solid rgba(139,0,0,.3)}
+.memorial-candle{position:absolute;bottom:20px;right:20px;width:16px;height:30px}
+.memorial-candle::before{content:'';position:absolute;bottom:0;left:50%;transform:translateX(-50%);width:10px;height:18px;background:linear-gradient(180deg,#d4c9a8,#a89b7a);border-radius:2px 2px 0 0}
+.memorial-candle::after{content:'';position:absolute;bottom:16px;left:50%;transform:translateX(-50%);width:6px;height:10px;background:radial-gradient(ellipse,#ff9922,#ff6600 40%,transparent 70%);border-radius:50% 50% 20% 20%;animation:candle-flicker 2s ease-in-out infinite;box-shadow:0 0 8px rgba(255,150,30,.5),0 0 15px rgba(255,100,0,.2)}
+@keyframes candle-flicker{0%,100%{transform:translateX(-50%) scale(1);opacity:1}25%{transform:translateX(-50%) scale(.9,.95) translateX(1px);opacity:.85}50%{transform:translateX(-50%) scale(1.05,1.1);opacity:1}75%{transform:translateX(-50%) scale(.95) translateX(-1px);opacity:.9}}
+.memorial-form-container{max-width:600px;margin:0 auto;border:1px solid rgba(139,0,0,.2);padding:30px;background:rgba(10,10,10,.5)}
+.memorial-form-container h3{font-family:var(--font-heading);font-size:1rem;color:var(--parchemin-sombre);text-transform:uppercase;letter-spacing:3px;font-weight:600;text-align:center;margin-bottom:20px}
+.memorial-count{text-align:center;font-family:var(--font-mono);font-size:.7rem;color:rgba(139,0,0,.5);letter-spacing:3px;margin-top:30px}
+
 /* === SURVIVANTS === */
 #survivants{background:linear-gradient(180deg,var(--noir),#0e0c08,var(--noir))}
 .cork-board{max-width:1200px;margin:0 auto;background:repeating-linear-gradient(45deg,rgba(80,60,30,.03) 0px,transparent 2px,transparent 8px),repeating-linear-gradient(-45deg,rgba(80,60,30,.03) 0px,transparent 2px,transparent 8px),linear-gradient(180deg,rgba(50,35,15,.15),rgba(30,20,10,.1));border:2px solid rgba(80,60,30,.2);padding:40px;min-height:300px}
@@ -563,6 +591,29 @@ section{padding:100px 15px 60px}
 <div class="audio-player"><button class="play-btn" aria-label="Lecture"><svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg></button><div class="audio-progress-container"><div class="audio-waveform"><div class="audio-progress-overlay" style="width:0%"></div><div class="waveform-bars"></div></div><div class="audio-time"><span class="audio-current">00:00</span><span class="audio-duration">--:--</span></div></div></div>
 </div>
 </div>
+</section>
+
+<!-- === MÉMORIAL DES CONTAMINÉS === -->
+<section id="memorial">
+<div class="section-header reveal"><div class="section-label">À LA MÉMOIRE DE CEUX QUI SONT TOMBÉS</div><h2 class="section-title">Les Contaminés</h2><div class="section-divider"></div></div>
+<p class="memorial-subtitle reveal">Ils étaient parmi nous. Parents, amis, voisins. Ce mur est le dernier endroit où leurs noms seront prononcés. N'oubliez jamais.</p>
+<div class="memorial-grid" id="memorialGrid"></div>
+<div class="memorial-form-container reveal">
+<h3>Ajouter un Nom au Mémorial</h3>
+<div class="form-row">
+<div class="admin-field"><label>Nom complet</label><input type="text" id="memName" placeholder="Prénom NOM..." maxlength="40"></div>
+<div class="admin-field"><label>Dernier rôle connu</label><input type="text" id="memRole" placeholder="Ex: Médecin, Instituteur..." maxlength="40"></div>
+</div>
+<div class="form-row">
+<div class="admin-field"><label>Date de contamination</label><input type="text" id="memDate" placeholder="Ex: J+14 — 12 Avril 2026" maxlength="30"></div>
+<div class="admin-field"><label>Lieu</label><input type="text" id="memLocation" placeholder="Ex: Paris, 11ème arr." maxlength="40"></div>
+</div>
+<div class="admin-field"><label>Épitaphe / Dernier souvenir</label><textarea id="memEpitaph" placeholder="Ce dont on se souviendra..." rows="2" maxlength="200"></textarea></div>
+<div class="admin-field"><label>Photo (optionnel)</label><input type="file" id="memPhoto" accept="image/*" style="color:var(--parchemin-sombre)"></div>
+<button class="admin-submit" id="addMemorialBtn" style="width:100%;margin-top:10px">INSCRIRE AU MÉMORIAL</button>
+<div class="confirmation-msg" id="memConfirm">NOM INSCRIT — Leur mémoire est préservée.</div>
+</div>
+<div class="memorial-count reveal" id="memorialCount"></div>
 </section>
 
 <!-- === SURVIVANTS === -->
@@ -1303,6 +1354,68 @@ dos.push({id:'D'+String(n).padStart(3,'0'),number:'DOSSIER #TW-'+String(Math.flo
 saveDossiers(dos);renderDossiers();document.getElementById('newDossierTitle').value='';document.getElementById('newDossierContent').value='';
 });
 renderDossiers();
+
+// ============================================================
+// === MÉMORIAL DES CONTAMINÉS ===
+// ============================================================
+function getMemorial(){
+const s=localStorage.getItem('twd_memorial');const v=localStorage.getItem('twd_memorial_v');
+if(s&&v==='2')return JSON.parse(s);
+localStorage.setItem('twd_memorial_v','2');
+const d=[
+{name:'Vincent DESPAX',role:'Préfet de la République — Île-de-France',dates:'1971 — J+8 (Contaminé le 8 Avril 2026)',location:'Préfecture de Paris, Île de la Cité',epitaph:'Il a refusé de quitter son poste. "La République ne fuit pas", a-t-il dit. Il a organisé l\'évacuation de 3 000 civils avant d\'être mordu lors de la chute de l\'Hôtel de Ville.',photo:'images/memorial/despax.jpg'},
+{name:'Michael DUPONT',role:'Sergent-Chef — 1er Régiment de Chasseurs',dates:'1988 — J+12 (Contaminé le 12 Avril 2026)',location:'Checkpoint Porte de la Chapelle, Paris',epitaph:'Il a tenu la Porte de la Chapelle pendant 4 jours avec 12 hommes. Son dernier message radio : "La ligne tient. Envoyez les civils vers le nord." Elle n\'a pas tenu.',photo:'images/memorial/dupont.jpg'},
+{name:'Virginie PONT',role:'Lieutenant de Gendarmerie — Brigade de Recherche',dates:'1980 — J+18 (Contaminée le 18 Avril 2026)',location:'Forêt de Fontainebleau, Zone d\'extraction Bravo',epitaph:'Elle a couvert la fuite de 47 réfugiés à travers la forêt de Fontainebleau. Blessée au bras, elle a continué. On a retrouvé son talkie-walkie, pas elle.',photo:'images/memorial/pont.jpg'}
+];
+localStorage.setItem('twd_memorial',JSON.stringify(d));return d;
+}
+function saveMemorial(d){localStorage.setItem('twd_memorial',JSON.stringify(d))}
+
+function renderMemorial(){
+const grid=document.getElementById('memorialGrid');
+const data=getMemorial();
+grid.innerHTML='';
+data.forEach((m,i)=>{
+const card=document.createElement('div');
+card.className='memorial-card reveal'+(i?' reveal-delay-'+Math.min(i,4):'');
+card.innerHTML=`
+<div class="memorial-photo">
+${m.photo?`<img src="${m.photo}" alt="${sanitize(m.name)}">`:'<div style="width:100%;height:100%;background:#1a1510;display:flex;align-items:center;justify-content:center;font-family:var(--font-heading);font-size:3rem;color:rgba(139,0,0,.2)">${m.name.charAt(0)}</div>'}
+<div class="cross-overlay"></div>
+</div>
+<div class="memorial-info">
+<div class="memorial-status">CONTAMINÉ</div>
+<div class="memorial-name">${sanitize(m.name)}</div>
+<div class="memorial-dates">${sanitize(m.dates)}</div>
+<div class="memorial-role">${sanitize(m.role)} — ${sanitize(m.location||'')}</div>
+<div class="memorial-epitaph">${sanitize(m.epitaph)}</div>
+<div class="memorial-candle"></div>
+</div>`;
+grid.appendChild(card);
+revealObs.observe(card);
+});
+document.getElementById('memorialCount').textContent=data.length+' nom'+(data.length>1?'s':'')+' inscrit'+(data.length>1?'s':'')+' au mémorial';
+}
+
+document.getElementById('addMemorialBtn').addEventListener('click',()=>{
+const n=document.getElementById('memName').value.trim();
+const r=document.getElementById('memRole').value.trim();
+const d=document.getElementById('memDate').value.trim();
+const l=document.getElementById('memLocation').value.trim();
+const ep=document.getElementById('memEpitaph').value.trim();
+const pi=document.getElementById('memPhoto');
+if(!n||!ep)return alert('Nom et épitaphe obligatoires.');
+function add(ph){
+const data=getMemorial();
+data.push({name:n.toUpperCase(),role:r||'Civil',dates:d||'Date inconnue',location:l||'Lieu inconnu',epitaph:ep,photo:ph||''});
+saveMemorial(data);renderMemorial();
+['memName','memRole','memDate','memLocation','memEpitaph'].forEach(id=>document.getElementById(id).value='');
+document.getElementById('memPhoto').value='';
+const cf=document.getElementById('memConfirm');cf.classList.add('show');setTimeout(()=>cf.classList.remove('show'),4000);
+}
+if(pi.files&&pi.files[0]){const reader=new FileReader();reader.onload=e=>add(e.target.result);reader.readAsDataURL(pi.files[0])}else add('');
+});
+renderMemorial();
 
 // ============================================================
 // === SURVIVANTS ===
