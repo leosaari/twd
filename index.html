@@ -1360,12 +1360,12 @@ renderDossiers();
 // ============================================================
 function getMemorial(){
 const s=localStorage.getItem('twd_memorial');const v=localStorage.getItem('twd_memorial_v');
-if(s&&v==='3')return JSON.parse(s);
-localStorage.setItem('twd_memorial_v','3');
+if(s&&v==='4')return JSON.parse(s);
+localStorage.setItem('twd_memorial_v','4');
 const d=[
-{name:'Virginie PONT',role:'Lieutenant de Gendarmerie — Brigade de Recherche',dates:'1980 — J+18 (Contaminée le 18 Avril 2026)',location:'Forêt de Fontainebleau, Zone d\'extraction Bravo',epitaph:'Elle a couvert la fuite de 47 réfugiés à travers la forêt de Fontainebleau. Blessée au bras, elle a continué. On a retrouvé son talkie-walkie, pas elle.',photo:'images/memorial/despax.jpg'},
+{name:'Vincent DESPAX',role:'Préfet de la République — Île-de-France',dates:'1971 — J+8 (Contaminé le 8 Avril 2026)',location:'Préfecture de Paris, Île de la Cité',epitaph:'Il a refusé de quitter son poste. "La République ne fuit pas", a-t-il dit. Il a organisé l\'évacuation de 3 000 civils avant d\'être mordu lors de la chute de l\'Hôtel de Ville.',photo:'images/memorial/despax.jpg'},
 {name:'Michael DUPONT',role:'Sergent-Chef — 1er Régiment de Chasseurs',dates:'1988 — J+12 (Contaminé le 12 Avril 2026)',location:'Checkpoint Porte de la Chapelle, Paris',epitaph:'Il a tenu la Porte de la Chapelle pendant 4 jours avec 12 hommes. Son dernier message radio : "La ligne tient. Envoyez les civils vers le nord." Elle n\'a pas tenu.',photo:'images/memorial/dupont.jpg'},
-{name:'Vincent DESPAX',role:'Préfet de la République — Île-de-France',dates:'1971 — J+8 (Contaminé le 8 Avril 2026)',location:'Préfecture de Paris, Île de la Cité',epitaph:'Il a refusé de quitter son poste. "La République ne fuit pas", a-t-il dit. Il a organisé l\'évacuation de 3 000 civils avant d\'être mordu lors de la chute de l\'Hôtel de Ville.',photo:'images/memorial/pont.jpg'}
+{name:'Virginie PONT',role:'Lieutenant de Gendarmerie — Brigade de Recherche',dates:'1980 — J+18 (Contaminée le 18 Avril 2026)',location:'Forêt de Fontainebleau, Zone d\'extraction Bravo',epitaph:'Elle a couvert la fuite de 47 réfugiés à travers la forêt de Fontainebleau. Blessée au bras, elle a continué. On a retrouvé son talkie-walkie, pas elle.',photo:'images/memorial/pont.jpg'}
 ];
 localStorage.setItem('twd_memorial',JSON.stringify(d));return d;
 }
