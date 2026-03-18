@@ -916,6 +916,8 @@ backToTop.addEventListener('click',()=>window.scrollTo({top:0,behavior:'smooth'}
 const revealObs=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible')})},{threshold:.1,rootMargin:'0px 0px -50px 0px'});
 document.querySelectorAll('.reveal').forEach(el=>revealObs.observe(el));
 
+// === SANITIZE (used by memorial, survivors, dossiers, journal) ===
+function sanitize(s){const d=document.createElement('div');d.textContent=s;return d.innerHTML}
 
 // ============================================================
 // === COUNTDOWN ===
