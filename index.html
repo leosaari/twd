@@ -306,6 +306,8 @@ section{min-height:100vh;padding:120px 20px 80px;position:relative}
 .dc-userbar-av::after{content:'';position:absolute;bottom:0;right:0;width:8px;height:8px;background:#3ba55c;border-radius:50%;border:2px solid #08090b}
 .dc-userbar-info .ub-name{font-family:var(--font-mono);font-size:.68rem;color:var(--parchemin);letter-spacing:1px}
 .dc-userbar-info .ub-tag{font-family:var(--font-body);font-size:.55rem;color:rgba(168,155,122,.35)}
+.dc-leave-btn{margin-left:auto;background:none;border:1px solid rgba(139,0,0,.25);color:rgba(168,155,122,.4);width:26px;height:26px;border-radius:4px;cursor:pointer;font-size:.7rem;display:flex;align-items:center;justify-content:center;transition:.2s;flex-shrink:0}
+.dc-leave-btn:hover{background:rgba(139,0,0,.2);border-color:rgba(139,0,0,.5);color:var(--rouge-vif)}
 /* MAIN PANEL */
 .dc-main{flex:1;display:flex;flex-direction:column;min-width:0;background:linear-gradient(180deg,rgba(8,9,11,.3),transparent)}
 .dc-topbar{display:flex;align-items:center;padding:0 16px;height:48px;border-bottom:1px solid rgba(74,82,64,.1);background:rgba(0,0,0,.15);flex-shrink:0;gap:8px}
@@ -778,6 +780,7 @@ section{padding:100px 15px 60px}
 <div class="dc-userbar" id="dcUserBar" style="display:none">
 <div class="dc-userbar-av" id="dcUserAvatar" style="background:#8b0000">?</div>
 <div class="dc-userbar-info"><div class="ub-name" id="dcUserName">—</div><div class="ub-tag">Survivant · Echo-7</div></div>
+<button class="dc-leave-btn" onclick="leaveDiscord()" title="Quitter le réseau">✕</button>
 </div>
 </div>
 <!-- MAIN PANEL -->
@@ -1874,6 +1877,47 @@ startAmbient();
 renderMembers();
 renderDC();
 }
+
+// === LEAVE / DISCONNECT ===
+function leaveDiscord(){
+// System message
+const msgs=getDCH(DC.channel);
+msgs.push({p:'ECHO-7',t:`${DC.pseudo} a quitté le réseau.`,time:getTime(),sys:true});
+saveDCH(DC.channel,msgs);
+// Clear user data
+DC.pseudo='';
+localStorage.removeItem('twd_dc_pseudo');
+// Clear all channel histories for fresh start
+for(const ch of Object.keys(CHANNELS)){
+localStorage.removeItem('twd_dc2_'+ch);
+}
+// Stop ambient
+if(DC.ambientTimer){clearInterval(DC.ambientTimer);DC.ambientTimer=null}
+// Reset UI
+document.getElementById('dcSetup').style.display='';
+document.getElementById('dcMessages').style.display='none';
+document.getElementById('dcInputArea').style.display='none';
+document.getElementById('dcUserBar').style.display='none';
+document.getElementById('dcTyping').innerHTML='';
+document.getElementById('dcPseudoInput').value='';
+// Reset channel to general
+DC.channel='general';
+document.querySelectorAll('.dc-ch').forEach(c=>c.classList.remove('active'));
+document.querySelector('.dc-ch[data-channel="general"]')?.classList.add('active');
+document.getElementById('dcTopName').textContent=CHANNELS.general.name;
+document.getElementById('dcTopDesc').textContent=CHANNELS.general.desc;
+// Clear badges
+for(const ch of Object.keys(CHANNELS)){
+const b=document.getElementById('badge-'+ch);if(b)b.textContent='';
+}
+// Re-init defaults
+for(const ch of Object.keys(CHANNELS)){
+if(!getDCH(ch).length&&DEFAULTS[ch])saveDCH(ch,DEFAULTS[ch]);
+}
+renderMembers();
+dcStaticBurst();
+}
+window.leaveDiscord=leaveDiscord;
 
 // === EVENT LISTENERS ===
 document.getElementById('dcMsgInput')?.addEventListener('keydown',e=>{if(e.key==='Enter')sendDiscordMessage()});
