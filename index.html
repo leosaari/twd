@@ -96,6 +96,46 @@ section{min-height:100vh;padding:120px 20px 80px;position:relative}
 .countdown-frame.alert{border-color:var(--rouge-vif);animation:pulse-glow 2s infinite}
 .countdown-frame.alert .countdown-number{color:var(--rouge-alerte);animation:glitch-h .3s infinite}
 
+/* === CARTE CONTAMINATION === */
+#contamination-map{min-height:100vh;background:linear-gradient(180deg,var(--noir),#060606,var(--noir));padding:120px 20px 80px}
+.map-container{max-width:900px;margin:0 auto;position:relative}
+.map-wrapper{position:relative;width:100%;display:flex;justify-content:center}
+.map-wrapper svg{width:100%;max-width:750px;height:auto}
+.map-wrapper svg path{stroke:#222;stroke-width:.5;cursor:pointer;transition:fill .6s ease,filter .3s ease,stroke .3s ease}
+.map-wrapper svg path:hover{stroke:var(--rouge-vif);stroke-width:1;filter:brightness(1.3)}
+@keyframes zone-pulse{0%,100%{filter:brightness(1) drop-shadow(0 0 2px rgba(204,0,0,.2))}50%{filter:brightness(1.15) drop-shadow(0 0 8px rgba(204,0,0,.5))}}
+.map-wrapper svg path.zone-lost{animation:zone-pulse 2s ease-in-out infinite}
+.map-tooltip{position:absolute;pointer-events:none;background:rgba(10,10,10,.95);border:1px solid var(--rouge-sang);padding:15px 18px;min-width:220px;opacity:0;transition:opacity .2s;z-index:100;font-family:var(--font-mono)}
+.map-tooltip.visible{opacity:1}
+.map-tooltip-name{font-family:var(--font-heading);font-size:1rem;color:var(--parchemin);text-transform:uppercase;letter-spacing:2px;margin-bottom:8px;font-weight:600}
+.map-tooltip-row{display:flex;justify-content:space-between;align-items:center;font-size:.7rem;margin-bottom:4px;letter-spacing:1px}
+.map-tooltip-label{color:var(--vert-kaki)}
+.map-tooltip-value{color:var(--parchemin);font-weight:bold}
+.map-tooltip-status{font-size:.65rem;letter-spacing:3px;text-transform:uppercase;padding:4px 10px;text-align:center;margin-top:8px;border:1px solid}
+.status-safe{color:#4a9;border-color:#4a9;background:rgba(68,170,153,.08)}
+.status-risk{color:#da3;border-color:#da3;background:rgba(221,170,51,.08)}
+.status-critical{color:#e83;border-color:#e83;background:rgba(238,136,51,.08)}
+.status-lost{color:var(--rouge-vif);border-color:var(--rouge-vif);background:rgba(204,0,0,.08)}
+.map-legend{display:flex;justify-content:center;gap:25px;margin-top:30px;flex-wrap:wrap}
+.legend-item{display:flex;align-items:center;gap:8px;font-family:var(--font-mono);font-size:.65rem;color:var(--parchemin-sombre);letter-spacing:1px;text-transform:uppercase}
+.legend-dot{width:12px;height:12px;border-radius:2px}
+.legend-dot.safe{background:#2d6b55}.legend-dot.risk{background:#8a7a22}.legend-dot.critical{background:#a85520}.legend-dot.lost{background:#8B0000}
+.map-global-counter{text-align:center;margin-top:25px;font-family:var(--font-mono);font-size:.8rem;color:var(--parchemin-sombre);letter-spacing:3px;text-transform:uppercase}
+.map-global-counter .counter-value{font-size:2rem;color:var(--rouge-vif);display:block;margin-top:5px;text-shadow:0 0 15px rgba(204,0,0,.4)}
+.map-detail-panel{display:none;position:fixed;top:0;right:0;width:380px;height:100vh;background:rgba(10,10,10,.97);border-left:2px solid var(--rouge-sang);z-index:20000;padding:30px;overflow-y:auto;animation:reveal-up .3s ease}
+.map-detail-panel.active{display:block}
+.map-detail-close{position:absolute;top:15px;right:15px;width:30px;height:30px;border:1px solid var(--rouge-sang);background:transparent;color:var(--rouge-vif);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:.3s}
+.map-detail-close:hover{background:rgba(139,0,0,.3)}
+.map-detail-name{font-family:var(--font-heading);font-size:1.3rem;color:var(--parchemin);text-transform:uppercase;letter-spacing:3px;font-weight:700;margin-bottom:15px}
+.map-detail-stats{margin-bottom:20px}
+.map-detail-stat{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(74,82,64,.15);font-family:var(--font-mono);font-size:.7rem}
+.map-detail-stat .label{color:var(--vert-kaki);letter-spacing:2px;text-transform:uppercase}
+.map-detail-stat .value{color:var(--parchemin)}
+.map-detail-bar{height:6px;background:#1a1a1a;margin:10px 0;overflow:hidden}
+.map-detail-bar-fill{height:100%;transition:width 1.5s ease}
+.map-detail-narrative{font-family:var(--font-body);font-size:.85rem;color:var(--parchemin-sombre);line-height:1.7;font-style:italic;border-left:2px solid var(--rouge-sang);padding-left:15px;margin-top:15px}
+@media(max-width:768px){.map-detail-panel{width:100%}.map-legend{gap:12px}}
+
 /* === TRANSMISSIONS AUDIO === */
 #transmissions{background:linear-gradient(180deg,var(--noir),#080808)}
 .transmissions-grid{max-width:900px;margin:0 auto;display:flex;flex-direction:column;gap:40px}
@@ -337,6 +377,7 @@ section{padding:100px 15px 60px}
 <nav class="nav-bar">
 <a href="#hero" class="active">Accueil</a>
 <a href="#countdown">Extraction</a>
+<a href="#contamination-map">Carte</a>
 <a href="#transmissions">Transmissions</a>
 <a href="#survivants">Survivants</a>
 <a href="#radio-chat">Radio</a>
@@ -349,6 +390,7 @@ section{padding:100px 15px 60px}
 <nav class="mobile-nav" id="mobileNav">
 <a href="#hero" onclick="closeMobileNav()">Accueil</a>
 <a href="#countdown" onclick="closeMobileNav()">Extraction</a>
+<a href="#contamination-map" onclick="closeMobileNav()">Carte</a>
 <a href="#transmissions" onclick="closeMobileNav()">Transmissions</a>
 <a href="#survivants" onclick="closeMobileNav()">Survivants</a>
 <a href="#radio-chat" onclick="closeMobileNav()">Radio</a>
@@ -391,6 +433,63 @@ section{padding:100px 15px 60px}
 <div class="countdown-message">APRÈS EXPIRATION, AUCUNE EXTRACTION NE SERA POSSIBLE — PROTOCOLE OMÉGA ACTIVÉ</div>
 </div>
 </section>
+
+<!-- === CARTE CONTAMINATION === -->
+<section id="contamination-map">
+<div class="section-header reveal"><div class="section-label">CARTOGRAPHIE DES ZONES INFECTÉES</div><h2 class="section-title">Propagation Nationale</h2><div class="section-divider"></div></div>
+<div class="map-container">
+<div class="map-wrapper" id="mapWrapper">
+<svg viewBox="0 0 600 600" xmlns="http://www.w3.org/2000/svg" id="franceSVG">
+<!-- Île-de-France -->
+<path id="idf" d="M300 210 L320 200 L340 210 L345 230 L330 245 L310 248 L290 240 L285 225 Z" data-region="Île-de-France"/>
+<!-- Hauts-de-France -->
+<path id="hdf" d="M270 120 L300 100 L340 95 L370 110 L380 140 L370 170 L340 180 L320 200 L300 210 L285 225 L270 210 L255 180 L250 150 Z" data-region="Hauts-de-France"/>
+<!-- Grand Est -->
+<path id="ge" d="M370 110 L410 105 L450 120 L470 155 L475 190 L460 225 L440 250 L410 260 L380 250 L345 230 L340 210 L320 200 L340 180 L370 170 L380 140 Z" data-region="Grand Est"/>
+<!-- Normandie -->
+<path id="nor" d="M170 150 L200 130 L235 125 L255 140 L270 120 L255 180 L270 210 L260 230 L240 235 L215 225 L190 210 L170 190 Z" data-region="Normandie"/>
+<!-- Bretagne -->
+<path id="bre" d="M80 200 L110 180 L140 175 L170 190 L190 210 L185 230 L170 250 L145 260 L120 265 L95 255 L75 235 L70 215 Z" data-region="Bretagne"/>
+<!-- Pays de la Loire -->
+<path id="pdl" d="M120 265 L145 260 L170 250 L185 230 L215 225 L240 235 L250 260 L245 290 L225 310 L195 315 L165 305 L140 290 L125 275 Z" data-region="Pays de la Loire"/>
+<!-- Centre-Val de Loire -->
+<path id="cvl" d="M240 235 L260 230 L285 225 L290 240 L310 248 L330 245 L345 230 L380 250 L375 280 L355 305 L325 315 L295 310 L270 300 L250 290 L245 290 L250 260 Z" data-region="Centre-Val de Loire"/>
+<!-- Bourgogne-Franche-Comté -->
+<path id="bfc" d="M380 250 L410 260 L440 250 L460 225 L475 245 L480 280 L470 310 L445 330 L420 335 L395 325 L375 310 L355 305 L375 280 Z" data-region="Bourgogne-Franche-Comté"/>
+<!-- Nouvelle-Aquitaine -->
+<path id="na" d="M140 290 L165 305 L195 315 L225 310 L245 290 L250 290 L270 300 L295 310 L295 340 L285 370 L270 400 L250 420 L230 440 L210 445 L190 435 L170 410 L155 385 L145 360 L135 330 Z" data-region="Nouvelle-Aquitaine"/>
+<!-- Auvergne-Rhône-Alpes -->
+<path id="ara" d="M325 315 L355 305 L375 310 L395 325 L420 335 L445 330 L460 345 L475 370 L470 400 L450 420 L420 430 L390 425 L365 410 L345 390 L330 370 L315 345 Z" data-region="Auvergne-Rhône-Alpes"/>
+<!-- Occitanie -->
+<path id="occ" d="M210 445 L230 440 L250 420 L270 400 L285 370 L295 340 L315 345 L330 370 L345 390 L365 410 L355 435 L335 455 L310 470 L280 475 L250 470 L225 460 Z" data-region="Occitanie"/>
+<!-- Provence-Alpes-Côte d'Azur -->
+<path id="paca" d="M365 410 L390 425 L420 430 L450 420 L470 400 L490 415 L500 440 L490 465 L465 475 L435 470 L405 460 L380 450 L355 435 Z" data-region="Provence-Alpes-Côte d'Azur"/>
+<!-- Corse -->
+<path id="cor" d="M510 440 L520 435 L530 445 L535 470 L530 495 L520 510 L510 505 L505 480 L505 460 Z" data-region="Corse"/>
+</svg>
+<div class="map-tooltip" id="mapTooltip">
+<div class="map-tooltip-name" id="tooltipName">—</div>
+<div class="map-tooltip-row"><span class="map-tooltip-label">Contamination</span><span class="map-tooltip-value" id="tooltipRate">—</span></div>
+<div class="map-tooltip-row"><span class="map-tooltip-label">Survivants estimés</span><span class="map-tooltip-value" id="tooltipSurvivors">—</span></div>
+<div class="map-tooltip-status" id="tooltipStatus">—</div>
+</div>
+</div>
+<div class="map-legend reveal">
+<div class="legend-item"><div class="legend-dot safe"></div>Zone sûre 0–20%</div>
+<div class="legend-item"><div class="legend-dot risk"></div>Zone à risque 21–50%</div>
+<div class="legend-item"><div class="legend-dot critical"></div>Zone critique 51–75%</div>
+<div class="legend-item"><div class="legend-dot lost"></div>Zone perdue 76–100%</div>
+</div>
+<div class="map-global-counter reveal">Contamination nationale<span class="counter-value" id="globalContamination">0%</span></div>
+</div>
+</section>
+<div class="map-detail-panel" id="mapDetailPanel">
+<button class="map-detail-close" id="mapDetailClose">✕</button>
+<div class="map-detail-name" id="detailName">—</div>
+<div class="map-detail-stats" id="detailStats"></div>
+<div class="map-detail-bar"><div class="map-detail-bar-fill" id="detailBar"></div></div>
+<div class="map-detail-narrative" id="detailNarrative">—</div>
+</div>
 
 <!-- === TRANSMISSIONS AUDIO === -->
 <section id="transmissions">
@@ -585,6 +684,143 @@ document.getElementById('cd-minutes').textContent=String(mn).padStart(2,'0');
 document.getElementById('cd-seconds').textContent=String(sc).padStart(2,'0');
 f.classList.toggle('alert',dy<7)}
 up();setInterval(up,1000);
+})();
+
+// ============================================================
+// === CARTE CONTAMINATION INTERACTIVE ===
+// ============================================================
+(function(){
+const REGIONS={
+'idf':{name:'Île-de-France',rate:92,survivors:85000,pop:12200000,status:'ZONE PERDUE',narrative:'Paris est tombé en 72 heures. Les tunnels du métro grouillent. Les Champs-Élysées sont un charnier à ciel ouvert. Le périphérique est un mur de véhicules calcinés. Seuls quelques groupes résistent dans les catacombes et les tours de La Défense.'},
+'hdf':{name:'Hauts-de-France',rate:78,survivors:120000,pop:6000000,status:'ZONE PERDUE',narrative:'L\'aéroport CDG a été le point d\'entrée du virus. Lille est une ville fantôme. Les zones rurales de la Somme offrent un sursis, mais les hordes migrent depuis Paris. Le tunnel sous la Manche a été dynamité par les Britanniques.'},
+'ge':{name:'Grand Est',rate:65,survivors:340000,pop:5500000,status:'ZONE CRITIQUE',narrative:'Strasbourg tient grâce aux fortifications naturelles du Rhin. La ligne Maginot a été réactivée — ironie de l\'histoire. Les Vosges servent de camps de réfugiés. Metz est en quarantaine totale.'},
+'nor':{name:'Normandie',rate:45,survivors:820000,pop:3300000,status:'ZONE À RISQUE',narrative:'Le littoral est relativement préservé. Les plages du Débarquement servent de camp de fortune. Rouen est coupée en deux par la Seine — la rive droite est perdue. Des convois maritimes assurent un ravitaillement depuis l\'Angleterre.'},
+'bre':{name:'Bretagne',rate:18,survivors:2800000,pop:3400000,status:'ZONE SÛRE',narrative:'La péninsule bretonne est le bastion de l\'espoir. La géographie joue en faveur des survivants. Rennes a instauré un gouvernement provisoire. Les côtes sont patrouillées. Brocéliande est devenu le plus grand camp de réfugiés du pays.'},
+'pdl':{name:'Pays de la Loire',rate:38,survivors:1500000,pop:3800000,status:'ZONE À RISQUE',narrative:'Nantes résiste. Les ponts sur la Loire ont été détruits pour créer une barrière naturelle. La ligne de défense Loire tient, mais l\'afflux de réfugiés du sud et de l\'est met la pression sur les ressources.'},
+'cvl':{name:'Centre-Val de Loire',rate:55,survivors:600000,pop:2600000,status:'ZONE CRITIQUE',narrative:'Les châteaux de la Loire servent de forteresses. Chambord accueille le QG de la Cellule Oméga. Tours a été évacuée. Orléans est coupée du réseau. Les champs sont en friche — la famine menace autant que les infectés.'},
+'bfc':{name:'Bourgogne-Franche-Comté',rate:48,survivors:700000,pop:2800000,status:'ZONE À RISQUE',narrative:'Dijon est sous couvre-feu permanent. Le vignoble sert de zone tampon — les rangées de vignes ralentissent les hordes. Besançon utilise la citadelle Vauban comme dernier retranchement. Le Jura reste largement épargné.'},
+'na':{name:'Nouvelle-Aquitaine',rate:60,survivors:1200000,pop:6000000,status:'ZONE CRITIQUE',narrative:'Bordeaux a tenu 30 jours avant de craquer. La Garonne est une ligne de front. Le Pays Basque a fermé ses accès. Les Landes, dépeuplées, sont une zone grise où patrouilles et hordes se croisent sans cesse.'},
+'ara':{name:'Auvergne-Rhône-Alpes',rate:52,survivors:1800000,pop:8000000,status:'ZONE CRITIQUE',narrative:'Lyon est un enfer urbain — la Presqu\'île est submergée. Les Alpes sont le refuge ultime : Grenoble, Annecy, Chambéry accueillent des milliers de réfugiés. L\'altitude et le froid ralentissent les infectés. Le Mont-Blanc est surnommé "le dernier sanctuaire".'},
+'occ':{name:'Occitanie',rate:82,survivors:180000,pop:5900000,status:'ZONE PERDUE',narrative:'Contact perdu depuis J+45. Dernier message de Toulouse : "L\'hôpital est tombé. Ils sont dans les murs." Montpellier silencieuse. Seules les Cévennes émettent encore des signaux sporadiques. Le canal du Midi est une route de fuite vers l\'Atlantique.'},
+'paca':{name:"Provence-Alpes-Côte d'Azur",rate:88,survivors:95000,pop:5000000,status:'ZONE PERDUE',narrative:'Marseille a été la deuxième ville contaminée après Paris. Le Vieux-Port est un piège mortel. Nice est coupée du monde. Seules les îles — Porquerolles, le Frioul — offrent un refuge temporaire. La Légion étrangère tient Aubagne, dernier bastion militaire du sud.'},
+'cor':{name:'Corse',rate:12,survivors:310000,pop:340000,status:'ZONE SÛRE',narrative:'L\'insularité a sauvé la Corse. Les ports ont été fermés dès J+2. Ajaccio et Bastia fonctionnent presque normalement. L\'île accueille le gouvernement en exil et sert de base arrière pour les opérations de reconquête du continent.'}
+};
+
+const COLORS={safe:'#2d6b55',risk:'#8a7a22',critical:'#a85520',lost:'#6b1010'};
+
+function getColor(rate){
+if(rate<=20)return COLORS.safe;
+if(rate<=50)return COLORS.risk;
+if(rate<=75)return COLORS.critical;
+return COLORS.lost;
+}
+function getStatusClass(rate){
+if(rate<=20)return'status-safe';
+if(rate<=50)return'status-risk';
+if(rate<=75)return'status-critical';
+return'status-lost';
+}
+
+const tooltip=document.getElementById('mapTooltip');
+const detailPanel=document.getElementById('mapDetailPanel');
+
+// Initialiser les couleurs avec animation de propagation
+const paths=document.querySelectorAll('#franceSVG path');
+const propagationOrder=['idf','hdf','ge','nor','cvl','bfc','pdl','na','ara','occ','paca','bre','cor'];
+
+// D'abord tout mettre en gris foncé
+paths.forEach(p=>p.style.fill='#1a1a1a');
+
+// Puis propager progressivement
+let mapAnimated=false;
+const mapObs=new IntersectionObserver(entries=>{
+entries.forEach(entry=>{
+if(entry.isIntersecting&&!mapAnimated){
+mapAnimated=true;
+propagationOrder.forEach((id,i)=>{
+setTimeout(()=>{
+const el=document.getElementById(id);
+const r=REGIONS[id];
+if(el&&r){
+el.style.fill=getColor(r.rate);
+if(r.rate>75)el.classList.add('zone-lost');
+}
+},i*250);
+});
+// Compteur global animé
+setTimeout(()=>{
+const totalPop=Object.values(REGIONS).reduce((a,r)=>a+r.pop,0);
+const weighted=Object.values(REGIONS).reduce((a,r)=>a+r.rate*r.pop,0);
+const globalRate=Math.round(weighted/totalPop);
+let count=0;
+const counterEl=document.getElementById('globalContamination');
+const interval=setInterval(()=>{
+count+=1;
+if(count>globalRate){count=globalRate;clearInterval(interval)}
+counterEl.textContent=count+'%';
+counterEl.style.color=count>75?'var(--rouge-vif)':count>50?'#e83':'#da3';
+},30);
+},propagationOrder.length*250);
+}
+});
+},{threshold:.3});
+mapObs.observe(document.getElementById('contamination-map'));
+
+// Hover tooltip
+paths.forEach(p=>{
+const id=p.id;
+const r=REGIONS[id];
+if(!r)return;
+
+p.addEventListener('mouseenter',e=>{
+tooltip.querySelector('#tooltipName').textContent=r.name;
+tooltip.querySelector('#tooltipRate').textContent=r.rate+'%';
+tooltip.querySelector('#tooltipSurvivors').textContent=r.survivors.toLocaleString('fr-FR');
+const statusEl=tooltip.querySelector('#tooltipStatus');
+statusEl.textContent=r.status;
+statusEl.className='map-tooltip-status '+getStatusClass(r.rate);
+tooltip.classList.add('visible');
+});
+
+p.addEventListener('mousemove',e=>{
+const wrapper=document.getElementById('mapWrapper');
+const rect=wrapper.getBoundingClientRect();
+let x=e.clientX-rect.left+15;
+let y=e.clientY-rect.top-10;
+if(x+230>rect.width)x=e.clientX-rect.left-240;
+if(y<0)y=10;
+tooltip.style.left=x+'px';
+tooltip.style.top=y+'px';
+});
+
+p.addEventListener('mouseleave',()=>{
+tooltip.classList.remove('visible');
+});
+
+// Click → panneau détail
+p.addEventListener('click',()=>{
+document.getElementById('detailName').textContent=r.name;
+const stats=document.getElementById('detailStats');
+stats.innerHTML=`
+<div class="map-detail-stat"><span class="label">Contamination</span><span class="value" style="color:${getColor(r.rate)}">${r.rate}%</span></div>
+<div class="map-detail-stat"><span class="label">Population initiale</span><span class="value">${r.pop.toLocaleString('fr-FR')}</span></div>
+<div class="map-detail-stat"><span class="label">Survivants estimés</span><span class="value">${r.survivors.toLocaleString('fr-FR')}</span></div>
+<div class="map-detail-stat"><span class="label">Taux de perte</span><span class="value">${Math.round((1-r.survivors/r.pop)*100)}%</span></div>
+<div class="map-detail-stat"><span class="label">Statut</span><span class="value" style="color:${getColor(r.rate)}">${r.status}</span></div>`;
+const bar=document.getElementById('detailBar');
+bar.style.width='0%';
+bar.style.background=getColor(r.rate);
+setTimeout(()=>bar.style.width=r.rate+'%',50);
+document.getElementById('detailNarrative').textContent=r.narrative;
+detailPanel.classList.add('active');
+document.body.style.overflow='hidden';
+});
+});
+
+document.getElementById('mapDetailClose').addEventListener('click',()=>{
+detailPanel.classList.remove('active');document.body.style.overflow='';
+});
+
 })();
 
 // ============================================================
