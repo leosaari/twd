@@ -397,6 +397,107 @@ section{min-height:100vh;padding:120px 20px 80px;position:relative}
 .dc-setup input{width:250px}
 }
 
+/* === NEW FEATURES: Avatar, Profile, Friends, DM, Reactions, Status, Animations === */
+/* Avatar upload in setup */
+.dc-avatar-upload{width:80px;height:80px;border-radius:50%;border:2px dashed rgba(139,0,0,.4);display:flex;align-items:center;justify-content:center;cursor:pointer;overflow:hidden;transition:.3s;position:relative;background:rgba(0,0,0,.5);flex-shrink:0}
+.dc-avatar-upload:hover{border-color:var(--rouge-vif);box-shadow:0 0 20px rgba(139,0,0,.3)}
+.dc-avatar-upload img{width:100%;height:100%;object-fit:cover;border-radius:50%}
+.dc-avatar-upload .av-placeholder{font-family:var(--font-heading);font-size:2rem;color:rgba(139,0,0,.4);text-transform:uppercase;pointer-events:none}
+.dc-avatar-upload .av-hint{position:absolute;bottom:0;left:0;right:0;background:rgba(0,0,0,.7);font-family:var(--font-mono);font-size:.45rem;color:var(--parchemin-sombre);text-align:center;padding:3px 0;letter-spacing:1px;text-transform:uppercase;opacity:0;transition:.2s}
+.dc-avatar-upload:hover .av-hint{opacity:1}
+.dc-avatar-upload input[type=file]{display:none}
+/* Userbar avatar clickable */
+.dc-userbar-av{cursor:pointer;transition:.3s}
+.dc-userbar-av:hover{box-shadow:0 0 10px rgba(139,0,0,.4)}
+.dc-userbar-av img{width:100%;height:100%;object-fit:cover;border-radius:50%}
+/* Avatar in messages */
+.dc-m-av img{width:100%;height:100%;object-fit:cover;border-radius:50%}
+/* Avatar in members */
+.dc-member-av img{width:100%;height:100%;object-fit:cover;border-radius:50%}
+/* Online avatar glow */
+@keyframes av-glow{0%,100%{box-shadow:0 0 4px rgba(59,165,92,.3)}50%{box-shadow:0 0 12px rgba(59,165,92,.6)}}
+.dc-member-av.av-online{animation:av-glow 3s ease-in-out infinite}
+.dc-userbar-av.av-online{animation:av-glow 3s ease-in-out infinite}
+
+/* Profile card popup */
+.dc-profile-overlay{display:none;position:fixed;top:0;left:0;width:100%;height:100%;z-index:30000;background:rgba(0,0,0,.6);align-items:center;justify-content:center}
+.dc-profile-overlay.active{display:flex}
+.dc-profile-card{background:linear-gradient(145deg,#0d0e10,#0a0b0d);border:1px solid rgba(139,0,0,.35);width:340px;max-width:95vw;position:relative;overflow:hidden;animation:reveal-up .3s ease}
+.dc-profile-card::before{content:'';position:absolute;top:0;left:0;width:100%;height:70px;background:linear-gradient(135deg,rgba(139,0,0,.15),rgba(74,82,64,.1))}
+.dc-profile-card::after{content:'';position:absolute;top:0;left:0;width:100%;height:100%;background:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.04'/%3E%3C/svg%3E");pointer-events:none}
+.dc-profile-close{position:absolute;top:8px;right:8px;width:28px;height:28px;border:1px solid rgba(139,0,0,.3);background:rgba(0,0,0,.5);color:var(--rouge-vif);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:.8rem;z-index:2;transition:.2s;border-radius:3px}
+.dc-profile-close:hover{background:rgba(139,0,0,.3)}
+.dc-profile-avatar{width:72px;height:72px;border-radius:50%;border:3px solid #0a0b0d;display:flex;align-items:center;justify-content:center;font-family:var(--font-mono);font-size:1.4rem;color:#fff;font-weight:700;margin:36px 0 0 20px;position:relative;z-index:1;box-shadow:0 4px 15px rgba(0,0,0,.5)}
+.dc-profile-avatar img{width:100%;height:100%;object-fit:cover;border-radius:50%}
+.dc-profile-avatar .p-status-dot{position:absolute;bottom:2px;right:2px;width:14px;height:14px;border-radius:50%;border:3px solid #0a0b0d}
+.dc-profile-body{padding:12px 20px 20px;position:relative;z-index:1}
+.dc-profile-name{font-family:var(--font-military);font-size:1.1rem;color:var(--parchemin);letter-spacing:2px;text-transform:uppercase;margin-bottom:2px}
+.dc-profile-role{font-family:var(--font-mono);font-size:.55rem;padding:2px 8px;border-radius:3px;letter-spacing:1.5px;text-transform:uppercase;display:inline-block;margin-bottom:8px}
+.dc-profile-bio{font-family:var(--font-body);font-size:.78rem;color:var(--parchemin-sombre);line-height:1.6;margin-bottom:12px;border-left:2px solid rgba(139,0,0,.3);padding-left:10px;font-style:italic}
+.dc-profile-stats{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px}
+.dc-profile-stat{background:rgba(0,0,0,.3);border:1px solid rgba(74,82,64,.1);padding:8px 10px}
+.dc-profile-stat-label{font-family:var(--font-mono);font-size:.5rem;color:var(--vert-kaki);letter-spacing:2px;text-transform:uppercase;margin-bottom:2px}
+.dc-profile-stat-value{font-family:var(--font-mono);font-size:.75rem;color:var(--parchemin)}
+.dc-profile-status{font-family:var(--font-mono);font-size:.6rem;color:var(--vert-mil);letter-spacing:1px;display:flex;align-items:center;gap:5px;margin-top:6px}
+.dc-profile-status::before{content:'';width:6px;height:6px;border-radius:50%}
+.dc-profile-status.s-on::before{background:#3ba55c}.dc-profile-status.s-idle::before{background:#faa61a}.dc-profile-status.s-dnd::before{background:#ed4245}
+
+/* Friend system */
+.dc-member-add{display:none;width:18px;height:18px;border-radius:3px;border:1px solid rgba(139,0,0,.3);background:rgba(0,0,0,.4);color:var(--rouge-vif);cursor:pointer;font-size:.6rem;align-items:center;justify-content:center;transition:.2s;flex-shrink:0;margin-left:auto}
+.dc-member:hover .dc-member-add{display:flex}
+.dc-member-add:hover{background:rgba(139,0,0,.2);border-color:var(--rouge-vif)}
+.dc-member-add.is-friend{display:flex;color:#faa61a;border-color:rgba(250,166,26,.3)}
+.dc-friends-section{border-top:1px solid rgba(74,82,64,.08);padding:4px 0}
+.dc-friends-head{padding:6px 14px;font-family:var(--font-mono);font-size:.5rem;color:rgba(250,166,26,.35);letter-spacing:2px;text-transform:uppercase;display:flex;justify-content:space-between}
+.dc-friend-item{display:flex;align-items:center;gap:8px;padding:4px 10px;margin:1px 6px;border-radius:4px;cursor:pointer;transition:.15s}
+.dc-friend-item:hover{background:rgba(250,166,26,.06)}
+.dc-friend-item .friend-star{font-size:.5rem;color:#faa61a;flex-shrink:0}
+.dc-friend-item .dc-member-av{width:22px;height:22px;font-size:.5rem}
+.dc-friend-item .dc-member-name{font-size:.7rem;color:rgba(168,155,122,.6)}
+
+/* DM channels */
+.dc-dm-group{padding:8px 14px 4px;font-family:var(--font-mono);font-size:.5rem;color:rgba(250,166,26,.3);letter-spacing:2.5px;text-transform:uppercase;display:flex;align-items:center;gap:6px}
+.dc-dm-group::after{content:'';flex:1;height:1px;background:rgba(250,166,26,.08)}
+.dc-ch.dm-ch .ch-i{color:#faa61a;opacity:.6}
+.dc-ch.dm-ch.active .ch-i{color:#faa61a;opacity:1}
+.dc-ch.dm-ch{border-left:2px solid transparent}
+.dc-ch.dm-ch.active{border-left-color:#faa61a;background:rgba(250,166,26,.08)}
+
+/* Emoji reactions */
+.dc-reaction-bar{display:none;position:absolute;top:-6px;right:8px;background:rgba(10,11,13,.95);border:1px solid rgba(74,82,64,.2);border-radius:4px;padding:2px 4px;gap:2px;z-index:10;flex-direction:row}
+.dc-m{position:relative}
+.dc-m:hover .dc-reaction-bar{display:flex}
+.dc-reaction-btn{background:none;border:none;cursor:pointer;font-size:.85rem;padding:3px 5px;border-radius:3px;transition:.15s;line-height:1}
+.dc-reaction-btn:hover{background:rgba(139,0,0,.15);transform:scale(1.2)}
+.dc-reactions{display:flex;flex-wrap:wrap;gap:4px;margin-top:4px}
+.dc-reaction{display:flex;align-items:center;gap:3px;background:rgba(74,82,64,.1);border:1px solid rgba(74,82,64,.15);border-radius:4px;padding:2px 6px;cursor:pointer;transition:.2s;font-size:.75rem}
+.dc-reaction:hover{background:rgba(139,0,0,.12);border-color:rgba(139,0,0,.3)}
+.dc-reaction.reacted{background:rgba(139,0,0,.15);border-color:rgba(139,0,0,.4)}
+.dc-reaction .r-count{font-family:var(--font-mono);font-size:.55rem;color:var(--parchemin-sombre)}
+@keyframes reaction-bounce{0%{transform:scale(1)}50%{transform:scale(1.4)}100%{transform:scale(1)}}
+.dc-reaction.just-reacted{animation:reaction-bounce .3s ease}
+
+/* Custom status dropdown */
+.dc-status-dropdown{display:none;position:absolute;bottom:100%;left:0;right:0;background:rgba(10,11,13,.97);border:1px solid rgba(74,82,64,.2);border-bottom:none;z-index:20;padding:6px 0}
+.dc-status-dropdown.active{display:block}
+.dc-status-option{display:block;width:100%;text-align:left;padding:7px 14px;background:none;border:none;color:var(--parchemin-sombre);font-family:var(--font-mono);font-size:.6rem;letter-spacing:1px;cursor:pointer;transition:.15s}
+.dc-status-option:hover{background:rgba(139,0,0,.1);color:var(--parchemin)}
+.dc-status-custom-wrap{padding:4px 10px}
+.dc-status-custom-wrap input{width:100%;padding:5px 8px;background:rgba(0,0,0,.5);border:1px solid rgba(74,82,64,.2);color:var(--parchemin);font-family:var(--font-mono);font-size:.6rem;outline:none}
+.dc-status-custom-wrap input:focus{border-color:rgba(139,0,0,.4)}
+
+/* Message slide-in animation */
+@keyframes msg-slide-in{from{opacity:0;transform:translateX(-12px)}to{opacity:1;transform:translateX(0)}}
+.dc-m.msg-new,.dc-sys.msg-new{animation:msg-slide-in .3s ease forwards}
+
+/* Notification pulse on frame */
+@keyframes frame-pulse{0%{border-color:rgba(74,82,64,.2)}50%{border-color:rgba(139,0,0,.6);box-shadow:0 0 20px rgba(139,0,0,.2)}100%{border-color:rgba(74,82,64,.2)}}
+.dc-frame.notif-pulse{animation:frame-pulse .6s ease}
+
+/* Channel switch glitch */
+@keyframes channel-glitch{0%{opacity:1;filter:none}15%{opacity:.6;filter:blur(1px) hue-rotate(20deg)}30%{opacity:.9;filter:none}45%{opacity:.5;filter:blur(2px) brightness(1.5)}60%{opacity:1;filter:none}100%{opacity:1;filter:none}}
+.dc-msgs.channel-switching{animation:channel-glitch .35s ease}
+
 /* === MÉMORIAL DES CONTAMINÉS === */
 #memorial{min-height:100vh;background:linear-gradient(180deg,#050505,#0a0808,#050505);padding:120px 20px 80px}
 .memorial-subtitle{text-align:center;font-family:var(--font-body);font-size:.9rem;color:var(--parchemin-sombre);font-style:italic;max-width:550px;margin:0 auto 50px;line-height:1.7;opacity:.7}
@@ -765,10 +866,19 @@ section{padding:100px 15px 60px}
 <div class="dc-members-head"><span>SURVIVANTS EN LIGNE</span><span id="dcOnlineCount">6</span></div>
 <div id="dcMembersList"></div>
 </div>
-<div class="dc-userbar" id="dcUserBar" style="display:none">
-<div class="dc-userbar-av" id="dcUserAvatar" style="background:#8b0000">?</div>
-<div class="dc-userbar-info"><div class="ub-name" id="dcUserName">—</div><div class="ub-tag">Survivant · Echo-7</div></div>
+<div class="dc-userbar" id="dcUserBar" style="display:none;position:relative">
+<div class="dc-userbar-av av-online" id="dcUserAvatar" style="background:#8b0000" onclick="changeUserAvatar()" title="Changer l'avatar">?</div>
+<div class="dc-userbar-info"><div class="ub-name" id="dcUserName">—</div><div class="ub-tag" id="dcUserStatus" onclick="toggleStatusDropdown()" style="cursor:pointer" title="Cliquez pour changer votre statut">Survivant · Echo-7</div></div>
 <button class="dc-leave-btn" onclick="leaveDiscord()" title="Quitter le réseau">✕</button>
+<div class="dc-status-dropdown" id="dcStatusDropdown">
+<button class="dc-status-option" onclick="setCustomStatus('En patrouille')">⚔ En patrouille</button>
+<button class="dc-status-option" onclick="setCustomStatus('À l\'infirmerie')">✚ À l'infirmerie</button>
+<button class="dc-status-option" onclick="setCustomStatus('En reconnaissance')">◎ En reconnaissance</button>
+<button class="dc-status-option" onclick="setCustomStatus('Au repos')">◇ Au repos</button>
+<button class="dc-status-option" onclick="setCustomStatus('En alerte')">⚠ En alerte</button>
+<div class="dc-status-custom-wrap"><input type="text" id="dcCustomStatusInput" placeholder="Statut personnalisé..." maxlength="40" onkeydown="if(event.key==='Enter'){setCustomStatus(this.value);this.value=''}"></div>
+</div>
+<input type="file" id="dcAvatarChangeFile" accept="image/*" style="display:none">
 </div>
 </div>
 <!-- MAIN PANEL -->
@@ -784,7 +894,12 @@ section{padding:100px 15px 60px}
 <div class="dc-setup" id="dcSetup">
 <div class="dc-setup-icon">⛊</div>
 <h3>Identification requise</h3>
-<p class="setup-desc">Le réseau Echo-7 nécessite une identification. Choisissez votre nom de code ou générez-en un automatiquement.</p>
+<p class="setup-desc">Le réseau Echo-7 nécessite une identification. Choisissez votre avatar et nom de code.</p>
+<div class="dc-avatar-upload" id="dcAvatarUpload" title="Cliquez pour ajouter une photo">
+<span class="av-placeholder" id="dcAvPlaceholder">?</span>
+<span class="av-hint">PHOTO</span>
+<input type="file" id="dcAvatarFile" accept="image/*">
+</div>
 <input type="text" id="dcPseudoInput" placeholder="NOM DE CODE..." maxlength="20" autocomplete="off" spellcheck="false">
 <div class="setup-pseudo-gen" id="dcGenPseudo" onclick="generatePseudo()">⟳ GÉNÉRER UN NOM DE SURVIVANT</div>
 <button class="setup-btn" onclick="setDiscordPseudo()">REJOINDRE LE RÉSEAU</button>
@@ -799,6 +914,20 @@ section{padding:100px 15px 60px}
 <button class="dc-send" onclick="sendDiscordMessage()">➤</button>
 </div>
 </div>
+</div>
+</div>
+</div>
+<!-- Profile Card Popup -->
+<div class="dc-profile-overlay" id="dcProfileOverlay">
+<div class="dc-profile-card" id="dcProfileCard">
+<button class="dc-profile-close" onclick="closeProfileCard()">✕</button>
+<div class="dc-profile-avatar" id="dcProfileAvatar" style="background:#8b0000">?</div>
+<div class="dc-profile-body">
+<div class="dc-profile-name" id="dcProfileName">—</div>
+<div class="dc-profile-role" id="dcProfileRole">SURVIVANT</div>
+<div class="dc-profile-bio" id="dcProfileBio"></div>
+<div class="dc-profile-stats" id="dcProfileStats"></div>
+<div class="dc-profile-status" id="dcProfileStatus"></div>
 </div>
 </div>
 </div>
@@ -1408,7 +1537,11 @@ const DC={
 pseudo:localStorage.getItem('twd_dc_pseudo')||'',
 channel:'general',
 typing:false,
-ambientTimer:null
+ambientTimer:null,
+avatar:localStorage.getItem('twd_dc_avatar')||'',
+customStatus:localStorage.getItem('twd_dc_status')||'Survivant · Echo-7',
+friends:JSON.parse(localStorage.getItem('twd_dc_friends')||'[]'),
+joinDate:localStorage.getItem('twd_dc_joindate')||''
 };
 
 // === CHANNELS CONFIG ===
@@ -1479,6 +1612,26 @@ general:["Sentinelle_Nord, les yeux du Poste Echo-7. Périmètre surveillé 24/7
 'ECHO-7':{color:'#8b0000',role:'BOT SYSTÈME',rc:'rgba(139,0,0,.15)',rb:'#8b0000',av:'⛊',status:'dnd',
 topics:[],
 responses:{general:["Poste Echo-7 opérationnel. Canaux surveillés, transmissions archivées. Cellule Oméga en alerte. Terminé.","Votre message a été enregistré et transmis aux opérateurs concernés. Restez sur cette fréquence.","Système Echo-7 : transmission reçue. Les spécialistes ont été notifiés. Réponse sous peu."]}}
+};
+
+// === BOT BIOS (for profile cards) ===
+const BOT_BIOS={
+'CMDT. DURAND':'Ancien colonel des forces spéciales françaises. Fondateur de la Cellule Oméga. Coordonne les 12 postes-relais du réseau de résistance depuis J+30.',
+'DR. MARCHAND':'Virologue de l\'Institut Pasteur reconvertie en médecin de guerre. Travaille sur le sérum expérimental R-7. N\'a pas dormi plus de 4h depuis J+0.',
+'SGT. VAUTRIN':'Ex-légionnaire, 15 ans de service. Responsable de la sécurité périmétrique. A survécu à la chute de Paris et la bataille de la Loire.',
+'LOUP_NOIR':'Ancien garde forestier de Brocéliande. Connaît chaque sentier, chaque grotte, chaque point d\'eau du territoire. L\'homme qui ne laisse pas de traces.',
+'SENTINELLE_NORD':'Identité classifiée. Poste d\'observation permanent sur la tour nord. N\'a jamais quitté son poste depuis J+12. Les yeux du camp.',
+'ECHO-7':'Système automatisé du Poste Echo-7. Intelligence artificielle résiduelle fonctionnant sur générateur de secours. Protocole Oméga actif.'
+};
+
+// === DM RESPONSES (contextual per bot in DMs) ===
+const DM_RESPONSES={
+'CMDT. DURAND':["Message privé reçu. Je prends note de votre demande. Si c'est urgent, présentez-vous à mon QG directement.","Entre nous... la situation est plus grave que ce que je laisse paraître sur les canaux publics. Gardez ça pour vous.","Je vous fais confiance, survivant. Vous avez prouvé votre valeur. Si vous avez besoin de quoi que ce soit, demandez.","Les stocks baissent plus vite que prévu. J'ai besoin de gens fiables pour la prochaine mission de récupération. Intéressé(e) ?"],
+'DR. MARCHAND':["En privé je peux être plus directe : le sérum R-7 n'est pas aussi avancé que je le dis en public. Mais on progresse.","Comment allez-vous vraiment ? Pas la réponse officielle. La vraie.","Passez me voir quand vous pouvez. J'ai des vitamines en réserve que je garde pour les gens de confiance.","Gardez ça entre nous : j'ai identifié un patient qui montre une immunité naturelle. Ça pourrait tout changer."],
+'SGT. VAUTRIN':["Sergent Vautrin. Ce canal est sécurisé. Parlez librement.","J'ai repéré une cache d'armes dans un ancien commissariat. Ça reste entre nous. Rendez-vous demain 05h00 si vous voulez participer.","Vous avez du cran. C'est rare ces jours-ci. Je vous garde dans mon équipe de première ligne.","Le périmètre sud a une faille. Je la colmate ce soir. Si vous pouvez couvrir le secteur est pendant ce temps..."],
+'LOUP_NOIR':["Loup_Noir. Je préfère les messages en face-à-face, mais ce canal fera l'affaire.","Il y a une source d'eau que je n'ai montrée à personne. Coordonnées : 48.12°N, 1.87°W. Gardez ça pour vous.","La forêt change. Les animaux migrent vers le nord. Mauvais signe. Quelque chose les fait fuir.","Si vous devez partir, venez me voir d'abord. Je vous donnerai un itinéraire que même les contaminés ne trouveront pas."],
+'SENTINELLE_NORD':["Ce canal est chiffré. J'ai vu des choses depuis ma tour que je ne peux pas dire sur les canaux publics.","Il y a un groupe organisé à 20km au sud-est. Pas des contaminés. Des vivants. Armés. Et ils nous observent.","Je ne dors plus vraiment. Je somnole. Un oeil ouvert, toujours. C'est devenu une seconde nature.","Faites attention à qui vous faites confiance dans le camp. Tout le monde n'est pas ce qu'il prétend être."],
+'ECHO-7':["[MESSAGE PRIVÉ] Transmission sécurisée établie. Canal chiffré actif.","[SYSTÈME] Votre message a été archivé dans les registres confidentiels du Poste Echo-7.","[ALERTE] Activité réseau inhabituelle détectée. Restez vigilant. Fin de transmission."]
 };
 
 // === CHANNEL-SPECIFIC BOT ROUTING ===
@@ -1630,7 +1783,7 @@ const allMembers=[
 ...Object.entries(BOTS).map(([name,b])=>({name,color:b.color,av:b.av,role:b.role,rc:b.rc,rb:b.rb,status:b.status,isBot:true}))
 ];
 if(DC.pseudo){
-allMembers.push({name:DC.pseudo,color:'#8b0000',av:DC.pseudo.charAt(0),role:'SURVIVANT',rc:'rgba(139,0,0,.1)',rb:'rgba(168,155,122,.4)',status:'on',isBot:false});
+allMembers.push({name:DC.pseudo,color:'#8b0000',av:DC.avatar?'__img__':DC.pseudo.charAt(0),role:'SURVIVANT',rc:'rgba(139,0,0,.1)',rb:'rgba(168,155,122,.4)',status:'on',isBot:false});
 }
 // Sort: online first
 allMembers.sort((a,b)=>{const o={on:0,idle:1,dnd:2};return(o[a.status]||3)-(o[b.status]||3)});
@@ -1639,46 +1792,90 @@ document.getElementById('dcOnlineCount').textContent=count;
 allMembers.forEach(m=>{
 const d=document.createElement('div');
 d.className='dc-member';
-d.innerHTML=`<div class="dc-member-av" style="background:${m.color}">${m.av}<span class="m-status ${m.status==='on'?'on':m.status==='idle'?'idle':'dnd'}"></span></div><span class="dc-member-name" style="color:${m.status==='on'?'rgba(168,155,122,.7)':'rgba(168,155,122,.35)'}">${dcSan(m.name)}</span><span class="dc-member-role" style="background:${m.rc};color:${m.rb}">${m.role}</span>`;
+const isFriend=DC.friends.includes(m.name);
+const avContent=(m.name===DC.pseudo&&DC.avatar)?`<img src="${DC.avatar}" alt="">`:m.av;
+const onlineClass=m.status==='on'?' av-online':'';
+const safeName=m.name.replace(/'/g,"\\'");
+let addBtn='';
+if(m.isBot&&m.name!=='ECHO-7'&&DC.pseudo){
+addBtn=`<button class="dc-member-add${isFriend?' is-friend':''}" onclick="event.stopPropagation();toggleFriend('${safeName}')" title="${isFriend?'Retirer des contacts':'Ajouter aux contacts'}">${isFriend?'★':'+'}</button>`;
+}
+d.innerHTML=`<div class="dc-member-av${onlineClass}" style="background:${m.color}" onclick="openProfileCard('${safeName}')">${avContent}<span class="m-status ${m.status==='on'?'on':m.status==='idle'?'idle':'dnd'}"></span></div><span class="dc-member-name" style="color:${m.status==='on'?'rgba(168,155,122,.7)':'rgba(168,155,122,.35)'};cursor:pointer" onclick="openProfileCard('${safeName}')">${dcSan(m.name)}</span><span class="dc-member-role" style="background:${m.rc};color:${m.rb}">${m.role}</span>${addBtn}`;
 list.appendChild(d);
 });
+// Render friends section
+renderFriends();
+// Render DM channels
+renderDMChannels();
 }
 
 // === RENDER MESSAGES ===
 function renderDC(){
 const el=document.getElementById('dcMessages');
 if(!el)return;
+const isDM=DC.channel.startsWith('dm_');
 const msgs=getDCH(DC.channel);
 el.innerHTML='';
 // Welcome card for empty-ish channels
 if(msgs.length<=3){
+if(isDM){
+const botName=DC.channel.replace('dm_','');
+const bot=BOTS[botName];
+if(bot){
+const welcome=document.createElement('div');
+welcome.className='dc-welcome';
+welcome.innerHTML=`<h4>Message privé avec ${botName}</h4><p>Canal sécurisé et chiffré. Vos échanges restent confidentiels.</p>`;
+el.appendChild(welcome);
+}
+}else{
 const ch=CHANNELS[DC.channel];
+if(ch){
 const welcome=document.createElement('div');
 welcome.className='dc-welcome';
 welcome.innerHTML=`<h4>Bienvenue dans #${ch.name}</h4><p>${ch.desc}</p><div class="wc-channels">${Object.entries(CHANNELS).filter(([k])=>k!==DC.channel).slice(0,4).map(([k,v])=>`<span class="wc-ch" onclick="switchChannel('${k}')"># ${v.name}</span>`).join('')}</div>`;
 el.appendChild(welcome);
 }
+}
+}
 let lastP='';
-msgs.forEach(m=>{
+const REACTION_EMOJIS=['☢','⚔','✚','👊'];
+msgs.forEach((m,mi)=>{
 if(m.sys){
 const d=document.createElement('div');
-d.className='dc-sys';
+d.className='dc-sys msg-new';
 d.innerHTML=`<span class="dc-sys-inner"><b>${dcSan(m.p)}</b> — ${dcSan(m.t)}</span>`;
 el.appendChild(d);lastP='';return;
 }
 const grouped=(m.p===lastP);
 const bot=BOTS[m.p];
 const d=document.createElement('div');
-d.className='dc-m'+(grouped?' grouped':'');
+d.className='dc-m msg-new'+(grouped?' grouped':'');
+// Reaction bar HTML
+const reactionBar=`<div class="dc-reaction-bar">${REACTION_EMOJIS.map(e=>`<button class="dc-reaction-btn" onclick="addReaction(${mi},'${e}')" title="${e}">${e}</button>`).join('')}</div>`;
+// Existing reactions
+const reactions=m.reactions||{};
+let reactionsHTML='';
+const rKeys=Object.keys(reactions);
+if(rKeys.length){
+reactionsHTML='<div class="dc-reactions">'+rKeys.map(e=>{
+const reacted=reactions[e].includes('__user__');
+return `<span class="dc-reaction${reacted?' reacted':''}" onclick="addReaction(${mi},'${e}')">${e}<span class="r-count">${reactions[e].length}</span></span>`;
+}).join('')+'</div>';
+}
 if(grouped){
-d.innerHTML=`<div class="dc-m-body"><div class="dc-m-txt">${dcSan(m.t)}</div></div>`;
+d.innerHTML=`${reactionBar}<div class="dc-m-body"><div class="dc-m-txt">${dcSan(m.t)}</div>${reactionsHTML}</div>`;
 }else{
 const c=bot?bot.color:'#8b0000';
-const av=bot?bot.av:(m.p?m.p.charAt(0):'?');
+let av=bot?bot.av:(m.p?m.p.charAt(0):'?');
+// Check if this is the user and they have an avatar
+if(m.p===DC.pseudo&&DC.avatar){
+av=`<img src="${DC.avatar}" alt="">`;
+}
 const isBot=bot&&m.p!==DC.pseudo;
 const badge=bot?`<span class="dc-m-badge" style="background:${bot.rc};color:${bot.rb};border:1px solid ${bot.rb}">${bot.role}</span>`:'<span class="dc-m-badge" style="background:rgba(139,0,0,.1);color:rgba(168,155,122,.4);border:1px solid rgba(168,155,122,.2)">SURVIVANT</span>';
 const nc=bot?bot.color:'var(--parchemin)';
-d.innerHTML=`<div class="dc-m-av${isBot?' bot-av':''}" style="background:${c}">${av}</div><div class="dc-m-body"><div class="dc-m-head"><span class="dc-m-name" style="color:${nc}">${dcSan(m.p)}</span>${badge}<span class="dc-m-time">${m.time||''}</span></div><div class="dc-m-txt">${dcSan(m.t)}</div></div>`;
+const safeP=m.p.replace(/'/g,"\\'");
+d.innerHTML=`${reactionBar}<div class="dc-m-av${isBot?' bot-av':''}" style="background:${c}" onclick="openProfileCard('${safeP}')">${av}</div><div class="dc-m-body"><div class="dc-m-head"><span class="dc-m-name" style="color:${nc}" onclick="openProfileCard('${safeP}')">${dcSan(m.p)}</span>${badge}<span class="dc-m-time">${m.time||''}</span></div><div class="dc-m-txt">${dcSan(m.t)}</div>${reactionsHTML}</div>`;
 }
 el.appendChild(d);lastP=m.p;
 });
@@ -1687,19 +1884,31 @@ el.scrollTop=el.scrollHeight;
 
 // === SWITCH CHANNEL ===
 function switchChannel(ch){
-if(!CHANNELS[ch])return;
+const isDM=ch.startsWith('dm_');
+if(!isDM&&!CHANNELS[ch])return;
 DC.channel=ch;
 document.querySelectorAll('.dc-ch').forEach(c=>c.classList.remove('active'));
 document.querySelector(`.dc-ch[data-channel="${ch}"]`)?.classList.add('active');
+if(isDM){
+const botName=ch.replace('dm_','');
+document.getElementById('dcTopName').textContent='DM · '+botName;
+document.getElementById('dcTopDesc').textContent='Canal privé chiffré';
+const input=document.getElementById('dcMsgInput');
+if(input)input.placeholder=`Message privé à ${botName}...`;
+}else{
 const c=CHANNELS[ch];
 document.getElementById('dcTopName').textContent=c.name;
 document.getElementById('dcTopDesc').textContent=c.desc;
 const input=document.getElementById('dcMsgInput');
 if(input)input.placeholder=`Transmettez dans #${c.name}...`;
+}
 document.getElementById('dcTyping').innerHTML='';
 // Clear badge
 const badge=document.getElementById('badge-'+ch);
 if(badge)badge.textContent='';
+// Glitch transition
+const msgsEl=document.getElementById('dcMessages');
+if(msgsEl){msgsEl.classList.add('channel-switching');setTimeout(()=>msgsEl.classList.remove('channel-switching'),350)}
 renderDC();
 document.querySelector('.dc-side')?.classList.remove('mob-open');
 dcStaticBurst();
@@ -1721,12 +1930,15 @@ if(!v)return;
 DC.pseudo=v.toUpperCase().replace(/[^A-ZÀ-ÿ0-9_\-]/gi,'').substring(0,20);
 if(!DC.pseudo)return;
 localStorage.setItem('twd_dc_pseudo',DC.pseudo);
+if(!DC.joinDate){DC.joinDate=new Date().toISOString();localStorage.setItem('twd_dc_joindate',DC.joinDate)}
 document.getElementById('dcSetup').style.display='none';
 document.getElementById('dcMessages').style.display='flex';
 document.getElementById('dcInputArea').style.display='block';
 document.getElementById('dcUserBar').style.display='flex';
 document.getElementById('dcUserName').textContent=DC.pseudo;
-document.getElementById('dcUserAvatar').textContent=DC.pseudo.charAt(0);
+const uavEl=document.getElementById('dcUserAvatar');
+if(DC.avatar){uavEl.innerHTML=`<img src="${DC.avatar}" alt="">`}else{uavEl.textContent=DC.pseudo.charAt(0)}
+document.getElementById('dcUserStatus').textContent=DC.customStatus;
 renderMembers();
 // System join message
 const msgs=getDCH(DC.channel);
@@ -1772,8 +1984,12 @@ saveDCH(DC.channel,msgs);
 input.value='';
 renderDC();
 dcBeep(660,.04,.02);
-// Trigger bot
+// Trigger bot response (DM or channel)
+if(DC.channel.startsWith('dm_')){
+triggerDMResponse(text);
+}else{
 triggerBotResponse(text);
+}
 }
 window.sendDiscordMessage=sendDiscordMessage;
 
@@ -1792,7 +2008,7 @@ hideTyping();
 const ms=getDCH(DC.channel);
 ms.push({p:botName,t:response,time:getTime(),bot:true});
 saveDCH(DC.channel,ms);renderDC();
-dcNotifSound();dcFlash();
+dcNotifSound();dcFlash();framePulse();
 // 35% chance a second specialist chimes in
 if(Math.random()<0.35){
 const others=Object.keys(BOTS).filter(b=>b!==botName&&b!=='ECHO-7');
@@ -1873,9 +2089,13 @@ document.getElementById('dcMessages').style.display='flex';
 document.getElementById('dcInputArea').style.display='block';
 document.getElementById('dcUserBar').style.display='flex';
 document.getElementById('dcUserName').textContent=DC.pseudo;
-document.getElementById('dcUserAvatar').textContent=DC.pseudo.charAt(0);
+const uavEl=document.getElementById('dcUserAvatar');
+if(DC.avatar){uavEl.innerHTML=`<img src="${DC.avatar}" alt="">`}else{uavEl.textContent=DC.pseudo.charAt(0)}
+document.getElementById('dcUserStatus').textContent=DC.customStatus;
 startAmbient();
 }
+// Setup avatar upload handler
+setupAvatarUpload();
 renderMembers();
 renderDC();
 }
@@ -1886,9 +2106,16 @@ function leaveDiscord(){
 const msgs=getDCH(DC.channel);
 msgs.push({p:'ECHO-7',t:`${DC.pseudo} a quitté le réseau.`,time:getTime(),sys:true});
 saveDCH(DC.channel,msgs);
+// Clear DM histories first (before clearing friends)
+const oldFriends=[...DC.friends];
+oldFriends.forEach(f=>{localStorage.removeItem('twd_dc2_dm_'+f.toLowerCase().replace(/[^a-zà-ÿ0-9]/g,''))});
 // Clear user data
-DC.pseudo='';
+DC.pseudo='';DC.avatar='';DC.customStatus='Survivant · Echo-7';DC.friends=[];DC.joinDate='';
 localStorage.removeItem('twd_dc_pseudo');
+localStorage.removeItem('twd_dc_avatar');
+localStorage.removeItem('twd_dc_status');
+localStorage.removeItem('twd_dc_friends');
+localStorage.removeItem('twd_dc_joindate');
 // Clear all channel histories for fresh start
 for(const ch of Object.keys(CHANNELS)){
 localStorage.removeItem('twd_dc2_'+ch);
@@ -1902,6 +2129,9 @@ document.getElementById('dcInputArea').style.display='none';
 document.getElementById('dcUserBar').style.display='none';
 document.getElementById('dcTyping').innerHTML='';
 document.getElementById('dcPseudoInput').value='';
+// Reset avatar upload area
+const avUpload=document.getElementById('dcAvatarUpload');
+if(avUpload){avUpload.innerHTML='<span class="av-placeholder" id="dcAvPlaceholder">?</span><span class="av-hint">PHOTO</span><input type="file" id="dcAvatarFile" accept="image/*" style="display:none">';setupAvatarUpload()}
 // Reset channel to general
 DC.channel='general';
 document.querySelectorAll('.dc-ch').forEach(c=>c.classList.remove('active'));
@@ -1921,9 +2151,288 @@ dcStaticBurst();
 }
 window.leaveDiscord=leaveDiscord;
 
+// === AVATAR UPLOAD ===
+function setupAvatarUpload(){
+const uploadArea=document.getElementById('dcAvatarUpload');
+const fileInput=document.getElementById('dcAvatarFile');
+if(uploadArea&&fileInput){
+uploadArea.addEventListener('click',()=>fileInput.click());
+fileInput.addEventListener('change',e=>{
+const file=e.target.files[0];
+if(!file)return;
+const reader=new FileReader();
+reader.onload=function(ev){
+const dataUrl=ev.target.result;
+// Resize to save localStorage space
+const img=new Image();
+img.onload=function(){
+const canvas=document.createElement('canvas');
+const size=128;
+canvas.width=size;canvas.height=size;
+const ctx=canvas.getContext('2d');
+const min=Math.min(img.width,img.height);
+const sx=(img.width-min)/2,sy=(img.height-min)/2;
+ctx.drawImage(img,sx,sy,min,min,0,0,size,size);
+DC.avatar=canvas.toDataURL('image/jpeg',0.7);
+localStorage.setItem('twd_dc_avatar',DC.avatar);
+uploadArea.innerHTML=`<img src="${DC.avatar}" alt=""><span class="av-hint">CHANGER</span><input type="file" id="dcAvatarFile" accept="image/*" style="display:none">`;
+// Re-bind
+setupAvatarUpload();
+};
+img.src=dataUrl;
+};
+reader.readAsDataURL(file);
+});
+}
+// Also restore avatar preview in setup if exists
+if(DC.avatar&&uploadArea){
+uploadArea.innerHTML=`<img src="${DC.avatar}" alt=""><span class="av-hint">CHANGER</span><input type="file" id="dcAvatarFile" accept="image/*" style="display:none">`;
+setupAvatarUpload();
+}
+// Change avatar from userbar
+const changeInput=document.getElementById('dcAvatarChangeFile');
+if(changeInput){
+changeInput.addEventListener('change',e=>{
+const file=e.target.files[0];
+if(!file)return;
+const reader=new FileReader();
+reader.onload=function(ev){
+const img=new Image();
+img.onload=function(){
+const canvas=document.createElement('canvas');
+const size=128;canvas.width=size;canvas.height=size;
+const ctx=canvas.getContext('2d');
+const min=Math.min(img.width,img.height);
+ctx.drawImage(img,(img.width-min)/2,(img.height-min)/2,min,min,0,0,size,size);
+DC.avatar=canvas.toDataURL('image/jpeg',0.7);
+localStorage.setItem('twd_dc_avatar',DC.avatar);
+const uav=document.getElementById('dcUserAvatar');
+if(uav)uav.innerHTML=`<img src="${DC.avatar}" alt="">`;
+renderMembers();renderDC();
+};
+img.src=ev.target.result;
+};
+reader.readAsDataURL(file);
+});
+}
+}
+function changeUserAvatar(){
+document.getElementById('dcAvatarChangeFile')?.click();
+}
+window.changeUserAvatar=changeUserAvatar;
+
+// === PROFILE CARD ===
+function openProfileCard(name){
+const overlay=document.getElementById('dcProfileOverlay');
+if(!overlay)return;
+const bot=BOTS[name];
+const isUser=(name===DC.pseudo);
+const card=document.getElementById('dcProfileCard');
+const avEl=document.getElementById('dcProfileAvatar');
+const nameEl=document.getElementById('dcProfileName');
+const roleEl=document.getElementById('dcProfileRole');
+const bioEl=document.getElementById('dcProfileBio');
+const statsEl=document.getElementById('dcProfileStats');
+const statusEl=document.getElementById('dcProfileStatus');
+if(bot){
+avEl.style.background=bot.color;
+avEl.innerHTML=bot.av+`<span class="p-status-dot" style="background:${bot.status==='on'?'#3ba55c':bot.status==='idle'?'#faa61a':'#ed4245'}"></span>`;
+nameEl.textContent=name;
+roleEl.style.background=bot.rc;roleEl.style.color=bot.rb;
+roleEl.textContent=bot.role;
+bioEl.textContent=BOT_BIOS[name]||'Aucune information disponible.';
+bioEl.style.display='block';
+statsEl.innerHTML=`<div class="dc-profile-stat"><div class="dc-profile-stat-label">RÔLE</div><div class="dc-profile-stat-value">${bot.role}</div></div><div class="dc-profile-stat"><div class="dc-profile-stat-label">STATUT</div><div class="dc-profile-stat-value">${bot.status==='on'?'EN LIGNE':bot.status==='idle'?'INACTIF':'NE PAS DÉRANGER'}</div></div>`;
+statusEl.className='dc-profile-status s-'+bot.status;
+statusEl.textContent=bot.status==='on'?'En ligne':bot.status==='idle'?'Inactif':'Occupé';
+}else if(isUser){
+avEl.style.background='#8b0000';
+if(DC.avatar){avEl.innerHTML=`<img src="${DC.avatar}" alt=""><span class="p-status-dot" style="background:#3ba55c"></span>`}
+else{avEl.innerHTML=DC.pseudo.charAt(0)+`<span class="p-status-dot" style="background:#3ba55c"></span>`}
+nameEl.textContent=DC.pseudo;
+roleEl.style.background='rgba(139,0,0,.1)';roleEl.style.color='rgba(168,155,122,.4)';
+roleEl.textContent='SURVIVANT';
+const daysSurvived=DC.joinDate?Math.max(1,Math.floor((Date.now()-new Date(DC.joinDate).getTime())/(86400000))):1;
+bioEl.textContent='Connecté(e) au réseau Echo-7. Chaque jour est une victoire.';
+bioEl.style.display='block';
+statsEl.innerHTML=`<div class="dc-profile-stat"><div class="dc-profile-stat-label">JOURS SURVÉCU</div><div class="dc-profile-stat-value">${daysSurvived}</div></div><div class="dc-profile-stat"><div class="dc-profile-stat-label">CONTACTS</div><div class="dc-profile-stat-value">${DC.friends.length}</div></div>`;
+statusEl.className='dc-profile-status s-on';
+statusEl.textContent=DC.customStatus;
+}else{
+avEl.style.background='#8b0000';avEl.innerHTML=name.charAt(0);
+nameEl.textContent=name;
+roleEl.style.background='rgba(139,0,0,.1)';roleEl.style.color='rgba(168,155,122,.4)';
+roleEl.textContent='SURVIVANT';
+bioEl.style.display='none';
+statsEl.innerHTML='';
+statusEl.className='dc-profile-status s-on';
+statusEl.textContent='En ligne';
+}
+overlay.classList.add('active');
+}
+window.openProfileCard=openProfileCard;
+function closeProfileCard(){
+document.getElementById('dcProfileOverlay')?.classList.remove('active');
+}
+window.closeProfileCard=closeProfileCard;
+document.getElementById('dcProfileOverlay')?.addEventListener('click',e=>{
+if(e.target===e.currentTarget)closeProfileCard();
+});
+
+// === FRIEND SYSTEM ===
+function toggleFriend(name){
+const idx=DC.friends.indexOf(name);
+if(idx>=0){DC.friends.splice(idx,1)}else{DC.friends.push(name)}
+localStorage.setItem('twd_dc_friends',JSON.stringify(DC.friends));
+renderMembers();
+}
+window.toggleFriend=toggleFriend;
+
+function renderFriends(){
+// Remove existing friends section
+document.querySelectorAll('.dc-friends-section').forEach(e=>e.remove());
+if(!DC.friends.length||!DC.pseudo)return;
+const membersSection=document.getElementById('dcMembersSection');
+if(!membersSection)return;
+const section=document.createElement('div');
+section.className='dc-friends-section';
+section.innerHTML=`<div class="dc-friends-head"><span>CONTACTS</span><span>${DC.friends.length}</span></div>`;
+DC.friends.forEach(name=>{
+const bot=BOTS[name];
+if(!bot)return;
+const item=document.createElement('div');
+item.className='dc-friend-item';
+item.onclick=()=>openDM(name);
+item.innerHTML=`<span class="friend-star">★</span><div class="dc-member-av" style="background:${bot.color};width:22px;height:22px;font-size:.5rem">${bot.av}<span class="m-status ${bot.status==='on'?'on':bot.status==='idle'?'idle':'dnd'}" style="width:6px;height:6px;border-width:1.5px"></span></div><span class="dc-member-name" style="color:rgba(168,155,122,.6)">${dcSan(name)}</span>`;
+section.appendChild(item);
+});
+membersSection.parentNode.insertBefore(section,membersSection);
+}
+
+// === DM CHANNELS ===
+function getDMChannelKey(botName){return 'dm_'+botName.toLowerCase().replace(/[^a-zà-ÿ0-9]/g,'')}
+
+function openDM(botName){
+const ch=getDMChannelKey(botName);
+// Init DM history if empty
+if(!getDCH(ch).length){
+saveDCH(ch,[{p:'ECHO-7',t:`Canal privé avec ${botName} établi. Transmission chiffrée.`,time:getTime(),sys:true}]);
+}
+switchChannel(ch);
+}
+window.openDM=openDM;
+
+function renderDMChannels(){
+// Remove existing DM elements
+document.querySelectorAll('.dc-dm-group,.dc-ch.dm-ch').forEach(e=>e.remove());
+if(!DC.friends.length||!DC.pseudo)return;
+const channelsList=document.getElementById('dcChannelsList');
+if(!channelsList)return;
+// Insert DM group at the top
+const groupLabel=document.createElement('div');
+groupLabel.className='dc-dm-group';
+groupLabel.textContent='Messages Privés';
+channelsList.insertBefore(groupLabel,channelsList.firstChild);
+DC.friends.forEach(name=>{
+const bot=BOTS[name];
+if(!bot)return;
+const ch=getDMChannelKey(name);
+const item=document.createElement('div');
+item.className='dc-ch dm-ch'+(DC.channel===ch?' active':'');
+item.setAttribute('data-channel',ch);
+item.onclick=()=>switchChannel(ch);
+item.innerHTML=`<span class="ch-i">✉</span><span class="ch-name">${dcSan(name)}</span><span class="ch-badge" id="badge-${ch}"></span>`;
+groupLabel.after(item);
+});
+}
+
+// === DM BOT RESPONSE ===
+function triggerDMResponse(userText){
+const ch=DC.channel;
+if(!ch.startsWith('dm_'))return;
+// Find the bot name from the channel key
+let botName=null;
+for(const name of Object.keys(BOTS)){
+if(getDMChannelKey(name)===ch){botName=name;break}
+}
+if(!botName)return;
+const bot=BOTS[botName];
+if(!bot)return;
+const responses=DM_RESPONSES[botName]||DM_RESPONSES['ECHO-7'];
+const response=responses[Math.floor(Math.random()*responses.length)];
+const delay=1500+Math.min(response.length*8,3000)+Math.random()*1500;
+showTyping(botName);
+setTimeout(()=>{
+hideTyping();
+const ms=getDCH(ch);
+ms.push({p:botName,t:response,time:getTime(),bot:true});
+saveDCH(ch,ms);renderDC();dcNotifSound();dcFlash();
+// Frame pulse
+const frame=document.querySelector('.dc-frame');
+if(frame){frame.classList.add('notif-pulse');setTimeout(()=>frame.classList.remove('notif-pulse'),600)}
+},delay);
+}
+
+// === EMOJI REACTIONS ===
+function addReaction(msgIndex,emoji){
+const msgs=getDCH(DC.channel);
+if(!msgs[msgIndex])return;
+if(!msgs[msgIndex].reactions)msgs[msgIndex].reactions={};
+const r=msgs[msgIndex].reactions;
+if(!r[emoji])r[emoji]=[];
+const userTag='__user__';
+const idx=r[emoji].indexOf(userTag);
+if(idx>=0){r[emoji].splice(idx,1);if(!r[emoji].length)delete r[emoji]}
+else{r[emoji].push(userTag)}
+saveDCH(DC.channel,msgs);
+renderDC();
+// Find the reaction element and animate
+setTimeout(()=>{
+const allReactions=document.querySelectorAll('.dc-reaction');
+allReactions.forEach(el=>{if(el.textContent.includes(emoji))el.classList.add('just-reacted');setTimeout(()=>el.classList.remove('just-reacted'),300)});
+},10);
+dcBeep(990,.03,.015);
+}
+window.addReaction=addReaction;
+
+// === CUSTOM STATUS ===
+function toggleStatusDropdown(){
+const dd=document.getElementById('dcStatusDropdown');
+if(dd)dd.classList.toggle('active');
+}
+window.toggleStatusDropdown=toggleStatusDropdown;
+
+function setCustomStatus(status){
+if(!status||!status.trim())return;
+DC.customStatus=status.trim().substring(0,40);
+localStorage.setItem('twd_dc_status',DC.customStatus);
+document.getElementById('dcUserStatus').textContent=DC.customStatus;
+document.getElementById('dcStatusDropdown')?.classList.remove('active');
+renderMembers();
+}
+window.setCustomStatus=setCustomStatus;
+// Close status dropdown on click outside
+document.addEventListener('click',e=>{
+const dd=document.getElementById('dcStatusDropdown');
+const tag=document.getElementById('dcUserStatus');
+if(dd&&dd.classList.contains('active')&&!dd.contains(e.target)&&e.target!==tag){
+dd.classList.remove('active');
+}
+});
+
+// === NOTIFICATION PULSE ON FRAME ===
+function framePulse(){
+const frame=document.querySelector('.dc-frame');
+if(frame){frame.classList.add('notif-pulse');setTimeout(()=>frame.classList.remove('notif-pulse'),600)}
+}
+
 // === EVENT LISTENERS ===
 document.getElementById('dcMsgInput')?.addEventListener('keydown',e=>{if(e.key==='Enter')sendDiscordMessage()});
 document.getElementById('dcPseudoInput')?.addEventListener('keydown',e=>{if(e.key==='Enter')setDiscordPseudo()});
+document.getElementById('dcPseudoInput')?.addEventListener('input',e=>{
+const ph=document.getElementById('dcAvPlaceholder');
+if(ph&&!DC.avatar){ph.textContent=e.target.value.trim()?e.target.value.trim().charAt(0).toUpperCase():'?'}
+});
 
 initDC();
 
