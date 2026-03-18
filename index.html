@@ -259,31 +259,141 @@ section{min-height:100vh;padding:120px 20px 80px;position:relative}
 .result-actions button:hover{background:rgba(139,0,0,.3);box-shadow:0 0 15px rgba(139,0,0,.5)}
 @media(max-width:768px){.result-traits{grid-template-columns:1fr}.result-gauges{grid-template-columns:repeat(2,1fr)}}
 
-/* === CHAT / RADIO === */
-#radio-chat{min-height:80vh;background:linear-gradient(180deg,var(--noir),#080808);padding:120px 20px 80px}
-.chat-container{max-width:700px;margin:0 auto;border:1px solid rgba(74,82,64,.3);background:rgba(10,10,10,.95);overflow:hidden}
-.chat-header{display:flex;justify-content:space-between;align-items:center;padding:15px 20px;background:rgba(139,0,0,.1);border-bottom:1px solid rgba(139,0,0,.3)}
-.chat-header h3{font-family:var(--font-military);font-size:.9rem;color:var(--parchemin);text-transform:uppercase;letter-spacing:2px}
-.chat-status{display:flex;align-items:center;gap:6px;font-family:var(--font-mono);font-size:.6rem;color:var(--vert-mil);letter-spacing:1px}
-.chat-status .status-dot{width:6px;height:6px;background:var(--vert-mil);animation:blink-red 2s infinite}
-.chat-messages{height:400px;overflow-y:auto;padding:20px;display:flex;flex-direction:column;gap:12px}
-.chat-msg{max-width:80%;padding:10px 15px;position:relative;animation:reveal-up .3s ease}
-.chat-msg.received{align-self:flex-start;background:rgba(74,82,64,.15);border-left:2px solid var(--vert-kaki)}
-.chat-msg.sent{align-self:flex-end;background:rgba(139,0,0,.1);border-right:2px solid var(--rouge-sang)}
-.chat-msg-pseudo{font-family:var(--font-mono);font-size:.6rem;letter-spacing:2px;text-transform:uppercase;margin-bottom:4px}
-.chat-msg.received .chat-msg-pseudo{color:var(--vert-mil)}
-.chat-msg.sent .chat-msg-pseudo{color:var(--rouge-vif);text-align:right}
-.chat-msg-text{font-family:var(--font-body);font-size:.85rem;color:var(--parchemin-sombre);line-height:1.5}
-.chat-msg-time{font-family:var(--font-mono);font-size:.5rem;color:rgba(168,155,122,.4);margin-top:4px}
-.chat-msg.sent .chat-msg-time{text-align:right}
-.chat-input-area{display:flex;gap:0;border-top:1px solid rgba(74,82,64,.3)}
-.chat-input-area input{flex:1;padding:15px;background:rgba(0,0,0,.5);border:none;color:var(--parchemin);font-family:var(--font-body);font-size:.85rem;outline:none}
-.chat-input-area input::placeholder{color:rgba(168,155,122,.3)}
-.chat-send-btn{padding:15px 25px;background:rgba(139,0,0,.2);border:none;border-left:1px solid rgba(74,82,64,.3);color:var(--rouge-vif);font-family:var(--font-mono);font-size:.7rem;letter-spacing:2px;cursor:pointer;transition:.3s;text-transform:uppercase}
-.chat-send-btn:hover{background:rgba(139,0,0,.4)}
-.chat-pseudo-setup{padding:20px;text-align:center}
-.chat-pseudo-setup input{padding:10px;background:rgba(0,0,0,.5);border:1px solid rgba(74,82,64,.3);color:var(--parchemin);font-family:var(--font-military);font-size:1rem;text-align:center;outline:none;width:250px;margin:10px}
-.chat-pseudo-setup input:focus{border-color:var(--rouge-sang)}
+/* === TERMINAL ECHO-7 — DISCORD IMMERSIF === */
+#radio-chat{min-height:100vh;background:linear-gradient(180deg,#030304,#080808 30%,#050506 70%,#030304);padding:120px 20px 80px;position:relative}
+#radio-chat::before{content:'';position:absolute;inset:0;background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,255,0,.008) 2px,rgba(0,255,0,.008) 4px);pointer-events:none;z-index:1}
+.dc-wrap{max-width:1150px;margin:0 auto;position:relative;z-index:2}
+.dc-frame{display:flex;border:1px solid rgba(74,82,64,.2);background:linear-gradient(135deg,#08090b,#0b0c0e 50%,#090a0c);overflow:hidden;height:650px;box-shadow:0 0 0 1px rgba(139,0,0,.08),0 12px 60px rgba(0,0,0,.7),inset 0 1px 0 rgba(255,255,255,.02);position:relative}
+.dc-frame::after{content:'';position:absolute;inset:0;background:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.03'/%3E%3C/svg%3E");pointer-events:none;z-index:100;opacity:.5}
+/* SIDEBAR */
+.dc-side{width:250px;background:linear-gradient(180deg,#0a0b0d,#08090b);border-right:1px solid rgba(74,82,64,.12);display:flex;flex-direction:column;flex-shrink:0;position:relative}
+.dc-side::after{content:'';position:absolute;top:0;right:0;width:1px;height:100%;background:linear-gradient(180deg,transparent,rgba(139,0,0,.15),transparent)}
+.dc-server{padding:15px 16px;display:flex;align-items:center;gap:10px;border-bottom:1px solid rgba(74,82,64,.1);background:linear-gradient(90deg,rgba(139,0,0,.04),transparent);position:relative;overflow:hidden}
+.dc-server::before{content:'';position:absolute;left:0;top:0;width:3px;height:100%;background:var(--rouge-sang);opacity:.4}
+.dc-server-icon{width:32px;height:32px;background:linear-gradient(135deg,rgba(139,0,0,.3),rgba(139,0,0,.1));border:1px solid rgba(139,0,0,.3);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:.7rem;color:var(--rouge-vif)}
+.dc-server-info{overflow:hidden}
+.dc-server-name{font-family:var(--font-military);font-size:.72rem;color:var(--parchemin);letter-spacing:2px;text-transform:uppercase;white-space:nowrap}
+.dc-server-status{font-family:var(--font-mono);font-size:.5rem;color:var(--vert-mil);letter-spacing:1px;display:flex;align-items:center;gap:4px}
+.dc-server-status::before{content:'';width:5px;height:5px;background:var(--vert-mil);border-radius:50%;animation:pulse-glow 2s infinite;box-shadow:0 0 6px rgba(90,120,60,.6)}
+.dc-channels{flex:1;overflow-y:auto;padding:6px 0}
+.dc-channels::-webkit-scrollbar{width:3px}
+.dc-channels::-webkit-scrollbar-thumb{background:rgba(74,82,64,.15);border-radius:2px}
+.dc-ch-group{padding:8px 14px 4px;font-family:var(--font-mono);font-size:.5rem;color:rgba(168,155,122,.35);letter-spacing:2.5px;text-transform:uppercase;display:flex;align-items:center;gap:6px}
+.dc-ch-group::after{content:'';flex:1;height:1px;background:rgba(74,82,64,.08)}
+.dc-ch{display:flex;align-items:center;gap:8px;padding:7px 10px;margin:1px 6px;border-radius:4px;cursor:pointer;transition:all .15s;font-family:var(--font-body);font-size:.8rem;color:rgba(168,155,122,.45);position:relative}
+.dc-ch:hover{background:rgba(74,82,64,.08);color:var(--parchemin-sombre)}
+.dc-ch.active{background:rgba(139,0,0,.12);color:var(--parchemin);border-left:2px solid var(--rouge-sang);padding-left:8px}
+.dc-ch .ch-i{font-size:.7rem;width:18px;text-align:center;opacity:.45;flex-shrink:0}
+.dc-ch.active .ch-i{opacity:.85;color:var(--rouge-vif)}
+.dc-ch .ch-name{flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.dc-ch .ch-badge{min-width:16px;height:16px;background:var(--rouge-sang);border-radius:8px;font-family:var(--font-mono);font-size:.5rem;color:#fff;display:flex;align-items:center;justify-content:center;padding:0 4px;animation:pulse-glow 2s infinite}
+.dc-ch .ch-badge:empty{display:none}
+/* MEMBERS */
+.dc-members-section{border-top:1px solid rgba(74,82,64,.08);padding:8px 0 4px}
+.dc-members-head{padding:6px 14px;font-family:var(--font-mono);font-size:.5rem;color:rgba(168,155,122,.3);letter-spacing:2px;text-transform:uppercase;display:flex;justify-content:space-between}
+.dc-member{display:flex;align-items:center;gap:8px;padding:4px 10px;margin:1px 6px;border-radius:4px;transition:.15s}
+.dc-member:hover{background:rgba(74,82,64,.06)}
+.dc-member-av{width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:var(--font-mono);font-size:.55rem;color:#fff;font-weight:700;flex-shrink:0;position:relative}
+.dc-member-av .m-status{position:absolute;bottom:-1px;right:-1px;width:8px;height:8px;border-radius:50%;border:2px solid #0a0b0d}
+.dc-member-av .m-status.on{background:#3ba55c;box-shadow:0 0 4px rgba(59,165,92,.5)}
+.dc-member-av .m-status.idle{background:#faa61a}
+.dc-member-av .m-status.dnd{background:#ed4245}
+.dc-member-name{font-family:var(--font-body);font-size:.72rem;color:rgba(168,155,122,.5);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;flex:1}
+.dc-member-role{font-family:var(--font-mono);font-size:.42rem;padding:1px 4px;border-radius:2px;letter-spacing:1px;white-space:nowrap}
+/* USER BAR */
+.dc-userbar{padding:10px 12px;background:rgba(0,0,0,.35);border-top:1px solid rgba(74,82,64,.08);display:flex;align-items:center;gap:8px}
+.dc-userbar-av{width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:var(--font-mono);font-size:.65rem;color:#fff;font-weight:700;flex-shrink:0;position:relative}
+.dc-userbar-av::after{content:'';position:absolute;bottom:0;right:0;width:8px;height:8px;background:#3ba55c;border-radius:50%;border:2px solid #08090b}
+.dc-userbar-info .ub-name{font-family:var(--font-mono);font-size:.68rem;color:var(--parchemin);letter-spacing:1px}
+.dc-userbar-info .ub-tag{font-family:var(--font-body);font-size:.55rem;color:rgba(168,155,122,.35)}
+/* MAIN PANEL */
+.dc-main{flex:1;display:flex;flex-direction:column;min-width:0;background:linear-gradient(180deg,rgba(8,9,11,.3),transparent)}
+.dc-topbar{display:flex;align-items:center;padding:0 16px;height:48px;border-bottom:1px solid rgba(74,82,64,.1);background:rgba(0,0,0,.15);flex-shrink:0;gap:8px}
+.dc-topbar .tb-hash{color:rgba(168,155,122,.3);font-size:.9rem;font-weight:700}
+.dc-topbar .tb-name{font-family:var(--font-military);font-size:.78rem;color:var(--parchemin);letter-spacing:2px;text-transform:uppercase}
+.dc-topbar .tb-div{width:1px;height:20px;background:rgba(74,82,64,.12);margin:0 6px}
+.dc-topbar .tb-desc{font-family:var(--font-body);font-size:.7rem;color:rgba(168,155,122,.3);flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.dc-topbar .tb-signal{display:flex;align-items:center;gap:4px;font-family:var(--font-mono);font-size:.5rem;color:var(--vert-mil);letter-spacing:1px}
+.dc-topbar .tb-signal .sig-bars{display:flex;align-items:flex-end;gap:1px;height:10px}
+.dc-topbar .tb-signal .sig-bar{width:3px;background:var(--vert-mil);border-radius:1px}
+.dc-topbar .tb-signal .sig-bar:nth-child(1){height:3px}.dc-topbar .tb-signal .sig-bar:nth-child(2){height:5px}.dc-topbar .tb-signal .sig-bar:nth-child(3){height:7px}.dc-topbar .tb-signal .sig-bar:nth-child(4){height:10px}
+/* MESSAGES */
+.dc-msgs{flex:1;overflow-y:auto;padding:16px 20px;display:flex;flex-direction:column;gap:2px;scroll-behavior:smooth}
+.dc-msgs::-webkit-scrollbar{width:5px}
+.dc-msgs::-webkit-scrollbar-track{background:transparent}
+.dc-msgs::-webkit-scrollbar-thumb{background:rgba(74,82,64,.15);border-radius:3px}
+.dc-m{display:flex;gap:14px;padding:5px 8px;border-radius:4px;transition:background .1s}
+.dc-m:hover{background:rgba(74,82,64,.04)}
+.dc-m.grouped{padding:1px 8px 1px 58px}
+.dc-m-av{width:38px;height:38px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:var(--font-mono);font-size:.7rem;color:#fff;font-weight:700;flex-shrink:0;margin-top:2px;position:relative;box-shadow:0 2px 8px rgba(0,0,0,.3)}
+.dc-m-av.bot-av::after{content:'BOT';position:absolute;bottom:-2px;right:-4px;font-size:.35rem;background:var(--rouge-sang);color:#fff;padding:1px 3px;border-radius:2px;font-family:var(--font-mono);letter-spacing:.5px}
+.dc-m-body{flex:1;min-width:0}
+.dc-m-head{display:flex;align-items:baseline;gap:6px;margin-bottom:1px;flex-wrap:wrap}
+.dc-m-name{font-family:var(--font-mono);font-size:.8rem;font-weight:700;letter-spacing:.5px;cursor:pointer}
+.dc-m-name:hover{text-decoration:underline}
+.dc-m-badge{font-family:var(--font-mono);font-size:.45rem;padding:1px 5px;border-radius:3px;letter-spacing:1px;text-transform:uppercase;font-weight:600}
+.dc-m-time{font-family:var(--font-mono);font-size:.52rem;color:rgba(168,155,122,.25);margin-left:auto}
+.dc-m-txt{font-family:var(--font-body);font-size:.84rem;color:var(--parchemin-sombre);line-height:1.55;word-wrap:break-word}
+.dc-m-txt .em{color:var(--rouge-vif);font-weight:600}
+.dc-m-txt .code{background:rgba(74,82,64,.12);padding:1px 5px;border-radius:3px;font-family:var(--font-mono);font-size:.76rem;color:var(--vert-mil)}
+/* SYSTEM MESSAGES */
+.dc-sys{display:flex;align-items:center;gap:10px;padding:6px 8px;margin:6px 0}
+.dc-sys::before,.dc-sys::after{content:'';flex:1;height:1px;background:rgba(74,82,64,.08)}
+.dc-sys-inner{font-family:var(--font-mono);font-size:.58rem;color:rgba(168,155,122,.25);letter-spacing:1px;text-align:center;white-space:nowrap}
+.dc-sys-inner b{color:var(--vert-mil);font-weight:600}
+/* WELCOME CARD */
+.dc-welcome{background:linear-gradient(135deg,rgba(139,0,0,.06),rgba(74,82,64,.04));border:1px solid rgba(139,0,0,.12);border-radius:6px;padding:20px;margin:8px 0;position:relative;overflow:hidden}
+.dc-welcome::before{content:'';position:absolute;top:0;left:0;width:4px;height:100%;background:var(--rouge-sang)}
+.dc-welcome h4{font-family:var(--font-military);font-size:.8rem;color:var(--parchemin);letter-spacing:2px;text-transform:uppercase;margin-bottom:8px}
+.dc-welcome p{font-family:var(--font-body);font-size:.78rem;color:rgba(168,155,122,.5);line-height:1.6}
+.dc-welcome .wc-channels{display:flex;flex-wrap:wrap;gap:6px;margin-top:12px}
+.dc-welcome .wc-ch{font-family:var(--font-mono);font-size:.6rem;color:var(--vert-mil);background:rgba(74,82,64,.1);padding:3px 8px;border-radius:3px;cursor:pointer;transition:.2s}
+.dc-welcome .wc-ch:hover{background:rgba(139,0,0,.15);color:var(--parchemin)}
+/* TYPING INDICATOR */
+.dc-typing{padding:4px 20px;font-family:var(--font-body);font-size:.72rem;color:rgba(168,155,122,.35);min-height:24px;display:flex;align-items:center;gap:6px;flex-shrink:0}
+.dc-typing-dots{display:inline-flex;gap:2px}
+.dc-typing-dots span{width:4px;height:4px;background:rgba(168,155,122,.4);border-radius:50%;animation:dc-bounce .9s infinite}
+.dc-typing-dots span:nth-child(2){animation-delay:.15s}
+.dc-typing-dots span:nth-child(3){animation-delay:.3s}
+@keyframes dc-bounce{0%,80%,100%{transform:translateY(0)}40%{transform:translateY(-5px)}}
+/* INPUT */
+.dc-input-wrap{padding:0 16px 16px;flex-shrink:0}
+.dc-input-box{display:flex;align-items:center;background:rgba(74,82,64,.06);border:1px solid rgba(74,82,64,.1);border-radius:8px;overflow:hidden;transition:border-color .2s,box-shadow .2s;position:relative}
+.dc-input-box:focus-within{border-color:rgba(139,0,0,.3);box-shadow:0 0 12px rgba(139,0,0,.06)}
+.dc-input-box input{flex:1;padding:12px 16px;background:transparent;border:none;color:var(--parchemin);font-family:var(--font-body);font-size:.84rem;outline:none;min-width:0}
+.dc-input-box input::placeholder{color:rgba(168,155,122,.2);font-style:italic}
+.dc-input-box .dc-send{padding:10px 16px;background:transparent;border:none;color:rgba(139,0,0,.4);cursor:pointer;transition:.2s;font-size:.9rem;flex-shrink:0}
+.dc-input-box .dc-send:hover{color:var(--rouge-vif);background:rgba(139,0,0,.08)}
+/* SETUP SCREEN */
+.dc-setup{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:20px;padding:40px;position:relative;overflow:hidden}
+.dc-setup::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at center,rgba(139,0,0,.04),transparent 70%);pointer-events:none}
+.dc-setup-icon{width:60px;height:60px;background:linear-gradient(135deg,rgba(139,0,0,.2),rgba(139,0,0,.08));border:1px solid rgba(139,0,0,.25);border-radius:16px;display:flex;align-items:center;justify-content:center;font-size:1.5rem;margin-bottom:4px;animation:pulse-glow 3s infinite}
+.dc-setup h3{font-family:var(--font-military);color:var(--parchemin);letter-spacing:4px;text-transform:uppercase;font-size:.9rem;text-align:center}
+.dc-setup .setup-desc{font-family:var(--font-body);font-size:.78rem;color:rgba(168,155,122,.4);text-align:center;max-width:380px;line-height:1.6}
+.dc-setup .setup-pseudo-gen{font-family:var(--font-mono);font-size:.6rem;color:var(--vert-mil);letter-spacing:1px;cursor:pointer;transition:.2s;padding:4px 10px;border:1px solid rgba(90,120,60,.2);border-radius:3px}
+.dc-setup .setup-pseudo-gen:hover{background:rgba(90,120,60,.1);border-color:rgba(90,120,60,.4)}
+.dc-setup input{padding:13px 22px;background:rgba(0,0,0,.5);border:1px solid rgba(74,82,64,.25);border-radius:6px;color:var(--parchemin);font-family:var(--font-military);font-size:1rem;text-align:center;outline:none;width:300px;transition:.2s;letter-spacing:2px}
+.dc-setup input:focus{border-color:var(--rouge-sang);box-shadow:0 0 20px rgba(139,0,0,.15)}
+.dc-setup .setup-btn{font-family:var(--font-mono);font-size:.7rem;color:var(--parchemin);letter-spacing:3px;text-transform:uppercase;border:1px solid var(--rouge-sang);padding:13px 35px;background:linear-gradient(135deg,rgba(139,0,0,.15),rgba(139,0,0,.08));cursor:pointer;transition:.3s;border-radius:4px;position:relative;overflow:hidden}
+.dc-setup .setup-btn:hover{background:linear-gradient(135deg,rgba(139,0,0,.35),rgba(139,0,0,.2));box-shadow:0 0 25px rgba(139,0,0,.2);transform:translateY(-1px)}
+.dc-setup .setup-btn::before{content:'';position:absolute;inset:0;background:linear-gradient(90deg,transparent,rgba(255,255,255,.03),transparent);transform:translateX(-100%);transition:.6s}
+.dc-setup .setup-btn:hover::before{transform:translateX(100%)}
+/* NOTIFICATION SOUND VISUAL */
+.dc-notif-flash{position:absolute;inset:0;background:rgba(139,0,0,.03);pointer-events:none;opacity:0;transition:opacity .15s;z-index:50}
+.dc-notif-flash.active{opacity:1}
+/* MOBILE */
+.dc-mob-toggle{display:none;position:absolute;top:8px;left:8px;background:rgba(10,11,13,.9);border:1px solid rgba(74,82,64,.2);color:var(--parchemin-sombre);padding:8px 10px;border-radius:6px;cursor:pointer;font-size:.8rem;z-index:15;transition:.2s}
+.dc-mob-toggle:hover{border-color:rgba(139,0,0,.3);color:var(--parchemin)}
+@media(max-width:768px){
+.dc-frame{flex-direction:column;height:auto;min-height:580px;position:relative}
+.dc-side{width:100%;max-height:0;overflow:hidden;position:absolute;top:0;left:0;z-index:20;transition:max-height .3s ease;background:#0a0b0d}
+.dc-side.mob-open{max-height:480px;overflow-y:auto;border-bottom:2px solid rgba(139,0,0,.2);box-shadow:0 8px 30px rgba(0,0,0,.5)}
+.dc-mob-toggle{display:block}
+.dc-main{min-height:520px}
+.dc-topbar{padding-left:48px}
+.dc-msgs{min-height:300px}
+.dc-setup input{width:250px}
+}
 
 /* === MÉMORIAL DES CONTAMINÉS === */
 #memorial{min-height:100vh;background:linear-gradient(180deg,#050505,#0a0808,#050505);padding:120px 20px 80px}
@@ -447,7 +557,7 @@ section{padding:100px 15px 60px}
 <a href="#contamination-map">Carte</a>
 <a href="#transmissions">Transmissions</a>
 <a href="#survivants">Survivants</a>
-<a href="#radio-chat">Radio</a>
+<a href="#radio-chat">Terminal</a>
 <a href="#profiling">Profilage</a>
 <a href="#dossiers">Dossiers</a>
 <a href="#journal">Journal</a>
@@ -633,24 +743,72 @@ section{padding:100px 15px 60px}
 </div>
 </section>
 
-<!-- === RADIO CHAT === -->
+<!-- === TERMINAL ECHO-7 : HUB DE COMMUNICATION === -->
 <section id="radio-chat">
-<div class="section-header reveal"><div class="section-label">FRÉQUENCE RADIO OUVERTE</div><h2 class="section-title">Canal de Communication</h2><div class="section-divider"></div></div>
-<div class="chat-container reveal">
-<div class="chat-header">
-<h3>RADIO POSTE ECHO-7 — CANAL OUVERT</h3>
-<div class="chat-status"><span class="status-dot"></span>EN LIGNE</div>
+<div class="section-header reveal"><div class="section-label">RÉSEAU DE COMMUNICATION SÉCURISÉ — CELLULE OMÉGA</div><h2 class="section-title">Terminal Echo-7</h2><div class="section-divider"></div></div>
+<div class="dc-wrap">
+<div class="dc-frame reveal">
+<div class="dc-notif-flash" id="dcFlash"></div>
+<button class="dc-mob-toggle" onclick="document.querySelector('.dc-side').classList.toggle('mob-open')">☰ CANAUX</button>
+<!-- SIDEBAR -->
+<div class="dc-side">
+<div class="dc-server">
+<div class="dc-server-icon">⛊</div>
+<div class="dc-server-info">
+<div class="dc-server-name">Poste Echo-7</div>
+<div class="dc-server-status">RÉSEAU ACTIF</div>
 </div>
-<div class="chat-messages" id="chatMessages"></div>
-<div class="chat-pseudo-setup" id="chatSetup">
-<p style="font-family:var(--font-military);color:var(--parchemin);letter-spacing:2px;text-transform:uppercase;font-size:.9rem">Identifiez-vous pour accéder au canal</p>
-<input type="text" id="chatPseudoInput" placeholder="Votre nom de code..." maxlength="20">
-<br>
-<button class="game-btn" onclick="setChatPseudo()">REJOINDRE LE CANAL</button>
 </div>
-<div class="chat-input-area" id="chatInputArea" style="display:none">
-<input type="text" id="chatMsgInput" placeholder="Transmettez votre message..." maxlength="300">
-<button class="chat-send-btn" onclick="sendChatMessage()">ENVOYER</button>
+<div class="dc-channels" id="dcChannelsList">
+<div class="dc-ch-group">Transmissions</div>
+<div class="dc-ch active" data-channel="general" onclick="switchChannel('general')"><span class="ch-i">#</span><span class="ch-name">transmission-générale</span><span class="ch-badge" id="badge-general"></span></div>
+<div class="dc-ch" data-channel="zone" onclick="switchChannel('zone')"><span class="ch-i">◉</span><span class="ch-name">rapport-de-zone</span><span class="ch-badge" id="badge-zone"></span></div>
+<div class="dc-ch-group">Opérations</div>
+<div class="dc-ch" data-channel="ravitaillement" onclick="switchChannel('ravitaillement')"><span class="ch-i">▦</span><span class="ch-name">ravitaillement</span><span class="ch-badge" id="badge-ravitaillement"></span></div>
+<div class="dc-ch" data-channel="tactical" onclick="switchChannel('tactical')"><span class="ch-i">⚔</span><span class="ch-name">cellule-tactique</span><span class="ch-badge" id="badge-tactical"></span></div>
+<div class="dc-ch" data-channel="medical" onclick="switchChannel('medical')"><span class="ch-i">✚</span><span class="ch-name">infirmerie</span><span class="ch-badge" id="badge-medical"></span></div>
+<div class="dc-ch-group">Terrain</div>
+<div class="dc-ch" data-channel="recon" onclick="switchChannel('recon')"><span class="ch-i">◎</span><span class="ch-name">reconnaissance</span><span class="ch-badge" id="badge-recon"></span></div>
+<div class="dc-ch" data-channel="survival" onclick="switchChannel('survival')"><span class="ch-i">⚙</span><span class="ch-name">guide-de-survie</span><span class="ch-badge" id="badge-survival"></span></div>
+</div>
+<div class="dc-members-section" id="dcMembersSection">
+<div class="dc-members-head"><span>SURVIVANTS EN LIGNE</span><span id="dcOnlineCount">6</span></div>
+<div id="dcMembersList"></div>
+</div>
+<div class="dc-userbar" id="dcUserBar" style="display:none">
+<div class="dc-userbar-av" id="dcUserAvatar" style="background:#8b0000">?</div>
+<div class="dc-userbar-info"><div class="ub-name" id="dcUserName">—</div><div class="ub-tag">Survivant · Echo-7</div></div>
+</div>
+</div>
+<!-- MAIN PANEL -->
+<div class="dc-main">
+<div class="dc-topbar">
+<span class="tb-hash">#</span>
+<span class="tb-name" id="dcTopName">transmission-générale</span>
+<div class="tb-div"></div>
+<span class="tb-desc" id="dcTopDesc">Canal ouvert — échangez avec les survivants connectés</span>
+<div class="tb-signal"><div class="sig-bars"><div class="sig-bar"></div><div class="sig-bar"></div><div class="sig-bar"></div><div class="sig-bar"></div></div>SIGNAL</div>
+</div>
+<!-- SETUP -->
+<div class="dc-setup" id="dcSetup">
+<div class="dc-setup-icon">⛊</div>
+<h3>Identification requise</h3>
+<p class="setup-desc">Le réseau Echo-7 nécessite une identification. Choisissez votre nom de code ou générez-en un automatiquement.</p>
+<input type="text" id="dcPseudoInput" placeholder="NOM DE CODE..." maxlength="20" autocomplete="off" spellcheck="false">
+<div class="setup-pseudo-gen" id="dcGenPseudo" onclick="generatePseudo()">⟳ GÉNÉRER UN NOM DE SURVIVANT</div>
+<button class="setup-btn" onclick="setDiscordPseudo()">REJOINDRE LE RÉSEAU</button>
+</div>
+<!-- MESSAGES -->
+<div class="dc-msgs" id="dcMessages" style="display:none"></div>
+<div class="dc-typing" id="dcTyping"></div>
+<!-- INPUT -->
+<div class="dc-input-wrap" id="dcInputArea" style="display:none">
+<div class="dc-input-box">
+<input type="text" id="dcMsgInput" placeholder="Transmettez dans #transmission-générale..." maxlength="500" autocomplete="off" spellcheck="false">
+<button class="dc-send" onclick="sendDiscordMessage()">➤</button>
+</div>
+</div>
+</div>
 </div>
 </div>
 </section>
@@ -1234,79 +1392,494 @@ alert('Profil copié dans le presse-papiers !');
 })();
 
 // ============================================================
-// === CHAT RADIO ===
+// === TERMINAL ECHO-7 — HUB DISCORD IMMERSIF ===
 // ============================================================
-let chatPseudo=localStorage.getItem('twd_chat_pseudo')||'';
-const chatMessages=document.getElementById('chatMessages');
+(function(){
+'use strict';
 
-function getChatHistory(){return JSON.parse(localStorage.getItem('twd_chat_msgs')||'[]')}
-function saveChatHistory(msgs){localStorage.setItem('twd_chat_msgs',JSON.stringify(msgs.slice(-100)))}
+const DC={
+pseudo:localStorage.getItem('twd_dc_pseudo')||'',
+channel:'general',
+typing:false,
+ambientTimer:null
+};
 
-const DEFAULT_CHAT=[
-{pseudo:'POSTE ECHO-7',text:'Canal radio ouvert. Identifiez-vous et transmettez vos coordonnées. Restez sur cette fréquence.',time:'06:00',system:true},
-{pseudo:'SENTINELLE_NORD',text:'Reçu Echo-7. Position sécurisée au nord de Paris. Pas de mouvement hostile depuis 48h.',time:'06:12',system:false},
-{pseudo:'DR. MARCHAND',text:'À tous les postes : nous avons besoin de fournitures médicales. Le sérum expérimental montre des résultats prometteurs.',time:'06:45',system:false},
-{pseudo:'LOUP_NOIR',text:'La forêt de Brocéliande est sûre. On peut accueillir 20 personnes supplémentaires. Coordonnées sur demande.',time:'07:30',system:false},
+// === CHANNELS CONFIG ===
+const CHANNELS={
+general:{name:'transmission-générale',icon:'#',desc:'Canal ouvert — échangez avec les survivants connectés',lead:'CMDT. DURAND'},
+zone:{name:'rapport-de-zone',icon:'◉',desc:'Rapports de situation par secteur — intelligence terrain',lead:'SENTINELLE_NORD'},
+ravitaillement:{name:'ravitaillement',icon:'▦',desc:'Demandes de ressources — le coordinateur traite vos requêtes',lead:'CMDT. DURAND'},
+tactical:{name:'cellule-tactique',icon:'⚔',desc:'Planification d\'opérations — accès restreint',lead:'SGT. VAUTRIN'},
+medical:{name:'infirmerie',icon:'✚',desc:'Consultations médicales — Dr. Marchand en service 24/7',lead:'DR. MARCHAND'},
+recon:{name:'reconnaissance',icon:'◎',desc:'Rapports d\'éclaireurs — itinéraires et zones sûres',lead:'LOUP_NOIR'},
+survival:{name:'guide-de-survie',icon:'⚙',desc:'Techniques, astuces et conseils de survie en milieu hostile',lead:'LOUP_NOIR'}
+};
+
+// === AUTO-GENERATED SURVIVOR NAMES ===
+const PSEUDO_PARTS={
+prefix:['OMBRE','SPECTRE','LAME','CENDRE','VEILLEUR','NOMADE','ÉCHO','FANTÔME','CORBEAU','LOUP','VIPÈRE','RAPACE','CYCLONE','BRAISE','SENTINELLE','RÔDEUR','FENIX','TITAN','SPHINX','ORAGE','ARCHER','FORGE','VAGUE','DAGUE','SABRE','AIGLE'],
+suffix:['_NORD','_SUD','_EST','_OUEST','_7','_13','_ALPHA','_BRAVO','_DELTA','_OMÉGA','_PRIME','_ZERO','_NOIR','_GRIS','_ROUGE','']
+};
+
+function generatePseudo(){
+const p=PSEUDO_PARTS.prefix[Math.floor(Math.random()*PSEUDO_PARTS.prefix.length)];
+const s=PSEUDO_PARTS.suffix[Math.floor(Math.random()*PSEUDO_PARTS.suffix.length)];
+document.getElementById('dcPseudoInput').value=p+s;
+}
+window.generatePseudo=generatePseudo;
+
+// === BOTS / PERSONAS ===
+const BOTS={
+'CMDT. DURAND':{color:'#c0a050',role:'COMMANDANT',rc:'rgba(192,160,80,.15)',rb:'#c0a050',av:'D',status:'on',
+topics:['command','chef','leader','ordre','mission','organis','plan','coordinat','ravitaillement','ration','nourriture','stock','provision','distribu','camp','communauté','groupe','règle','loi','justice','tribunal','conflit','dispute','civil','gouvern','décision','priorité','ressource','allocation','réfugié','accueil','protocole'],
+responses:{
+ravitaillement:["Commandant Durand, coordinateur du Poste Echo-7. Votre demande de ravitaillement a été enregistrée. État des stocks : eau potable — 72h d'autonomie. Rations militaires — 45 unités. Médicaments — stock critique, voir canal infirmerie. Distribution prochaine à 18h00, présentez votre badge d'identification.","Rapport logistique : les derniers convois de ravitaillement ont été interceptés sur la N7. On réduit les rations à 1500 calories/jour par personne jusqu'à nouvel ordre. Priorité aux enfants et aux blessés. Équipes de récupération : briefing demain à 05h00, canal tactique.","Inventaire du jour — Eau : 340L (filtration active). Conserves : 120 unités. Bois de chauffage : 4 jours. Batteries : 16 recharges. Munitions : classifié. Carburant : 45L. Si vous avez récupéré des ressources lors de vos sorties, déclarez-les au poste de contrôle."],
+communaute:["La communauté d'Echo-7 compte actuellement 47 survivants confirmés. Règles fondamentales : 1) Tout le monde contribue. 2) Les armes sont stockées à l'armurerie centrale. 3) Couvre-feu à 20h00. 4) Aucune sortie solo. 5) Les décisions majeures sont votées en assemblée. Pas de place pour l'anarchie. Pas de place pour les tyrans.","Nous avons accueilli 3 nouveaux réfugiés cette semaine. Le protocole d'intégration est en cours : quarantaine de 48h, examen médical par le Dr. Marchand, affectation d'un binôme-tuteur. Si quelqu'un souhaite se porter volontaire comme tuteur, signalez-vous."],
+general:["Commandant Durand, Cellule Oméga. Ce réseau existe pour coordonner notre survie collective. Utilisez-le avec discipline. Chaque canal a son rôle, chaque spécialiste son domaine. Posez vos questions au bon endroit, les réponses viendront.","Je rappelle à tous les survivants connectés : ce réseau est notre ligne de vie. Respectez les protocoles de communication. Pas de bruit inutile sur les canaux. Des vies dépendent de la clarté de nos échanges.","Situation globale : la zone nord est stable, le sud reste compromis. La Cellule Oméga coordonne 12 postes-relais à travers le territoire. Echo-7 est le noeud central. Votre rôle est essentiel."]}
+},
+'DR. MARCHAND':{color:'#3ba55c',role:'MÉDECIN',rc:'rgba(59,165,92,.15)',rb:'#3ba55c',av:'M',status:'on',
+topics:['médic','bless','sang','fièvre','infect','morsure','vaccin','sérum','soin','hôpital','malade','virus','symptôm','remède','antidote','douleur','fracture','bandage','antibio','contamin','épidém','pandém','quarantaine','guéri','traitement','dose','injection','plaie','amput','chirurg','pharmac','santé','médecin','docteur','infirm','maladie','tourn','pâle','vomi','nausée','mort','mourir','agoni','fatigu','insomni','stress','psycho','mental','déprim','cauchemar','trauma'],
+responses:{
+morsure:["⚠️ PROTOCOLE MORSURE IMMÉDIAT — Nettoyez la plaie à grande eau. Garrot serré en amont si membre. Vous avez 2 à 6 heures selon la profondeur. NE CACHEZ JAMAIS une morsure — c'est la mort pour tout votre groupe. Rejoignez l'infirmerie MAINTENANT. Le sérum peut ralentir la progression si administré dans les 2 premières heures.","Le pathogène est dans la salive. Temps d'incubation : 3 à 8 heures. Stades progressifs : fièvre brutale → confusion → arrêt cardiaque → réanimation hostile. Chaque minute compte. J'ai perdu des patients parce qu'ils ont caché leur morsure par peur ou par honte. Ne faites pas cette erreur."],
+infection:["Le virus TWD-FR se transmet par fluides corporels — morsure, griffure profonde, contact sanguin. Les voies aériennes ne sont PAS un vecteur confirmé, mais masque recommandé en zone dense. Premiers symptômes : fièvre soudaine >40°C, pupilles dilatées, agressivité croissante, perte de motricité fine.","Information cruciale que tout survivant doit connaître : nous sommes TOUS porteurs. Le pathogène est dormant en chacun de nous. La mort — quelle qu'en soit la cause — déclenche la réanimation. C'est pour ça que les protocoles de fin de vie existent. C'est difficile, mais c'est nécessaire."],
+soin:["Ressources médicales limitées. Priorisez : 1) Eau propre pour nettoyer les plaies 2) Alcool à 70° pour désinfecter 3) Bandages propres — des draps déchirés font l'affaire 4) Antidouleurs si disponibles. Évitez les antibiotiques sauf infection bactérienne confirmée — nos stocks sont au plus bas.","Pour les blessures de terrain : fractures → attelles avec branches droites + tissu. Hémorragies → compression + élévation. Brûlures → eau froide 10 min puis couvrir stérilement. Points de suture improvisés : fil de pêche + aiguille désinfectée à la flamme. Venez me voir pour les cas graves."],
+mental:["Le traumatisme psychologique est une blessure invisible mais tout aussi mortelle. Cauchemars, hypervigilance, accès de colère, sentiment d'impuissance — c'est NORMAL dans notre situation. Parlez-en. Ne restez pas seul avec ça. L'isolement tue aussi sûrement qu'une morsure.","Le stress post-traumatique touche 100% des survivants à des degrés divers. Techniques de gestion : respiration 4-7-8 (inspirer 4s, retenir 7s, expirer 8s), ancrage sensoriel (5 choses que vous voyez, 4 que vous touchez...), maintien de routines quotidiennes. Le cerveau a besoin de structure pour guérir."],
+general:["Dr. Marchand, médecin-chef Echo-7. L'infirmerie est ouverte 24/7. Quel que soit votre problème — physique ou mental — venez me voir. Il n'y a aucune honte à demander de l'aide. C'est même un signe de force.","Rappel sanitaire quotidien : hydratation (minimum 2L/jour), vérification mutuelle des morsures chaque soir, lavage des mains avant chaque repas. Les bases. Ça paraît dérisoire face à l'apocalypse, mais ces gestes sauvent des vies chaque jour.","Le sérum expérimental progresse. Groupe B : 4 sujets sur 6 montrent une résistance accrue. Pas un remède, mais un sursis. Chaque jour qui passe nous rapproche d'une solution. Gardez espoir."]}
+},
+'SGT. VAUTRIN':{color:'#ed4245',role:'TACTIQUE',rc:'rgba(237,66,69,.15)',rb:'#ed4245',av:'V',status:'on',
+topics:['arme','munition','fusil','combat','défens','attaqu','périmètre','barricad','explos','grenad','fortif','tactiq','stratég','soldat','militaire','armée','patrouill','embuscad','tir','sniper','camp','base','bunker','checkpoint','évacuat','convoi','véhicul','tank','blind','hélico','raid','assaut','guérilla','position','flanc','couvert','recul','repli','feu','sentinelle','garde','ronde','nuit','opérat','mission','sergent','colonel','protect','sécuris'],
+responses:{
+arme:["Rapport armement : privilégiez les armes blanches — silencieuses, pas de munitions. Machette, hache, barre de fer. Les armes à feu attirent les hordes dans un rayon de 2km. UNIQUEMENT en dernier recours ou couverture d'évacuation. Chaque coup tiré = signal pour tout contaminé de la zone.","Kit recommandé par survivant : 1 arme de contact (machette ou hachette), 1 arme à distance silencieuse si possible (arc > fusil), 1 couteau utilitaire. Les arbalètes sont idéales — silencieuses, carreaux récupérables. Mais l'entraînement est long. Commencez par ce que vous maîtrisez."],
+defense:["Protocole défensif Echo-7 — Triple périmètre : Cercle 1 (externe) : pièges sonores — canettes, fils, clochettes. Détection précoce. Cercle 2 (intermédiaire) : barricades physiques — véhicules, mobilier lourd, fossés. Ralentissement. Cercle 3 (interne) : murs renforcés + points d'observation en hauteur. Gardes en rotation 4h. JAMAIS solo la nuit.","Fortification d'un bâtiment : bloquez TOUTES les entrées au RDC. Escaliers détruits si possible — échelles rétractables uniquement. Stocks aux étages. Prévoyez TOUJOURS une sortie de secours (fenêtre + corde, toit accessible). Un bâtiment sans sortie = un tombeau. On a perdu le groupe de Nantes comme ça."],
+evacuation:["PROCÉDURE EVAC STANDARD : Convoi 3 véhicules minimum. Tête = éclaireur rapide et léger. Centre = civils + ravitaillement. Queue = protection arrière. Vitesse 40-60km/h. Routes secondaires UNIQUEMENT — les autoroutes sont des cimetières à ciel ouvert. Points de ralliement prédéfinis tous les 20km.","Extraction zone urbaine : binômes, un avance, un couvre. Signaux manuels — ZÉRO bruit vocal. 3 itinéraires planifiés, point de ralliement fixé. Fenêtre d'extraction : 15 minutes. Après, on part. Pas de négociation. La ponctualité sauve des vies."],
+general:["Sergent Vautrin, Cellule Oméga. La discipline est votre meilleure arme. Protocoles, calme, zéro risque inutile. Un héros mort ne protège personne.","Tactiquement : les contaminés sont lents mais obstinés. Leur force = le nombre. Ne vous laissez JAMAIS encercler. Ligne de repli toujours ouverte. Et n'oubliez pas : les vivants sont parfois plus dangereux que les morts. Méfiez-vous des groupes inconnus.","Zone nord sous contrôle. Patrouilles régulières, périmètre stable. Besoin d'escorte ? Transmettez coordonnées + destination sur ce canal. On organisera un convoi sécurisé."]}
+},
+'LOUP_NOIR':{color:'#faa61a',role:'ÉCLAIREUR',rc:'rgba(250,166,26,.15)',rb:'#faa61a',av:'L',status:'on',
+topics:['forêt','route','chemin','carte','terrain','bois','rivière','eau','natur','plante','champignon','chass','pêch','piège','traqu','piste','trace','refuge','grotte','cabin','abri','montagne','colline','vallée','marais','pont','tunnel','passage','itinérai','direction','nord','sud','est','ouest','boussol','GPS','orienter','perdu','reconnaiss','éclaireur','scout','surviv','feu de camp','bivouac','campement','animal','loup','cerf','gibier','manger','boire','cueill','ration','cuisin','froid','chaud','bivouac','dormir','nuit','pluie','neige','hiver','été','saison'],
+responses:{
+navigation:["Loup_Noir ici. Routes principales = piège mortel. Embouteillages de véhicules abandonnés + hordes en migration. Privilégiez sentiers forestiers et chemins de randonnée. Les voies ferrées désaffectées sont de bons corridors — visibilité dégagée, peu de contaminés, direction claire.","Orientation sans technologie : soleil → est le matin, ouest le soir. Mousse → côté nord des arbres (en France). Étoile polaire la nuit. Rivières → suivez-les vers l'aval pour trouver des zones habitées. Antennes relais → direction des villes. Mais attention, ville = danger.","Carte mentale des zones praticables : Forêt de Brocéliande (nord-ouest) ✓ — Massif Central (centre) ✓ — Vercors (sud-est) ✓ — Pyrénées (sud-ouest) ✓. À ÉVITER : toutes les métropoles, zones côtières basses (hordes côtières), vallées étroites sans issue, tunnels longs."],
+refuge:["Meilleurs refuges naturels : grottes en hauteur (accès difficile pour contaminés), cabanes forestières isolées, îles fluviales (l'eau est une barrière naturelle), fermes fortifiables en altitude. Critères : point d'eau <500m, visibilité sur les approches, minimum 2 sorties, possibilité de feu discret.","Brocéliande reste notre QG avancé. Forêt dense = difficilement pénétrable par les hordes. Points d'eau multiples, gibier abondant (cerfs, lapins, oiseaux). Caches de ravitaillement installées tous les 5km sur le sentier principal. Coordonnées GPS disponibles sur demande sécurisée. Capacité : 40 personnes."],
+survie:["Règle des 3 : 3 minutes sans air, 3 heures sans abri (froid extrême), 3 jours sans eau, 3 semaines sans nourriture. Priorisez dans cet ordre. L'eau = priorité n°1 après l'abri. TOUJOURS bouillir l'eau naturelle. Le virus n'est pas le seul danger — dysenterie, parasites, bactéries.","Nourriture sauvage en France : pissenlit (feuilles + racines), ortie (cuite = riche en fer), glands de chêne (tremper 48h pour les tanins), châtaignes, baies de sureau (cuites uniquement), trèfle. Champignons = INTERDIT sauf identification certaine à 100%. Une erreur = mort en 48h, plus rapide qu'un contaminé.","Feu discret : fosse Dakota. Creusez 2 trous reliés par un tunnel souterrain. Un pour le feu, un pour l'arrivée d'air. Peu de fumée, peu de lumière visible, chaleur concentrée. Parfait pour cuire sans attirer l'attention. Éteignez tout AVANT la tombée de la nuit."],
+general:["Loup_Noir en poste. La forêt est notre alliée — apprenez à la lire, à vous y déplacer en silence. Les contaminés détectent le bruit et l'odeur. Boue sur la peau si nécessaire. Déplacez-vous TOUJOURS avec le vent de face pour ne pas être repéré à l'odorat.","Rapport de reconnaissance : migrations de contaminés = grands axes routiers + autoroutes. Attirés par bruit et lumière. La nuit : aucun feu visible, aucun bruit au-dessus du murmure. Je ne négocie pas là-dessus. C'est la règle qui m'a gardé en vie."]}
+},
+'SENTINELLE_NORD':{color:'#5865f2',role:'VIGIE',rc:'rgba(88,101,242,.15)',rb:'#5865f2',av:'S',status:'idle',
+topics:['radar','alert','danger','signal','mouvem','horde','menac','observ','vigie','tour','détect','surveil','intrus','breach','percée','zombi','rôdeur','march','mort.vivant','contamin','ville','paris','lyon','marseill','bordeau','zone','secteur','périmètre','porte','mur','clôture','frontière','nombre','combi','group','masse','migrat','nuit','lumière','bruit','son','explosion'],
+responses:{
+horde:["⚠️ ALERTE VIGIE — Les hordes suivent le bruit. Horde standard : 50-200 unités. Méga-hordes urbaines : >10 000. Temps de passage d'une horde standard : 4 à 6 heures. Protocole : SILENCE TOTAL. Lumières éteintes. Immobilité complète. Ne respirez même pas trop fort. Elles finissent par passer.","Schéma de migration observé : les hordes décrivent des boucles circulaires autour des anciens centres urbains. Cycle Paris = ~12 jours. Cycle Lyon = ~8 jours. Prévisible si on cartographie assez longtemps. On peut planifier les sorties dans les fenêtres de sécurité."],
+alerte:["Sentinelle_Nord en observation. Statut actuel : mouvement détecté secteur NE, distance ~8km. Taille indéterminée. Direction SSO, vitesse ~2km/h. Fenêtre de sécurité : 4 heures. Alerte niveau JAUNE. Pas de panique, mais restez prêts.","Codes d'alerte Echo-7 — VERT : RAS, routine. JAUNE : mouvement distant, surveillance renforcée. ORANGE : menace confirmée <5km, préparez l'évacuation. ROUGE : contact imminent, protocole défensif activé. NOIR : position compromise, ÉVAC IMMÉDIATE. Connaissez ces codes. Ils peuvent vous sauver la vie."],
+general:["Sentinelle_Nord, les yeux du Poste Echo-7. Périmètre surveillé 24/7 depuis la tour d'observation. Si vous avez des infos sur des mouvements hostiles dans votre secteur, transmettez-les ici. Chaque observation alimente notre cartographie des menaces.","Rapport périmètre : secteur nord SÉCURISÉ. Dernière activité hostile = il y a 72h, groupe isolé de 12 contaminés, neutralisé par la patrouille Vautrin. Aucun signe de horde dans un rayon de 15km. Prochaine rotation de la vigie dans 3 heures."]}
+},
+'ECHO-7':{color:'#8b0000',role:'BOT SYSTÈME',rc:'rgba(139,0,0,.15)',rb:'#8b0000',av:'⛊',status:'dnd',
+topics:[],
+responses:{general:["Poste Echo-7 opérationnel. Canaux surveillés, transmissions archivées. Cellule Oméga en alerte. Terminé.","Votre message a été enregistré et transmis aux opérateurs concernés. Restez sur cette fréquence.","Système Echo-7 : transmission reçue. Les spécialistes ont été notifiés. Réponse sous peu."]}}
+};
+
+// === CHANNEL-SPECIFIC BOT ROUTING ===
+const CHANNEL_BOTS={
+general:null, // auto-detect
+zone:'SENTINELLE_NORD',
+ravitaillement:'CMDT. DURAND',
+tactical:'SGT. VAUTRIN',
+medical:'DR. MARCHAND',
+recon:'LOUP_NOIR',
+survival:'LOUP_NOIR'
+};
+
+// === SOUND EFFECTS (Web Audio API) ===
+const dcAudioCtx=typeof AudioContext!=='undefined'?new AudioContext():null;
+function dcBeep(freq,dur,vol){
+if(!dcAudioCtx)return;
+try{
+const o=dcAudioCtx.createOscillator();
+const g=dcAudioCtx.createGain();
+o.type='sine';o.frequency.value=freq;
+g.gain.value=vol||0.03;
+o.connect(g);g.connect(dcAudioCtx.destination);
+o.start();g.gain.exponentialRampToValueAtTime(0.001,dcAudioCtx.currentTime+dur);
+o.stop(dcAudioCtx.currentTime+dur);
+}catch(e){}
+}
+function dcNotifSound(){dcBeep(880,.06,.025);setTimeout(()=>dcBeep(1100,.08,.02),70)}
+function dcStaticBurst(){
+if(!dcAudioCtx)return;
+try{
+const buf=dcAudioCtx.createBuffer(1,dcAudioCtx.sampleRate*0.08,dcAudioCtx.sampleRate);
+const d=buf.getChannelData(0);
+for(let i=0;i<d.length;i++)d[i]=(Math.random()*2-1)*0.015;
+const s=dcAudioCtx.createBufferSource();s.buffer=buf;
+const g=dcAudioCtx.createGain();g.gain.value=0.4;
+s.connect(g);g.connect(dcAudioCtx.destination);s.start();
+}catch(e){}
+}
+
+// === KEYWORD MATCHING ENGINE ===
+function detectBotAndTopic(text,channel){
+const lower=text.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'');
+// If channel has a dedicated bot, use it
+const forcedBot=CHANNEL_BOTS[channel];
+let bestBot=null,bestScore=0,bestTopic='general';
+if(forcedBot&&BOTS[forcedBot]){
+bestBot=forcedBot;
+bestScore=1;
+}else{
+for(const[name,bot]of Object.entries(BOTS)){
+if(name==='ECHO-7')continue;
+let score=0;
+bot.topics.forEach(t=>{
+const tn=t.normalize('NFD').replace(/[\u0300-\u036f]/g,'');
+if(lower.includes(tn))score+=tn.length;
+});
+if(score>bestScore){bestScore=score;bestBot=name}
+}
+}
+if(!bestBot)bestBot='ECHO-7';
+// Sub-topic detection
+const bot=BOTS[bestBot];
+if(bot&&bot.responses){
+for(const topic of Object.keys(bot.responses)){
+if(topic==='general')continue;
+const tn=topic.normalize('NFD').replace(/[\u0300-\u036f]/g,'');
+if(lower.includes(tn)){bestTopic=topic;break}
+}
+if(bestTopic==='general'){
+const KW={
+morsure:['morsure','mordu','mordue','mordre','croc','dent','griff'],
+infection:['infect','virus','contamin','pathog','porteur','transmis','épidém','pandém'],
+soin:['soin','soigner','bless','plaie','fractur','hémorrag','brûlur','pansement','bandage','premiers secours','traitement','guérir','opérer'],
+mental:['stress','trauma','cauchemar','déprim','peur','panique','anxié','insomni','psycho','mental','pleurer','craquer'],
+arme:['arme','fusil','pistolet','munition','couteau','machette','hache','arc','flèch','batte','flingue','calibre','tirer','sniper','arbalèt'],
+defense:['défens','barricad','fortif','périmètr','mur','protég','bunker','camp retranch','sécuris'],
+evacuation:['évacua','fuir','fuite','partir','quitter','convoi','transport','extraction','repli','retraite'],
+navigation:['route','chemin','direction','orient','carte','boussol','itinér','trajet','aller à','où est','perdu','passage','trouver'],
+refuge:['refuge','abri','cabin','grotte','camp','dormir','install','sûr','cacher','planque'],
+survie:['manger','boire','eau','nourriture','feu','chaud','froid','chass','pêch','cueill','ration','stock','réserv','provision','cuisin'],
+horde:['horde','masse','meute','vague','envahi','submerg','nombre','migrat','armée de mort'],
+alerte:['alert','danger','détect','observ','aperç','vu des','entendu','bruit suspect','mouvement','approch'],
+ravitaillement:['ravitaillement','ration','stock','provision','eau potable','conserv','distribu','réserv','inventaire','pénurie','manque de'],
+communaute:['communaut','groupe','civil','réfugié','accueil','règle','loi','camp','organis']
+};
+for(const[topic,kws]of Object.entries(KW)){
+for(const kw of kws){
+const kwn=kw.normalize('NFD').replace(/[\u0300-\u036f]/g,'');
+if(lower.includes(kwn)&&bot.responses[topic]){bestTopic=topic;break}
+}
+if(bestTopic!=='general')break;
+}
+}
+}
+return{bot:bestBot,topic:bestTopic};
+}
+
+// === UTILS ===
+function getTime(){const n=new Date();return n.getHours().toString().padStart(2,'0')+':'+n.getMinutes().toString().padStart(2,'0')}
+function dcSan(s){const d=document.createElement('div');d.textContent=s;return d.innerHTML}
+function getDCH(ch){return JSON.parse(localStorage.getItem('twd_dc2_'+ch)||'[]')}
+function saveDCH(ch,msgs){localStorage.setItem('twd_dc2_'+ch,JSON.stringify(msgs.slice(-100)))}
+
+// === DEFAULT MESSAGES ===
+const DEFAULTS={
+general:[
+{p:'ECHO-7',t:'Réseau sécurisé Echo-7 initialisé. Connexion à la Cellule Oméga établie. Tous les opérateurs sont en ligne. Bienvenue, survivant.',time:'06:00',sys:true},
+{p:'CMDT. DURAND',t:'Commandant Durand, coordinateur du Poste Echo-7. Rapport matinal : 47 survivants enregistrés, périmètre stable, moral des troupes acceptable. Aujourd\'hui on tient. Demain aussi.',time:'06:08',bot:true},
+{p:'SGT. VAUTRIN',t:'Patrouille de nuit sans incident. Relève effectuée à 05h30. Secteur nord : RAS. Secteur est : traces de passage, probablement groupe isolé. En surveillance.',time:'06:15',bot:true},
+{p:'DR. MARCHAND',t:'Infirmerie opérationnelle. Sérum expérimental : 12 doses restantes. Résultats du groupe B encourageants — 4 sujets sur 6 montrent une résistance accrue. On avance.',time:'06:40',bot:true},
+{p:'LOUP_NOIR',t:'De retour de reco. Brocéliande est sûre, rivière praticable, gibier abondant. Capacité d\'accueil : 20 personnes supplémentaires. Coordonnées sur demande.',time:'07:15',bot:true},
+{p:'SENTINELLE_NORD',t:'Vigie en position. Aucune activité hostile rayon 10km. Visibilité excellente. Prochain rapport dans 2 heures. Dormez tranquilles.',time:'07:40',bot:true}
+],
+zone:[
+{p:'ECHO-7',t:'Canal rapport-de-zone — Intelligence terrain et situation par secteur.',time:'06:00',sys:true},
+{p:'SENTINELLE_NORD',t:'Sentinelle_Nord, responsable de la surveillance périmétrique. Transmettez vos observations terrain ici — mouvements de contaminés, état des routes, zones compromises. Chaque info sauve des vies.',time:'06:05',bot:true},
+{p:'LOUP_NOIR',t:'Dernier rapport terrain : Axe Paris-Orléans impraticable. A10 bloquée au km 47. Alternative : chemin forestier via Rambouillet, praticable à pied. Signalé 0 contaminé sur 12km.',time:'06:20',bot:true}
+],
+ravitaillement:[
+{p:'ECHO-7',t:'Canal ravitaillement — Demandes de ressources et coordination logistique.',time:'06:00',sys:true},
+{p:'CMDT. DURAND',t:'Commandant Durand, coordinateur des ressources. Formulez vos demandes de ravitaillement ici. Précisez : nature de la demande, quantité, urgence (1 à 5), localisation. Je traite par ordre de priorité.',time:'06:05',bot:true}
+],
+tactical:[
+{p:'ECHO-7',t:'Canal cellule-tactique — Planification d\'opérations et coordination militaire.',time:'06:00',sys:true},
+{p:'SGT. VAUTRIN',t:'Sergent Vautrin aux commandes. Ce canal est réservé à la coordination tactique. Rapports de combat, demandes d\'intervention, planification d\'opérations. Soyez précis, soyez concis.',time:'06:05',bot:true}
+],
+medical:[
+{p:'ECHO-7',t:'Canal infirmerie — Consultations médicales 24/7.',time:'06:00',sys:true},
+{p:'DR. MARCHAND',t:'Dr. Marchand, médecin-chef. Décrivez vos symptômes, posez vos questions. Que ce soit physique ou psychologique, je suis là. Pas de jugement, pas de tabou. On survit ensemble.',time:'06:05',bot:true}
+],
+recon:[
+{p:'ECHO-7',t:'Canal reconnaissance — Rapports d\'éclaireurs et cartographie.',time:'06:00',sys:true},
+{p:'LOUP_NOIR',t:'Loup_Noir, éclaireur senior. Itinéraires sûrs, zones à éviter, points d\'eau, refuges naturels. Si vous préparez un déplacement, passez par ici d\'abord. La différence entre un trajet planifié et une improvisation, c\'est souvent la vie.',time:'06:05',bot:true}
+],
+survival:[
+{p:'ECHO-7',t:'Canal guide-de-survie — Techniques, astuces et partage d\'expérience.',time:'06:00',sys:true},
+{p:'LOUP_NOIR',t:'La survie, c\'est 90% préparation mentale, 10% compétences. Posez vos questions — nourriture, eau, abri, feu, déplacement, premiers soins de terrain. Ici on partage ce qui marche.',time:'06:05',bot:true},
+{p:'DR. MARCHAND',t:'N\'oubliez jamais les bases : eau bouillie, mains propres, plaies couvertes. L\'hygiène est votre première ligne de défense. Pas glamour, mais efficace.',time:'06:15',bot:true}
+]
+};
+
+// === MEMBERS LIST ===
+function renderMembers(){
+const list=document.getElementById('dcMembersList');
+if(!list)return;
+list.innerHTML='';
+const allMembers=[
+...Object.entries(BOTS).map(([name,b])=>({name,color:b.color,av:b.av,role:b.role,rc:b.rc,rb:b.rb,status:b.status,isBot:true}))
+];
+if(DC.pseudo){
+allMembers.push({name:DC.pseudo,color:'#8b0000',av:DC.pseudo.charAt(0),role:'SURVIVANT',rc:'rgba(139,0,0,.1)',rb:'rgba(168,155,122,.4)',status:'on',isBot:false});
+}
+// Sort: online first
+allMembers.sort((a,b)=>{const o={on:0,idle:1,dnd:2};return(o[a.status]||3)-(o[b.status]||3)});
+const count=allMembers.filter(m=>m.status==='on'||m.status==='idle').length;
+document.getElementById('dcOnlineCount').textContent=count;
+allMembers.forEach(m=>{
+const d=document.createElement('div');
+d.className='dc-member';
+d.innerHTML=`<div class="dc-member-av" style="background:${m.color}">${m.av}<span class="m-status ${m.status==='on'?'on':m.status==='idle'?'idle':'dnd'}"></span></div><span class="dc-member-name" style="color:${m.status==='on'?'rgba(168,155,122,.7)':'rgba(168,155,122,.35)'}">${dcSan(m.name)}</span><span class="dc-member-role" style="background:${m.rc};color:${m.rb}">${m.role}</span>`;
+list.appendChild(d);
+});
+}
+
+// === RENDER MESSAGES ===
+function renderDC(){
+const el=document.getElementById('dcMessages');
+if(!el)return;
+const msgs=getDCH(DC.channel);
+el.innerHTML='';
+// Welcome card for empty-ish channels
+if(msgs.length<=3){
+const ch=CHANNELS[DC.channel];
+const welcome=document.createElement('div');
+welcome.className='dc-welcome';
+welcome.innerHTML=`<h4>Bienvenue dans #${ch.name}</h4><p>${ch.desc}</p><div class="wc-channels">${Object.entries(CHANNELS).filter(([k])=>k!==DC.channel).slice(0,4).map(([k,v])=>`<span class="wc-ch" onclick="switchChannel('${k}')"># ${v.name}</span>`).join('')}</div>`;
+el.appendChild(welcome);
+}
+let lastP='';
+msgs.forEach(m=>{
+if(m.sys){
+const d=document.createElement('div');
+d.className='dc-sys';
+d.innerHTML=`<span class="dc-sys-inner"><b>${dcSan(m.p)}</b> — ${dcSan(m.t)}</span>`;
+el.appendChild(d);lastP='';return;
+}
+const grouped=(m.p===lastP);
+const bot=BOTS[m.p];
+const d=document.createElement('div');
+d.className='dc-m'+(grouped?' grouped':'');
+if(grouped){
+d.innerHTML=`<div class="dc-m-body"><div class="dc-m-txt">${dcSan(m.t)}</div></div>`;
+}else{
+const c=bot?bot.color:'#8b0000';
+const av=bot?bot.av:(m.p?m.p.charAt(0):'?');
+const isBot=bot&&m.p!==DC.pseudo;
+const badge=bot?`<span class="dc-m-badge" style="background:${bot.rc};color:${bot.rb};border:1px solid ${bot.rb}">${bot.role}</span>`:'<span class="dc-m-badge" style="background:rgba(139,0,0,.1);color:rgba(168,155,122,.4);border:1px solid rgba(168,155,122,.2)">SURVIVANT</span>';
+const nc=bot?bot.color:'var(--parchemin)';
+d.innerHTML=`<div class="dc-m-av${isBot?' bot-av':''}" style="background:${c}">${av}</div><div class="dc-m-body"><div class="dc-m-head"><span class="dc-m-name" style="color:${nc}">${dcSan(m.p)}</span>${badge}<span class="dc-m-time">${m.time||''}</span></div><div class="dc-m-txt">${dcSan(m.t)}</div></div>`;
+}
+el.appendChild(d);lastP=m.p;
+});
+el.scrollTop=el.scrollHeight;
+}
+
+// === SWITCH CHANNEL ===
+function switchChannel(ch){
+if(!CHANNELS[ch])return;
+DC.channel=ch;
+document.querySelectorAll('.dc-ch').forEach(c=>c.classList.remove('active'));
+document.querySelector(`.dc-ch[data-channel="${ch}"]`)?.classList.add('active');
+const c=CHANNELS[ch];
+document.getElementById('dcTopName').textContent=c.name;
+document.getElementById('dcTopDesc').textContent=c.desc;
+const input=document.getElementById('dcMsgInput');
+if(input)input.placeholder=`Transmettez dans #${c.name}...`;
+document.getElementById('dcTyping').innerHTML='';
+// Clear badge
+const badge=document.getElementById('badge-'+ch);
+if(badge)badge.textContent='';
+renderDC();
+document.querySelector('.dc-side')?.classList.remove('mob-open');
+dcStaticBurst();
+}
+window.switchChannel=switchChannel;
+
+// === NOTIFICATION FLASH ===
+function dcFlash(){
+const f=document.getElementById('dcFlash');
+if(!f)return;
+f.classList.add('active');
+setTimeout(()=>f.classList.remove('active'),150);
+}
+
+// === SET PSEUDO ===
+function setDiscordPseudo(){
+const v=document.getElementById('dcPseudoInput').value.trim();
+if(!v)return;
+DC.pseudo=v.toUpperCase().replace(/[^A-ZÀ-ÿ0-9_\-]/gi,'').substring(0,20);
+if(!DC.pseudo)return;
+localStorage.setItem('twd_dc_pseudo',DC.pseudo);
+document.getElementById('dcSetup').style.display='none';
+document.getElementById('dcMessages').style.display='flex';
+document.getElementById('dcInputArea').style.display='block';
+document.getElementById('dcUserBar').style.display='flex';
+document.getElementById('dcUserName').textContent=DC.pseudo;
+document.getElementById('dcUserAvatar').textContent=DC.pseudo.charAt(0);
+renderMembers();
+// System join message
+const msgs=getDCH(DC.channel);
+msgs.push({p:'ECHO-7',t:`${DC.pseudo} a rejoint le réseau sécurisé Echo-7.`,time:getTime(),sys:true});
+saveDCH(DC.channel,msgs);renderDC();
+dcNotifSound();
+// Welcome from commander
+setTimeout(()=>{
+showTyping('CMDT. DURAND');
+setTimeout(()=>{
+hideTyping();
+const ms=getDCH(DC.channel);
+ms.push({p:'CMDT. DURAND',t:`Bienvenue ${DC.pseudo}. Vous êtes connecté(e) au réseau de la Cellule Oméga via le Poste Echo-7. Nos spécialistes sont disponibles sur chaque canal. Explorez les salons et n'hésitez pas à poser vos questions — ici, on s'entraide pour survivre.`,time:getTime(),bot:true});
+saveDCH(DC.channel,ms);renderDC();dcNotifSound();
+},2000);
+},800);
+// Start ambient activity
+startAmbient();
+}
+window.setDiscordPseudo=setDiscordPseudo;
+
+// === TYPING INDICATOR ===
+function showTyping(name){
+const bot=BOTS[name];
+const el=document.getElementById('dcTyping');
+if(!el)return;
+const c=bot?bot.color:'var(--parchemin)';
+el.innerHTML=`<strong style="color:${c}">${dcSan(name)}</strong> est en train d'écrire<span class="dc-typing-dots"><span></span><span></span><span></span></span>`;
+}
+function hideTyping(){
+const el=document.getElementById('dcTyping');
+if(el)el.innerHTML='';
+}
+
+// === SEND MESSAGE ===
+function sendDiscordMessage(){
+const input=document.getElementById('dcMsgInput');
+const text=input.value.trim();
+if(!text||!DC.pseudo)return;
+const msgs=getDCH(DC.channel);
+msgs.push({p:DC.pseudo,t:text,time:getTime()});
+saveDCH(DC.channel,msgs);
+input.value='';
+renderDC();
+dcBeep(660,.04,.02);
+// Trigger bot
+triggerBotResponse(text);
+}
+window.sendDiscordMessage=sendDiscordMessage;
+
+// === BOT RESPONSE ENGINE ===
+function triggerBotResponse(userText){
+const{bot:botName,topic}=detectBotAndTopic(userText,DC.channel);
+const bot=BOTS[botName];
+if(!bot)return;
+const responses=bot.responses[topic]||bot.responses.general;
+if(!responses||!responses.length)return;
+const response=responses[Math.floor(Math.random()*responses.length)];
+const delay=1500+Math.min(response.length*10,3500)+Math.random()*1500;
+showTyping(botName);
+setTimeout(()=>{
+hideTyping();
+const ms=getDCH(DC.channel);
+ms.push({p:botName,t:response,time:getTime(),bot:true});
+saveDCH(DC.channel,ms);renderDC();
+dcNotifSound();dcFlash();
+// 35% chance a second specialist chimes in
+if(Math.random()<0.35){
+const others=Object.keys(BOTS).filter(b=>b!==botName&&b!=='ECHO-7');
+const otherName=others[Math.floor(Math.random()*others.length)];
+const otherBot=BOTS[otherName];
+const followUps={
+'CMDT. DURAND':["Bien noté. Je mets à jour le rapport de situation.","C'est intégré au briefing. Bonne initiative.","Merci pour le rapport. Continuez comme ça, survivant."],
+'DR. MARCHAND':["D'un point de vue médical, restez vigilants.","Si quelqu'un est touché, amenez-le à l'infirmerie. Sans délai.","N'oubliez pas : désinfection systématique après chaque sortie."],
+'SGT. VAUTRIN':["Confirmé. Patrouille en alerte.","Roger. Restez en position, attendez les ordres.","Compris. J'envoie un binôme en reconnaissance."],
+'LOUP_NOIR':["Je confirme côté terrain. Zone praticable.","La forêt reste notre meilleur allié dans ce secteur.","Je peux guider un groupe. Donnez-moi un point de rendez-vous."],
+'SENTINELLE_NORD':["RAS de mon poste. Périmètre stable.","J'ai un visuel. Rien d'anormal pour le moment.","Je surveille. Prochain rapport dans 30 minutes."]
+};
+const fups=followUps[otherName]||["Reçu. On reste en veille."];
+const fup=fups[Math.floor(Math.random()*fups.length)];
+setTimeout(()=>{
+showTyping(otherName);
+setTimeout(()=>{
+hideTyping();
+const ms2=getDCH(DC.channel);
+ms2.push({p:otherName,t:fup,time:getTime(),bot:true});
+saveDCH(DC.channel,ms2);renderDC();
+dcBeep(550,.05,.015);
+},1200+Math.random()*1800);
+},1000+Math.random()*2000);
+}
+},delay);
+}
+
+// === AMBIENT ACTIVITY (simulated other users / bot chatter) ===
+const AMBIENT_MSGS=[
+{ch:'zone',p:'SENTINELLE_NORD',t:'Rapport automatique : secteur nord — RAS. Prochaine vérification dans 120 minutes.'},
+{ch:'zone',p:'LOUP_NOIR',t:'Passage repéré sur la D34, à 6km au sud-est. Traces fraîches, probablement un groupe de 8-10 contaminés. Évitez la zone.'},
+{ch:'general',p:'CMDT. DURAND',t:'Rappel : assemblée des survivants demain à 09h00 dans le réfectoire. Présence obligatoire. Ordre du jour : répartition des tours de garde et bilan des stocks.'},
+{ch:'medical',p:'DR. MARCHAND',t:'Le sérum R-7 est en cours de synthèse. Résultats attendus dans 48h. En attendant, protocole standard pour tout cas suspect.'},
+{ch:'tactical',p:'SGT. VAUTRIN',t:'Briefing tactique : opération récupération prévue demain 05h00. Objectif : pharmacie de Rambouillet. Volontaires, signalez-vous.'},
+{ch:'ravitaillement',p:'CMDT. DURAND',t:'Mise à jour stocks : eau potable 62h d\'autonomie. Rations : 38 unités. Priorité : équipe de collecte d\'eau demain matin.'},
+{ch:'survival',p:'LOUP_NOIR',t:'Conseil du jour : le charbon actif (bois brûlé + broyé) peut filtrer l\'eau en urgence. Pas parfait, mais mieux que rien. Toujours bouillir ensuite.'},
+{ch:'recon',p:'LOUP_NOIR',t:'Mise à jour carte : le pont de Maintenon est praticable. Testé ce matin. Charge max estimée : 2 tonnes. Véhicule léger OK.'},
+{ch:'general',p:'SENTINELLE_NORD',t:'Signal lumineux détecté au nord-ouest, distance ~15km. Probablement un feu de camp. Un autre groupe de survivants ? À surveiller.'},
+{ch:'general',p:'DR. MARCHAND',t:'Rappel vitamines : si vous trouvez des agrumes ou des baies, partagez avec l\'infirmerie. Le scorbut commence à toucher certains survivants.'}
 ];
 
-function initChat(){
-if(!getChatHistory().length)saveChatHistory(DEFAULT_CHAT);
-if(chatPseudo){
-document.getElementById('chatSetup').style.display='none';
-document.getElementById('chatInputArea').style.display='flex';
+function startAmbient(){
+if(DC.ambientTimer)return;
+DC.ambientTimer=setInterval(()=>{
+if(!DC.pseudo)return;
+if(Math.random()>0.25)return; // 25% chance every 45s
+const msg=AMBIENT_MSGS[Math.floor(Math.random()*AMBIENT_MSGS.length)];
+const ms=getDCH(msg.ch);
+// Don't add duplicates
+if(ms.length>0&&ms[ms.length-1].t===msg.t)return;
+ms.push({p:msg.p,t:msg.t,time:getTime(),bot:true});
+saveDCH(msg.ch,ms);
+// If we're on that channel, render
+if(DC.channel===msg.ch){
+renderDC();dcNotifSound();
+}else{
+// Show badge notification
+const badge=document.getElementById('badge-'+msg.ch);
+if(badge){
+const n=parseInt(badge.textContent||'0')+1;
+badge.textContent=n;
 }
-renderChat();
+dcBeep(440,.03,.01);
 }
-
-function renderChat(){
-const msgs=getChatHistory();
-chatMessages.innerHTML='';
-msgs.forEach(m=>{
-const div=document.createElement('div');
-div.className='chat-msg '+(m.system?'received':(m.pseudo===chatPseudo?'sent':'received'));
-div.innerHTML=`<div class="chat-msg-pseudo">${sanitize(m.pseudo)}</div><div class="chat-msg-text">${sanitize(m.text)}</div><div class="chat-msg-time">${m.time}</div>`;
-chatMessages.appendChild(div);
-});
-chatMessages.scrollTop=chatMessages.scrollHeight;
-}
-
-function sanitize(s){const d=document.createElement('div');d.textContent=s;return d.innerHTML}
-
-function setChatPseudo(){
-const v=document.getElementById('chatPseudoInput').value.trim();
-if(!v)return;
-chatPseudo=v.toUpperCase();
-localStorage.setItem('twd_chat_pseudo',chatPseudo);
-document.getElementById('chatSetup').style.display='none';
-document.getElementById('chatInputArea').style.display='flex';
-// Message système
-const msgs=getChatHistory();
-const now=new Date();
-msgs.push({pseudo:'SYSTÈME',text:`${chatPseudo} a rejoint le canal radio.`,time:now.getHours().toString().padStart(2,'0')+':'+now.getMinutes().toString().padStart(2,'0'),system:true});
-saveChatHistory(msgs);renderChat();
+},45000);
 }
 
-function sendChatMessage(){
-const input=document.getElementById('chatMsgInput');
-const text=input.value.trim();
-if(!text)return;
-const now=new Date();
-const msgs=getChatHistory();
-msgs.push({pseudo:chatPseudo,text:text,time:now.getHours().toString().padStart(2,'0')+':'+now.getMinutes().toString().padStart(2,'0'),system:false});
-saveChatHistory(msgs);input.value='';renderChat();
-// Réponse auto simulée aléatoire
-if(Math.random()<0.4){
-const responses=['Reçu, on reste en alerte.','Compris. Restez sur cette fréquence.','Roger. Faites attention là-bas.','Bien noté. Les patrouilles confirment vos observations.','La zone est instable. Préparez un plan B.','On a perdu le contact avec le secteur Est. Quelqu\'un peut confirmer ?','Tenez bon. L\'extraction est en cours de planification.'];
-setTimeout(()=>{
-const ms=getChatHistory();
-ms.push({pseudo:'POSTE ECHO-7',text:responses[Math.floor(Math.random()*responses.length)],time:new Date().getHours().toString().padStart(2,'0')+':'+new Date().getMinutes().toString().padStart(2,'0'),system:true});
-saveChatHistory(ms);renderChat();
-},1500+Math.random()*3000);
+// === INIT ===
+function initDC(){
+// Init defaults
+for(const ch of Object.keys(CHANNELS)){
+if(!getDCH(ch).length&&DEFAULTS[ch])saveDCH(ch,DEFAULTS[ch]);
 }
+if(DC.pseudo){
+document.getElementById('dcSetup').style.display='none';
+document.getElementById('dcMessages').style.display='flex';
+document.getElementById('dcInputArea').style.display='block';
+document.getElementById('dcUserBar').style.display='flex';
+document.getElementById('dcUserName').textContent=DC.pseudo;
+document.getElementById('dcUserAvatar').textContent=DC.pseudo.charAt(0);
+startAmbient();
+}
+renderMembers();
+renderDC();
 }
 
-document.getElementById('chatMsgInput')?.addEventListener('keydown',e=>{if(e.key==='Enter')sendChatMessage()});
-initChat();
+// === EVENT LISTENERS ===
+document.getElementById('dcMsgInput')?.addEventListener('keydown',e=>{if(e.key==='Enter')sendDiscordMessage()});
+document.getElementById('dcPseudoInput')?.addEventListener('keydown',e=>{if(e.key==='Enter')setDiscordPseudo()});
+
+initDC();
+
+})();
 
 // ============================================================
 // === DOSSIERS ===
