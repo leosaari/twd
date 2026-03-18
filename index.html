@@ -557,11 +557,12 @@ section{padding:100px 15px 60px}
 <a href="#hero" class="active">Accueil</a>
 <a href="#countdown">Extraction</a>
 <a href="#contamination-map">Carte</a>
-<a href="#transmissions">Transmissions</a>
-<a href="#survivants">Survivants</a>
-<a href="#radio-chat">Terminal</a>
 <a href="#profiling">Profilage</a>
+<a href="#transmissions">Transmissions</a>
+<a href="#radio-chat">Terminal</a>
 <a href="#dossiers">Dossiers</a>
+<a href="#memorial">Mémorial</a>
+<a href="#survivants">Survivants</a>
 <a href="#journal">Journal</a>
 </nav>
 </header>
@@ -570,11 +571,12 @@ section{padding:100px 15px 60px}
 <a href="#hero" onclick="closeMobileNav()">Accueil</a>
 <a href="#countdown" onclick="closeMobileNav()">Extraction</a>
 <a href="#contamination-map" onclick="closeMobileNav()">Carte</a>
-<a href="#transmissions" onclick="closeMobileNav()">Transmissions</a>
-<a href="#survivants" onclick="closeMobileNav()">Survivants</a>
-<a href="#radio-chat" onclick="closeMobileNav()">Radio</a>
 <a href="#profiling" onclick="closeMobileNav()">Profilage</a>
+<a href="#transmissions" onclick="closeMobileNav()">Transmissions</a>
+<a href="#radio-chat" onclick="closeMobileNav()">Terminal</a>
 <a href="#dossiers" onclick="closeMobileNav()">Dossiers</a>
+<a href="#memorial" onclick="closeMobileNav()">Mémorial</a>
+<a href="#survivants" onclick="closeMobileNav()">Survivants</a>
 <a href="#journal" onclick="closeMobileNav()">Journal</a>
 </nav>
 
@@ -670,6 +672,32 @@ section{padding:100px 15px 60px}
 <div class="map-detail-narrative" id="detailNarrative">—</div>
 </div>
 
+<!-- === PROFILING TEST === -->
+<section id="profiling">
+<div class="section-header reveal"><div class="section-label">CENTRE DE PROFILAGE</div><h2 class="section-title">Évaluation de Survie</h2><div class="section-divider"></div></div>
+<div class="profiling-container">
+<!-- INTRO -->
+<div class="profiling-intro reveal" id="profilingIntro">
+<div class="profiling-terminal" id="profilingTerminal"></div>
+<button class="profiling-start-btn" id="profilingStartBtn" style="display:none">COMMENCER L'ÉVALUATION</button>
+</div>
+<!-- QUESTIONS -->
+<div class="profiling-question-screen" id="profilingQuestions">
+<div class="profiling-progress" id="profilingProgress"></div>
+<div class="profiling-q-number" id="profilingQNum">QUESTION 01/12</div>
+<div class="profiling-q-text" id="profilingQText"></div>
+<div class="profiling-choices" id="profilingChoices"></div>
+<div class="profiling-timer"><div class="profiling-timer-bar" id="profilingTimerBar"></div></div>
+</div>
+<!-- RESULT -->
+<div class="profiling-result-screen" id="profilingResult"></div>
+</div>
+</section>
+<div class="result-reveal-overlay" id="resultRevealOverlay">
+<div class="result-archetype-name" id="revealArchetypeName"></div>
+<div class="result-subtitle" id="revealSubtitle"></div>
+</div>
+
 <!-- === TRANSMISSIONS AUDIO === -->
 <section id="transmissions">
 <div class="section-header reveal"><div class="section-label">COMMUNICATIONS INTERCEPTÉES</div><h2 class="section-title">Transmissions Classifiées</h2><div class="section-divider"></div></div>
@@ -702,46 +730,6 @@ section{padding:100px 15px 60px}
 <div class="dossier-date">[ENREGISTREMENT RÉCUPÉRÉ — SECTEUR COMPROMIS]</div>
 <div class="audio-player"><button class="play-btn" aria-label="Lecture"><svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg></button><div class="audio-progress-container"><div class="audio-waveform"><div class="audio-progress-overlay" style="width:0%"></div><div class="waveform-bars"></div></div><div class="audio-time"><span class="audio-current">00:00</span><span class="audio-duration">--:--</span></div></div></div>
 </div>
-</div>
-</section>
-
-<!-- === MÉMORIAL DES CONTAMINÉS === -->
-<section id="memorial">
-<div class="section-header reveal"><div class="section-label">À LA MÉMOIRE DE CEUX QUI SONT TOMBÉS</div><h2 class="section-title">Les Contaminés</h2><div class="section-divider"></div></div>
-<p class="memorial-subtitle reveal">Ils étaient parmi nous. Parents, amis, voisins. Ce mur est le dernier endroit où leurs noms seront prononcés. N'oubliez jamais.</p>
-<div class="memorial-grid" id="memorialGrid"></div>
-<div class="memorial-form-container reveal">
-<h3>Ajouter un Nom au Mémorial</h3>
-<div class="form-row">
-<div class="admin-field"><label>Nom complet</label><input type="text" id="memName" placeholder="Prénom NOM..." maxlength="40"></div>
-<div class="admin-field"><label>Dernier rôle connu</label><input type="text" id="memRole" placeholder="Ex: Médecin, Instituteur..." maxlength="40"></div>
-</div>
-<div class="form-row">
-<div class="admin-field"><label>Date de contamination</label><input type="text" id="memDate" placeholder="Ex: J+14 — 12 Avril 2026" maxlength="30"></div>
-<div class="admin-field"><label>Lieu</label><input type="text" id="memLocation" placeholder="Ex: Paris, 11ème arr." maxlength="40"></div>
-</div>
-<div class="admin-field"><label>Épitaphe / Dernier souvenir</label><textarea id="memEpitaph" placeholder="Ce dont on se souviendra..." rows="2" maxlength="200"></textarea></div>
-<div class="admin-field"><label>Photo (optionnel)</label><input type="file" id="memPhoto" accept="image/*" style="color:var(--parchemin-sombre)"></div>
-<button class="admin-submit" id="addMemorialBtn" style="width:100%;margin-top:10px">INSCRIRE AU MÉMORIAL</button>
-<div class="confirmation-msg" id="memConfirm">NOM INSCRIT — Leur mémoire est préservée.</div>
-</div>
-<div class="memorial-count reveal" id="memorialCount"></div>
-</section>
-
-<!-- === SURVIVANTS === -->
-<section id="survivants">
-<div class="section-header reveal"><div class="section-label">REGISTRE DES SURVIVANTS</div><h2 class="section-title">Mur des Survivants</h2><div class="section-divider"></div></div>
-<div class="cork-board reveal"><div class="survivors-grid" id="survivorsGrid"></div></div>
-<div class="survivor-form-container reveal">
-<h3>SIGNALER VOTRE POSITION</h3>
-<div class="form-row">
-<div class="admin-field"><label>Nom de survivant</label><input type="text" id="survName" placeholder="Votre pseudonyme..." maxlength="30"></div>
-<div class="admin-field"><label>Localisation</label><input type="text" id="survLocation" placeholder="Ex: Zone Nord, Lyon..." maxlength="60"></div>
-</div>
-<div class="admin-field"><label>Message (140 caractères max)</label><textarea id="survMessage" placeholder="Votre message aux autres survivants..." maxlength="140" rows="2"></textarea><div class="char-counter"><span id="survCharCount">0</span>/140</div></div>
-<div class="admin-field"><label>Photo (optionnel)</label><input type="file" id="survPhoto" accept="image/*" style="color:var(--parchemin-sombre)"></div>
-<button class="admin-submit" id="addSurvivorBtn" style="width:100%;margin-top:10px">TRANSMETTRE MA POSITION</button>
-<div class="confirmation-msg" id="survConfirm">SIGNAL REÇU — Votre position a été enregistrée par le Poste Echo-7</div>
 </div>
 </section>
 
@@ -816,32 +804,6 @@ section{padding:100px 15px 60px}
 </div>
 </section>
 
-<!-- === PROFILING TEST === -->
-<section id="profiling">
-<div class="section-header reveal"><div class="section-label">CENTRE DE PROFILAGE</div><h2 class="section-title">Évaluation de Survie</h2><div class="section-divider"></div></div>
-<div class="profiling-container">
-<!-- INTRO -->
-<div class="profiling-intro reveal" id="profilingIntro">
-<div class="profiling-terminal" id="profilingTerminal"></div>
-<button class="profiling-start-btn" id="profilingStartBtn" style="display:none">COMMENCER L'ÉVALUATION</button>
-</div>
-<!-- QUESTIONS -->
-<div class="profiling-question-screen" id="profilingQuestions">
-<div class="profiling-progress" id="profilingProgress"></div>
-<div class="profiling-q-number" id="profilingQNum">QUESTION 01/12</div>
-<div class="profiling-q-text" id="profilingQText"></div>
-<div class="profiling-choices" id="profilingChoices"></div>
-<div class="profiling-timer"><div class="profiling-timer-bar" id="profilingTimerBar"></div></div>
-</div>
-<!-- RESULT -->
-<div class="profiling-result-screen" id="profilingResult"></div>
-</div>
-</section>
-<div class="result-reveal-overlay" id="resultRevealOverlay">
-<div class="result-archetype-name" id="revealArchetypeName"></div>
-<div class="result-subtitle" id="revealSubtitle"></div>
-</div>
-
 <!-- === DOSSIERS CONFIDENTIELS === -->
 <section id="dossiers">
 <div class="section-header reveal"><div class="section-label">ARCHIVES DÉCLASSIFIÉES</div><h2 class="section-title">Dossiers Confidentiels</h2><div class="section-divider"></div></div>
@@ -871,6 +833,46 @@ section{padding:100px 15px 60px}
 </div>
 </div>
 </div>
+
+<!-- === MÉMORIAL DES CONTAMINÉS === -->
+<section id="memorial">
+<div class="section-header reveal"><div class="section-label">À LA MÉMOIRE DE CEUX QUI SONT TOMBÉS</div><h2 class="section-title">Les Contaminés</h2><div class="section-divider"></div></div>
+<p class="memorial-subtitle reveal">Ils étaient parmi nous. Parents, amis, voisins. Ce mur est le dernier endroit où leurs noms seront prononcés. N'oubliez jamais.</p>
+<div class="memorial-grid" id="memorialGrid"></div>
+<div class="memorial-form-container reveal">
+<h3>Ajouter un Nom au Mémorial</h3>
+<div class="form-row">
+<div class="admin-field"><label>Nom complet</label><input type="text" id="memName" placeholder="Prénom NOM..." maxlength="40"></div>
+<div class="admin-field"><label>Dernier rôle connu</label><input type="text" id="memRole" placeholder="Ex: Médecin, Instituteur..." maxlength="40"></div>
+</div>
+<div class="form-row">
+<div class="admin-field"><label>Date de contamination</label><input type="text" id="memDate" placeholder="Ex: J+14 — 12 Avril 2026" maxlength="30"></div>
+<div class="admin-field"><label>Lieu</label><input type="text" id="memLocation" placeholder="Ex: Paris, 11ème arr." maxlength="40"></div>
+</div>
+<div class="admin-field"><label>Épitaphe / Dernier souvenir</label><textarea id="memEpitaph" placeholder="Ce dont on se souviendra..." rows="2" maxlength="200"></textarea></div>
+<div class="admin-field"><label>Photo (optionnel)</label><input type="file" id="memPhoto" accept="image/*" style="color:var(--parchemin-sombre)"></div>
+<button class="admin-submit" id="addMemorialBtn" style="width:100%;margin-top:10px">INSCRIRE AU MÉMORIAL</button>
+<div class="confirmation-msg" id="memConfirm">NOM INSCRIT — Leur mémoire est préservée.</div>
+</div>
+<div class="memorial-count reveal" id="memorialCount"></div>
+</section>
+
+<!-- === SURVIVANTS === -->
+<section id="survivants">
+<div class="section-header reveal"><div class="section-label">REGISTRE DES SURVIVANTS</div><h2 class="section-title">Mur des Survivants</h2><div class="section-divider"></div></div>
+<div class="cork-board reveal"><div class="survivors-grid" id="survivorsGrid"></div></div>
+<div class="survivor-form-container reveal">
+<h3>SIGNALER VOTRE POSITION</h3>
+<div class="form-row">
+<div class="admin-field"><label>Nom de survivant</label><input type="text" id="survName" placeholder="Votre pseudonyme..." maxlength="30"></div>
+<div class="admin-field"><label>Localisation</label><input type="text" id="survLocation" placeholder="Ex: Zone Nord, Lyon..." maxlength="60"></div>
+</div>
+<div class="admin-field"><label>Message (140 caractères max)</label><textarea id="survMessage" placeholder="Votre message aux autres survivants..." maxlength="140" rows="2"></textarea><div class="char-counter"><span id="survCharCount">0</span>/140</div></div>
+<div class="admin-field"><label>Photo (optionnel)</label><input type="file" id="survPhoto" accept="image/*" style="color:var(--parchemin-sombre)"></div>
+<button class="admin-submit" id="addSurvivorBtn" style="width:100%;margin-top:10px">TRANSMETTRE MA POSITION</button>
+<div class="confirmation-msg" id="survConfirm">SIGNAL REÇU — Votre position a été enregistrée par le Poste Echo-7</div>
+</div>
+</section>
 
 <!-- === JOURNAL === -->
 <section id="journal">
