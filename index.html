@@ -200,22 +200,64 @@ section{min-height:100vh;padding:120px 20px 80px;position:relative}
 .admin-submit{font-family:var(--font-mono);font-size:.75rem;color:var(--noir);background:var(--rouge-sang);border:none;padding:12px 30px;cursor:pointer;letter-spacing:3px;text-transform:uppercase;transition:.3s}
 .admin-submit:hover{background:var(--rouge-vif);box-shadow:0 0 20px rgba(139,0,0,.5)}
 
-/* === ZOMBIE GAME === */
-#zombie-game{min-height:100vh;background:#000;padding:100px 20px 40px;overflow:hidden}
-.game-container{max-width:1000px;margin:0 auto;position:relative}
-.game-hud{display:flex;justify-content:space-between;align-items:center;margin-bottom:15px;padding:10px 20px;border:1px solid rgba(139,0,0,.3);background:rgba(10,10,10,.9)}
-.hud-item{font-family:var(--font-mono);font-size:.8rem;color:var(--rouge-vif);letter-spacing:2px;text-transform:uppercase}
-.hud-item span{color:var(--parchemin);font-size:1.1rem}
-.game-canvas-wrapper{position:relative;border:2px solid rgba(139,0,0,.4);overflow:hidden;cursor:url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40"><circle cx="20" cy="20" r="15" fill="none" stroke="%23CC0000" stroke-width="2" opacity="0.9"/><line x1="20" y1="0" x2="20" y2="12" stroke="%23CC0000" stroke-width="2"/><line x1="20" y1="28" x2="20" y2="40" stroke="%23CC0000" stroke-width="2"/><line x1="0" y1="20" x2="12" y2="20" stroke="%23CC0000" stroke-width="2"/><line x1="28" y1="20" x2="40" y2="20" stroke="%23CC0000" stroke-width="2"/><circle cx="20" cy="20" r="3" fill="%23CC0000"/></svg>') 20 20,crosshair}
-#gameCanvas{display:block;width:100%;background:#111;image-rendering:auto}
-.game-controls{display:flex;gap:15px;justify-content:center;margin-top:15px}
-.game-btn{font-family:var(--font-mono);font-size:.75rem;color:var(--parchemin);letter-spacing:3px;text-transform:uppercase;border:1px solid var(--rouge-sang);padding:10px 25px;background:rgba(139,0,0,.1);cursor:pointer;transition:.3s}
-.game-btn:hover{background:rgba(139,0,0,.3);box-shadow:0 0 15px rgba(139,0,0,.5)}
-.game-btn.active{background:rgba(139,0,0,.4);border-color:var(--rouge-vif)}
-.game-over-screen{display:none;position:absolute;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.85);z-index:10;flex-direction:column;align-items:center;justify-content:center}
-.game-over-screen.active{display:flex}
-.game-over-screen h2{font-family:var(--font-military);font-size:2.5rem;color:var(--rouge-vif);text-transform:uppercase;letter-spacing:5px;margin-bottom:20px;text-shadow:0 0 30px rgba(204,0,0,.5)}
-.game-over-screen .final-score{font-family:var(--font-mono);font-size:1.5rem;color:var(--parchemin);margin-bottom:30px}
+/* === PROFILING TEST === */
+#profiling{min-height:100vh;background:#000;padding:100px 20px 60px;overflow:hidden}
+.profiling-container{max-width:750px;margin:0 auto;position:relative}
+.profiling-intro{text-align:center;padding:60px 30px;border:1px solid rgba(74,82,64,.3);background:rgba(5,5,5,.9);position:relative}
+.profiling-intro::before{content:'';position:absolute;top:0;left:0;width:100%;height:100%;background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,255,0,.015) 2px,rgba(0,255,0,.015) 4px);pointer-events:none}
+.profiling-terminal{font-family:var(--font-mono);font-size:.85rem;color:var(--vert-mil);line-height:1.8;letter-spacing:1px;text-align:left;max-width:550px;margin:0 auto 30px;min-height:120px}
+.profiling-terminal .cursor-blink{display:inline-block;width:8px;height:1.1em;background:var(--vert-mil);animation:blink-red 1s infinite;vertical-align:text-bottom;margin-left:2px}
+.profiling-start-btn{font-family:var(--font-mono);font-size:.8rem;color:var(--parchemin);letter-spacing:4px;text-transform:uppercase;border:1px solid var(--rouge-sang);padding:14px 40px;background:rgba(139,0,0,.1);cursor:pointer;transition:.3s}
+.profiling-start-btn:hover{background:rgba(139,0,0,.3);box-shadow:0 0 20px rgba(139,0,0,.5)}
+.profiling-question-screen{display:none}
+.profiling-progress{display:flex;gap:6px;justify-content:center;margin-bottom:30px}
+.profiling-progress .pip{width:24px;height:3px;background:rgba(74,82,64,.3);transition:background .4s}
+.profiling-progress .pip.done{background:var(--rouge-vif)}
+.profiling-progress .pip.current{background:var(--vert-mil);box-shadow:0 0 6px var(--vert-mil)}
+.profiling-q-number{font-family:var(--font-mono);font-size:.6rem;color:var(--rouge-sang);letter-spacing:4px;text-transform:uppercase;text-align:center;margin-bottom:15px}
+.profiling-q-text{font-family:var(--font-body);font-size:1.05rem;color:var(--parchemin);line-height:1.7;text-align:center;margin-bottom:35px;min-height:60px;padding:0 15px}
+.profiling-choices{display:flex;flex-direction:column;gap:12px;max-width:600px;margin:0 auto}
+.profiling-choice{display:block;width:100%;text-align:left;font-family:var(--font-body);font-size:.88rem;color:var(--parchemin-sombre);background:rgba(15,15,15,.8);border:1px solid rgba(74,82,64,.2);padding:16px 20px;cursor:pointer;transition:.3s;position:relative;line-height:1.5}
+.profiling-choice::before{content:attr(data-label);font-family:var(--font-mono);font-size:.6rem;color:var(--rouge-sang);letter-spacing:3px;display:block;margin-bottom:4px}
+.profiling-choice:hover{border-color:var(--rouge-vif);background:rgba(139,0,0,.08);color:var(--parchemin);padding-left:25px}
+.profiling-choice.selected{border-color:var(--rouge-vif);background:rgba(139,0,0,.15)}
+.profiling-timer{width:100%;height:2px;background:rgba(74,82,64,.15);margin-top:25px;overflow:hidden}
+.profiling-timer-bar{height:100%;background:linear-gradient(90deg,var(--vert-mil),var(--rouge-vif));width:100%;transition:width 15s linear}
+.profiling-result-screen{display:none;text-align:center}
+.result-reveal-overlay{position:fixed;top:0;left:0;width:100%;height:100%;background:#000;z-index:30000;display:none;align-items:center;justify-content:center;flex-direction:column}
+.result-reveal-overlay.active{display:flex}
+.result-archetype-name{font-family:var(--font-heading);font-size:clamp(2.5rem,6vw,4.5rem);color:var(--parchemin);text-transform:uppercase;letter-spacing:8px;font-weight:700;animation:glitch-logo 4s infinite;opacity:0;transition:opacity 1s ease}
+.result-archetype-name.show{opacity:1}
+.result-subtitle{font-family:var(--font-mono);font-size:.8rem;color:var(--rouge-vif);letter-spacing:4px;margin-top:10px;opacity:0;transition:opacity 1s ease .5s}
+.result-subtitle.show{opacity:1}
+.result-card{border:1px solid rgba(139,0,0,.4);background:rgba(10,10,10,.95);padding:40px 35px;text-align:left;max-width:650px;margin:0 auto;position:relative}
+.result-card::before{content:'DOSSIER DE PROFILAGE';position:absolute;top:-12px;left:20px;background:#000;padding:2px 15px;font-family:var(--font-mono);font-size:.6rem;color:var(--rouge-sang);letter-spacing:3px}
+.result-card-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:20px;padding-bottom:15px;border-bottom:1px solid rgba(74,82,64,.2)}
+.result-card-archetype{font-family:var(--font-heading);font-size:1.6rem;color:var(--parchemin);text-transform:uppercase;letter-spacing:4px;font-weight:700}
+.result-card-ref{font-family:var(--font-mono);font-size:.6rem;color:var(--rouge-sang);letter-spacing:2px;text-align:right}
+.result-card-role{font-family:var(--font-body);font-size:.9rem;color:var(--parchemin-sombre);line-height:1.7;margin-bottom:20px}
+.result-traits{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:20px}
+.result-trait{padding:10px 14px;border:1px solid rgba(74,82,64,.2);background:rgba(0,0,0,.3)}
+.result-trait-label{font-family:var(--font-mono);font-size:.6rem;color:var(--vert-kaki);letter-spacing:2px;text-transform:uppercase;margin-bottom:4px}
+.result-trait-value{font-family:var(--font-body);font-size:.85rem;color:var(--parchemin)}
+.result-weakness{padding:12px 16px;border:1px solid rgba(139,0,0,.3);background:rgba(139,0,0,.05);margin-bottom:20px}
+.result-weakness .result-trait-label{color:var(--rouge-sang)}
+.result-weakness .result-trait-value{color:var(--rouge-vif)}
+.result-survival-rate{text-align:center;margin:20px 0}
+.result-survival-rate .rate-label{font-family:var(--font-mono);font-size:.65rem;color:var(--vert-kaki);letter-spacing:3px;text-transform:uppercase;margin-bottom:5px}
+.result-survival-rate .rate-value{font-family:var(--font-mono);font-size:2.5rem;color:var(--rouge-vif);text-shadow:0 0 20px rgba(204,0,0,.4)}
+.result-survival-bar{height:6px;background:#1a1a1a;margin-top:8px;max-width:300px;margin-left:auto;margin-right:auto}
+.result-survival-bar-fill{height:100%;background:var(--rouge-vif);transition:width 2s ease}
+.result-gauges{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:20px 0;padding:15px 0;border-top:1px solid rgba(74,82,64,.15);border-bottom:1px solid rgba(74,82,64,.15)}
+.gauge-item{text-align:center}
+.gauge-label{font-family:var(--font-mono);font-size:.55rem;color:var(--vert-kaki);letter-spacing:1px;text-transform:uppercase;margin-bottom:6px}
+.gauge-bar{height:4px;background:#1a1a1a;margin:0 auto;max-width:80px}
+.gauge-fill{height:100%;transition:width 1.5s ease}
+.gauge-value{font-family:var(--font-mono);font-size:.6rem;color:var(--parchemin-sombre);margin-top:3px}
+.result-actions{display:flex;gap:12px;justify-content:center;margin-top:25px;flex-wrap:wrap}
+.result-actions button{font-family:var(--font-mono);font-size:.7rem;color:var(--parchemin);letter-spacing:3px;text-transform:uppercase;border:1px solid var(--rouge-sang);padding:12px 25px;background:rgba(139,0,0,.1);cursor:pointer;transition:.3s}
+.result-actions button:hover{background:rgba(139,0,0,.3);box-shadow:0 0 15px rgba(139,0,0,.5)}
+@media(max-width:768px){.result-traits{grid-template-columns:1fr}.result-gauges{grid-template-columns:repeat(2,1fr)}}
 
 /* === CHAT / RADIO === */
 #radio-chat{min-height:80vh;background:linear-gradient(180deg,var(--noir),#080808);padding:120px 20px 80px}
@@ -314,8 +356,6 @@ section{min-height:100vh;padding:120px 20px 80px;position:relative}
 .music-toggle.playing .music-bars span:nth-child(4){height:5px;animation-delay:.45s}
 @keyframes eq-bar{0%{height:3px}100%{height:10px}}
 
-.muzzle-flash{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(255,200,50,.15);pointer-events:none;z-index:99999;opacity:0;transition:opacity .05s}
-.muzzle-flash.active{opacity:1}
 
 /* === RESPONSIVE === */
 @media(max-width:768px){
@@ -335,7 +375,6 @@ section{padding:100px 15px 60px}
 </head>
 <body>
 <div class="vignette-overlay"></div>
-<div class="muzzle-flash" id="muzzleFlash"></div>
 <button class="back-to-top" id="backToTop" title="Retour en haut">↑</button>
 <audio id="bgMusic" src="audio/theme.mp3" loop preload="auto"></audio>
 <button class="music-toggle muted" id="musicToggle" title="Musique ON/OFF">
@@ -381,7 +420,7 @@ section{padding:100px 15px 60px}
 <a href="#transmissions">Transmissions</a>
 <a href="#survivants">Survivants</a>
 <a href="#radio-chat">Radio</a>
-<a href="#zombie-game">Défense</a>
+<a href="#profiling">Profilage</a>
 <a href="#dossiers">Dossiers</a>
 <a href="#journal">Journal</a>
 </nav>
@@ -394,7 +433,7 @@ section{padding:100px 15px 60px}
 <a href="#transmissions" onclick="closeMobileNav()">Transmissions</a>
 <a href="#survivants" onclick="closeMobileNav()">Survivants</a>
 <a href="#radio-chat" onclick="closeMobileNav()">Radio</a>
-<a href="#zombie-game" onclick="closeMobileNav()">Défense</a>
+<a href="#profiling" onclick="closeMobileNav()">Profilage</a>
 <a href="#dossiers" onclick="closeMobileNav()">Dossiers</a>
 <a href="#journal" onclick="closeMobileNav()">Journal</a>
 </nav>
@@ -565,30 +604,31 @@ section{padding:100px 15px 60px}
 </div>
 </section>
 
-<!-- === ZOMBIE SHOOTING GAME === -->
-<section id="zombie-game">
-<div class="section-header reveal"><div class="section-label">POSTE DE DÉFENSE</div><h2 class="section-title">Élimination des Menaces</h2><div class="section-divider"></div></div>
-<div class="game-container">
-<div class="game-hud">
-<div class="hud-item">SCORE : <span id="gameScore">0</span></div>
-<div class="hud-item">VIE : <span id="gameHealth">100</span></div>
-<div class="hud-item">VAGUE : <span id="gameWave">1</span></div>
-<div class="hud-item">MUNITIONS : <span id="gameAmmo">∞</span></div>
+<!-- === PROFILING TEST === -->
+<section id="profiling">
+<div class="section-header reveal"><div class="section-label">CENTRE DE PROFILAGE</div><h2 class="section-title">Évaluation de Survie</h2><div class="section-divider"></div></div>
+<div class="profiling-container">
+<!-- INTRO -->
+<div class="profiling-intro reveal" id="profilingIntro">
+<div class="profiling-terminal" id="profilingTerminal"></div>
+<button class="profiling-start-btn" id="profilingStartBtn" style="display:none">COMMENCER L'ÉVALUATION</button>
 </div>
-<div class="game-canvas-wrapper">
-<canvas id="gameCanvas" width="960" height="500"></canvas>
-<div class="game-over-screen" id="gameOverScreen">
-<h2>TOMBÉ AU COMBAT</h2>
-<div class="final-score">Score final : <span id="finalScore">0</span></div>
-<button class="game-btn" onclick="startGame()">REPRENDRE LES ARMES</button>
+<!-- QUESTIONS -->
+<div class="profiling-question-screen" id="profilingQuestions">
+<div class="profiling-progress" id="profilingProgress"></div>
+<div class="profiling-q-number" id="profilingQNum">QUESTION 01/12</div>
+<div class="profiling-q-text" id="profilingQText"></div>
+<div class="profiling-choices" id="profilingChoices"></div>
+<div class="profiling-timer"><div class="profiling-timer-bar" id="profilingTimerBar"></div></div>
 </div>
-</div>
-<div class="game-controls">
-<button class="game-btn active" id="startGameBtn" onclick="startGame()">COMMENCER LA DÉFENSE</button>
-<button class="game-btn" id="pauseGameBtn" onclick="togglePause()">PAUSE</button>
-</div>
+<!-- RESULT -->
+<div class="profiling-result-screen" id="profilingResult"></div>
 </div>
 </section>
+<div class="result-reveal-overlay" id="resultRevealOverlay">
+<div class="result-archetype-name" id="revealArchetypeName"></div>
+<div class="result-subtitle" id="revealSubtitle"></div>
+</div>
 
 <!-- === DOSSIERS CONFIDENTIELS === -->
 <section id="dossiers">
@@ -846,148 +886,301 @@ dos._audio=audio;
 })})();
 
 // ============================================================
-// === ZOMBIE SHOOTING GAME ===
+// === TEST DE PROFILAGE DE SURVIE ===
 // ============================================================
-const gameCanvas=document.getElementById('gameCanvas'),gctx=gameCanvas.getContext('2d');
-let gameRunning=false,gamePaused=false,gameScore=0,gameHealth=100,gameWave=1;
-let zombies=[],bullets=[],explosions=[],spawnTimer=0,waveTimer=0;
-const muzzleFlash=document.getElementById('muzzleFlash');
+(function(){
+const QUESTIONS=[
+{q:"Votre groupe tombe sur un entrepôt rempli de vivres. Un enfant seul monte la garde. Il dit que c'est pour sa famille qui reviendra bientôt.",choices:[
+{text:"On négocie un partage équitable. L'enfant garde la moitié, on prend le reste.",scores:{empathy:2,leadership:2,tactical:1}},
+{text:"On prend tout. La survie du groupe passe avant un inconnu.",scores:{tactical:2,autonomy:2,combat:1}},
+{text:"On laisse les vivres et on continue. C'est les siens.",scores:{empathy:3,discretion:1}},
+{text:"On reste et on attend sa famille pour former une alliance.",scores:{leadership:2,empathy:1,tactical:1}}
+],label:['OPTION A','OPTION B','OPTION C','OPTION D']},
+{q:"La nuit tombe. Vous entendez des cris au loin. Quelqu'un a besoin d'aide. Sortir signifie risquer votre vie et celle du groupe.",choices:[
+{text:"J'y vais seul, sans arme lourde, en mode discret.",scores:{discretion:3,combat:1,empathy:1}},
+{text:"J'organise une équipe de reconnaissance rapide — deux personnes, 15 minutes max.",scores:{leadership:3,tactical:2}},
+{text:"On n'y va pas. On éteint les lumières et on attend que ça passe.",scores:{tactical:2,autonomy:2}},
+{text:"Je fonce directement. Si c'est un piège, tant pis.",scores:{combat:3,empathy:1}}
+],label:['OPTION A','OPTION B','OPTION C','OPTION D']},
+{q:"Un membre du groupe cache de la nourriture en secret. Vous êtes le seul à l'avoir vu. Le groupe est déjà sous tension.",choices:[
+{text:"Je le confronte en privé. On règle ça entre quatre yeux.",scores:{leadership:2,discretion:2}},
+{text:"Je le dénonce devant tout le monde. Le groupe doit savoir.",scores:{leadership:2,empathy:1,tactical:1}},
+{text:"Je ne dis rien. Tout le monde a ses raisons. Je surveille.",scores:{discretion:3,autonomy:1}},
+{text:"Je lui prends sa cachette en douce pour la redistribuer anonymement.",scores:{discretion:2,empathy:2,tactical:1}}
+],label:['OPTION A','OPTION B','OPTION C','OPTION D']},
+{q:"Vous trouvez une arme à feu avec exactement 3 balles. Impossible d'en trouver d'autres. Comment les utilisez-vous ?",choices:[
+{text:"Je les garde pour les moments critiques. Chaque balle sera comptée stratégiquement.",scores:{tactical:3,discretion:1}},
+{text:"Je m'entraîne avec une. Les deux autres pour protéger le groupe.",scores:{combat:3,leadership:1}},
+{text:"Je les donne au meilleur tireur du groupe. Ce n'est pas mon domaine.",scores:{leadership:2,empathy:1,tactical:1}},
+{text:"3 balles, 3 pièges. Je fabrique des systèmes d'alerte périmétriques.",scores:{tactical:2,discretion:2,autonomy:1}}
+],label:['OPTION A','OPTION B','OPTION C','OPTION D']},
+{q:"Le leader du camp prend une décision que vous jugez suicidaire pour tout le monde : traverser une zone infestée de nuit.",choices:[
+{text:"Je m'oppose publiquement et je propose mon plan alternatif.",scores:{leadership:3,tactical:1}},
+{text:"Je le suis. Un groupe divisé est un groupe mort.",scores:{empathy:2,combat:1,leadership:1}},
+{text:"Je prépare discrètement un plan B au cas où ça tourne mal.",scores:{tactical:2,discretion:2,autonomy:1}},
+{text:"Je pars seul en éclaireur pour vérifier la zone avant tout le monde.",scores:{autonomy:2,combat:2,discretion:1}}
+],label:['OPTION A','OPTION B','OPTION C','OPTION D']},
+{q:"Deux groupes de survivants se disputent un pont — la seule route vers le sud. Les deux ont des enfants, des blessés. La tension monte.",choices:[
+{text:"Je m'interpose et je négocie un passage alterné avec des règles claires.",scores:{leadership:2,empathy:2,tactical:1}},
+{text:"On force le passage. Mes gens d'abord.",scores:{combat:2,autonomy:2}},
+{text:"J'observe à distance. Le conflit va se résoudre de lui-même, ou les affaiblir.",scores:{discretion:3,tactical:1}},
+{text:"Je propose de fusionner les deux groupes. L'union fait la force.",scores:{empathy:2,leadership:2}}
+],label:['OPTION A','OPTION B','OPTION C','OPTION D']},
+{q:"Après 3 semaines de survie, vous n'avez dormi que quelques heures par nuit. Le groupe compte sur vous. Votre corps lâche.",choices:[
+{text:"Je forme quelqu'un pour me remplacer temporairement et je dors 8 heures.",scores:{leadership:3,tactical:1}},
+{text:"Je continue. Le groupe ne peut pas se permettre que je m'arrête.",scores:{combat:1,empathy:2,autonomy:1}},
+{text:"Je m'isole dans un endroit sûr et je récupère seul, sans le dire.",scores:{autonomy:3,discretion:1}},
+{text:"Je réduis mon périmètre d'action. Moins de territoire, plus de repos.",scores:{tactical:3}}
+],label:['OPTION A','OPTION B','OPTION C','OPTION D']},
+{q:"Un survivant rejoint votre camp. Il est médecin. Mais quelque chose cloche — il refuse de dire d'où il vient et a des cicatrices suspectes.",choices:[
+{text:"On l'accueille avec surveillance. Ses compétences sont trop précieuses.",scores:{tactical:2,leadership:2}},
+{text:"Je l'interroge personnellement pour évaluer la menace.",scores:{discretion:2,leadership:1,tactical:1}},
+{text:"Pas de confiance, pas d'accès au camp. Qu'il prouve ses intentions d'abord.",scores:{autonomy:2,combat:1,tactical:1}},
+{text:"Je lui donne une chance. Tout le monde a un passé dans ce monde.",scores:{empathy:3,leadership:1}}
+],label:['OPTION A','OPTION B','OPTION C','OPTION D']},
+{q:"La radio capte un message : un camp militaire à 80 km offre l'extraction par hélicoptère. Mais le message date de 5 jours.",choices:[
+{text:"On y va. C'est peut-être notre seule chance de sortir.",scores:{combat:2,empathy:1,leadership:1}},
+{text:"J'envoie une équipe de reconnaissance légère. On ne déplace pas tout le groupe sur un pari.",scores:{tactical:3,leadership:1}},
+{text:"C'est un piège. On reste ici et on renforce nos positions.",scores:{autonomy:2,tactical:1,discretion:1}},
+{text:"J'y vais seul en premier. Si c'est réel, je reviens chercher les autres.",scores:{autonomy:2,discretion:2,combat:1}}
+],label:['OPTION A','OPTION B','OPTION C','OPTION D']},
+{q:"Un enfant du camp vous demande si les choses redeviendront comme avant. Tout le monde écoute votre réponse.",choices:[
+{text:"Je lui dis la vérité : non. Mais on peut construire quelque chose de nouveau, ensemble.",scores:{leadership:2,empathy:2}},
+{text:"Je mens. Il a besoin d'espoir, même faux, pour continuer.",scores:{empathy:3,tactical:1}},
+{text:"Je change de sujet. Ce n'est pas le moment pour les grandes questions.",scores:{discretion:2,tactical:1,autonomy:1}},
+{text:"Je lui apprends à se battre plutôt que de répondre. Les mots ne servent à rien ici.",scores:{combat:3,autonomy:1}}
+],label:['OPTION A','OPTION B','OPTION C','OPTION D']},
+{q:"Vous êtes pris en embuscade. Deux sorties possibles : un tunnel sombre ou un toit découvert. Les infectés arrivent des deux côtés.",choices:[
+{text:"Le tunnel. L'obscurité est un avantage pour celui qui la connaît.",scores:{discretion:3,tactical:1}},
+{text:"Le toit. Je préfère voir mes ennemis que deviner dans le noir.",scores:{combat:2,tactical:1,leadership:1}},
+{text:"Ni l'un ni l'autre. Je crée une diversion et je passe par un troisième chemin.",scores:{tactical:3,discretion:1}},
+{text:"Je couvre la fuite des autres et je passe en dernier.",scores:{empathy:2,combat:2}}
+],label:['OPTION A','OPTION B','OPTION C','OPTION D']},
+{q:"Dernière question. C'est la fin du monde. Qu'est-ce qui vous fait encore avancer chaque matin ?",choices:[
+{text:"Protéger ceux qui comptent sur moi. Tant qu'ils sont là, je tiens.",scores:{empathy:3,leadership:1}},
+{text:"Survivre. Point. Chaque jour en vie est une victoire.",scores:{autonomy:3,combat:1}},
+{text:"Comprendre. Trouver des réponses. Il y a forcément une logique à tout ça.",scores:{tactical:3,discretion:1}},
+{text:"Rien. Mais je mets un pied devant l'autre quand même. C'est tout ce qu'il me reste.",scores:{discretion:2,autonomy:2}}
+],label:['OPTION A','OPTION B','OPTION C','OPTION D']}
+];
 
-class Zombie{
-constructor(wave){
-this.x=gameCanvas.width+Math.random()*100;
-this.y=100+Math.random()*(gameCanvas.height-160);
-this.w=35;this.h=55;
-this.speed=(0.5+Math.random()*1+wave*0.15);
-this.health=1+Math.floor(wave/3);
-this.maxHealth=this.health;
-this.frame=0;this.frameTimer=0;
-this.type=Math.random()<0.2?'runner':'walker';
-if(this.type==='runner')this.speed*=1.8;
-this.color=this.type==='runner'?'#8B0000':'#4a5240';
-this.hit=false;this.hitTimer=0;
+const ARCHETYPES={
+strategist:{name:'Le Stratège',role:"Tu es le cerveau du groupe. Pendant que les autres paniquent, toi tu calcules. Tu vois 3 coups d'avance, tu analyses chaque variable, tu transformes le chaos en plan d'action. Le camp ne survit pas grâce à la force — il survit grâce à toi.",strengths:['Anticipation tactique','Analyse sous pression','Planification à long terme'],weakness:'Paralysie par l\'analyse — quand le temps manque, ta force devient ton piège.',ref:'Eugene Porter (TWD)',rate:74,color:'#4a9'},
+protector:{name:'Le Protecteur',role:"Ta mission, c'est les autres. Tu es le dernier à manger, le premier à monter la garde. Les gens dorment tranquilles parce que tu veilles. Tu portes le poids du groupe sur tes épaules, et tu ne t'en plains jamais.",strengths:['Loyauté absolue','Sacrifice naturel','Instinct de protection'],weakness:'Tu te sacrifies trop — un jour, il ne restera plus rien de toi à donner.',ref:'Daryl Dixon (TWD)',rate:68,color:'#da3'},
+lone_wolf:{name:'Le Loup Solitaire',role:"Tu survis mieux seul qu'en groupe. Instinct animal, zéro attache. Tu connais tes limites, tu ne comptes que sur toi-même. Le monde a changé, mais toi tu étais déjà prêt.",strengths:['Autonomie totale','Adaptabilité extrême','Résilience mentale'],weakness:'Incapacité à faire confiance — la solitude est un bouclier qui devient une prison.',ref:'Michonne (début TWD)',rate:81,color:'#e83'},
+diplomat:{name:'Le Diplomate',role:"Tu es la colle du groupe. Quand les tensions explosent, tu désamorces. Quand il faut négocier avec un autre camp, c'est toi qu'on envoie. Ton arme, c'est ta parole.",strengths:['Charisme naturel','Résolution de conflits','Construction d\'alliances'],weakness:'Trop de compromis finissent par tuer — certaines situations n\'ont pas de solution diplomatique.',ref:'Hershel Greene (TWD)',rate:62,color:'#4a9'},
+hunter:{name:'Le Chasseur',role:"Action, terrain, combat. Tu es l'arme du groupe quand les mots ne suffisent plus. Tes réflexes sont aiguisés, ton instinct de combat est naturel. On t'envoie en première ligne.",strengths:['Efficacité brute','Réflexes de survie','Maîtrise du terrain'],weakness:'Impulsivité — ta vitesse d\'exécution te fait parfois sauter les étapes critiques.',ref:'Abraham Ford (TWD)',rate:58,color:'#CC0000'},
+shadow:{name:"L'Ombre",role:"Personne ne te voit venir. Tu observes, tu collectes, tu agis dans le silence. Pendant que les autres débattent, toi tu as déjà trouvé la sortie de secours et compté les provisions restantes.",strengths:['Discrétion absolue','Collecte de renseignements','Anticipation silencieuse'],weakness:'Isolement émotionnel — à force de rester dans l\'ombre, tu oublies d\'exister pour les autres.',ref:'Carol Peletier (TWD)',rate:77,color:'#8a7a22'}
+};
+
+const scores={tactical:0,empathy:0,combat:0,leadership:0,discretion:0,autonomy:0};
+let currentQ=0;
+
+// Terminal typewriter intro
+const introText="CENTRE DE PROFILAGE — ZONE DE QUARANTAINE SUD\n\n> Initialisation du protocole d'évaluation...\n> Connexion au réseau Oméga... OK\n> Chargement du module psychométrique...\n\nBienvenue. Avant d'intégrer le camp, vous devez passer l'évaluation de profilage. 12 mises en situation. Pas de bonnes ou mauvaises réponses — seulement ce que vous êtes.\n\nVotre survie en dépend.";
+const terminal=document.getElementById('profilingTerminal');
+const startBtn=document.getElementById('profilingStartBtn');
+let charIndex=0;
+let terminalStarted=false;
+
+function typeTerminal(){
+if(charIndex<introText.length){
+const ch=introText[charIndex];
+if(ch==='\n'){terminal.innerHTML+='\n'}
+else{terminal.textContent+=ch}
+charIndex++;
+const delay=ch==='.'?120:ch==='\n'?200:25;
+setTimeout(typeTerminal,delay);
+}else{
+terminal.innerHTML+='<span class="cursor-blink"></span>';
+startBtn.style.display='inline-block';
+startBtn.style.animation='reveal-up .5s ease forwards';
 }
-update(){
-if(this.hit){this.hitTimer--;if(this.hitTimer<=0)this.hit=false}
-this.x-=this.speed;
-this.frameTimer++;if(this.frameTimer>10){this.frame=(this.frame+1)%4;this.frameTimer=0}
-if(this.x<-50)return'passed';
-return this.health<=0?'dead':'alive';
-}
-draw(ctx){
-ctx.save();
-// Corps
-ctx.fillStyle=this.hit?'#ff4444':this.color;
-const wobble=Math.sin(this.frame*Math.PI/2)*3;
-// Tête
-ctx.beginPath();ctx.arc(this.x+this.w/2,this.y-5+wobble,10,0,Math.PI*2);ctx.fill();
-// Torse
-ctx.fillRect(this.x+8,this.y+5+wobble,this.w-16,25);
-// Bras (tendus vers l'avant)
-ctx.fillRect(this.x-15,this.y+8+wobble,20,5);
-ctx.fillRect(this.x+this.w-5,this.y+12+wobble,15,5);
-// Jambes
-const legOff=Math.sin(this.frame*Math.PI/2)*6;
-ctx.fillRect(this.x+10,this.y+30+wobble,6,20+legOff);
-ctx.fillRect(this.x+this.w-16,this.y+30+wobble,6,20-legOff);
-// Yeux rouges
-ctx.fillStyle='#ff0000';
-ctx.fillRect(this.x+this.w/2-6,this.y-8+wobble,3,3);
-ctx.fillRect(this.x+this.w/2+3,this.y-8+wobble,3,3);
-// Barre de vie
-if(this.health<this.maxHealth){
-ctx.fillStyle='#333';ctx.fillRect(this.x,this.y-20,this.w,4);
-ctx.fillStyle='#CC0000';ctx.fillRect(this.x,this.y-20,this.w*(this.health/this.maxHealth),4);
-}
-ctx.restore();
-}
-}
-
-class Explosion{
-constructor(x,y){this.x=x;this.y=y;this.life=15;this.maxLife=15;this.particles=[];
-for(let i=0;i<8;i++)this.particles.push({x:0,y:0,vx:(Math.random()-.5)*6,vy:(Math.random()-.5)*6,s:Math.random()*3+1})}
-update(){this.life--;this.particles.forEach(p=>{p.x+=p.vx;p.y+=p.vy;p.vx*=.95;p.vy*=.95});return this.life>0}
-draw(ctx){const a=this.life/this.maxLife;ctx.save();ctx.globalAlpha=a;
-this.particles.forEach(p=>{ctx.fillStyle=Math.random()>.5?'#CC0000':'#ff6600';ctx.beginPath();ctx.arc(this.x+p.x,this.y+p.y,p.s*a,0,Math.PI*2);ctx.fill()});
-ctx.restore()}
-}
-
-function startGame(){
-gameScore=0;gameHealth=100;gameWave=1;zombies=[];explosions=[];
-spawnTimer=0;waveTimer=0;gameRunning=true;gamePaused=false;
-document.getElementById('gameOverScreen').classList.remove('active');
-updateHUD();
-duckBgMusic();
-requestAnimationFrame(gameLoop);
-}
-
-function togglePause(){if(!gameRunning)return;gamePaused=!gamePaused;if(!gamePaused)requestAnimationFrame(gameLoop)}
-
-function updateHUD(){
-document.getElementById('gameScore').textContent=gameScore;
-document.getElementById('gameHealth').textContent=Math.max(0,gameHealth);
-document.getElementById('gameWave').textContent=gameWave;
-}
-
-function gameLoop(){
-if(!gameRunning||gamePaused)return;
-gctx.clearRect(0,0,gameCanvas.width,gameCanvas.height);
-// Fond
-gctx.fillStyle='#0a0a0a';gctx.fillRect(0,0,gameCanvas.width,gameCanvas.height);
-// Sol
-gctx.fillStyle='#1a1510';gctx.fillRect(0,gameCanvas.height-60,gameCanvas.width,60);
-gctx.strokeStyle='#2a2015';gctx.lineWidth=1;
-for(let i=0;i<gameCanvas.width;i+=30){gctx.beginPath();gctx.moveTo(i,gameCanvas.height-60);gctx.lineTo(i,gameCanvas.height);gctx.stroke()}
-// Brouillard
-const fg=gctx.createLinearGradient(0,0,0,gameCanvas.height);
-fg.addColorStop(0,'rgba(20,20,15,.3)');fg.addColorStop(.5,'rgba(10,10,8,.1)');fg.addColorStop(1,'rgba(15,12,8,.4)');
-gctx.fillStyle=fg;gctx.fillRect(0,0,gameCanvas.width,gameCanvas.height);
-
-// Spawn
-spawnTimer++;waveTimer++;
-const spawnRate=Math.max(30,90-gameWave*5);
-if(spawnTimer>=spawnRate){spawnTimer=0;zombies.push(new Zombie(gameWave))}
-if(waveTimer>600){waveTimer=0;gameWave++;updateHUD()}
-
-// Update zombies
-zombies=zombies.filter(z=>{
-const st=z.update();
-if(st==='passed'){gameHealth-=10;updateHUD();if(gameHealth<=0){gameRunning=false;document.getElementById('finalScore').textContent=gameScore;document.getElementById('gameOverScreen').classList.add('active');unduckBgMusic();return false}return false}
-if(st==='dead'){gameScore+=10*(z.type==='runner'?2:1);explosions.push(new Explosion(z.x+z.w/2,z.y+z.h/2));updateHUD();return false}
-z.draw(gctx);return true});
-
-// Explosions
-explosions=explosions.filter(e=>{const alive=e.update();e.draw(gctx);return alive});
-
-// Vague text
-gctx.fillStyle='rgba(139,0,0,.15)';gctx.font='bold 60px Arial';gctx.textAlign='center';
-gctx.fillText('VAGUE '+gameWave,gameCanvas.width/2,gameCanvas.height/2);
-
-// Bordure alerte si santé basse
-if(gameHealth<=30){gctx.strokeStyle=`rgba(204,0,0,${.3+Math.sin(Date.now()/200)*.3})`;gctx.lineWidth=4;gctx.strokeRect(0,0,gameCanvas.width,gameCanvas.height)}
-
-requestAnimationFrame(gameLoop);
 }
 
-// Tir au clic
-gameCanvas.addEventListener('click',e=>{
-if(!gameRunning||gamePaused)return;
-const rect=gameCanvas.getBoundingClientRect();
-const scaleX=gameCanvas.width/rect.width;
-const scaleY=gameCanvas.height/rect.height;
-const mx=(e.clientX-rect.left)*scaleX;
-const my=(e.clientY-rect.top)*scaleY;
-// Flash
-muzzleFlash.classList.add('active');setTimeout(()=>muzzleFlash.classList.remove('active'),50);
-// Hit detection
-let hit=false;
-for(let i=zombies.length-1;i>=0;i--){
-const z=zombies[i];
-if(mx>=z.x-5&&mx<=z.x+z.w+5&&my>=z.y-15&&my<=z.y+z.h+5){
-z.health--;z.hit=true;z.hitTimer=5;hit=true;break;
-}}
-if(!hit){explosions.push(new Explosion(mx,my))}
+// Observe when section enters view to start typing
+const profObs=new IntersectionObserver(entries=>{
+entries.forEach(e=>{if(e.isIntersecting&&!terminalStarted){terminalStarted=true;setTimeout(typeTerminal,500)}});
+},{threshold:.4});
+profObs.observe(document.getElementById('profiling'));
+
+startBtn.addEventListener('click',()=>{
+document.getElementById('profilingIntro').style.display='none';
+document.getElementById('profilingQuestions').style.display='block';
+showQuestion(0);
 });
+
+function showQuestion(idx){
+currentQ=idx;
+const q=QUESTIONS[idx];
+document.getElementById('profilingQNum').textContent='QUESTION '+String(idx+1).padStart(2,'0')+'/'+QUESTIONS.length;
+document.getElementById('profilingQText').textContent=q.q;
+
+// Progress pips
+const prog=document.getElementById('profilingProgress');
+prog.innerHTML='';
+for(let i=0;i<QUESTIONS.length;i++){
+const pip=document.createElement('div');
+pip.className='pip'+(i<idx?' done':'')+(i===idx?' current':'');
+prog.appendChild(pip);
+}
+
+// Choices
+const choicesEl=document.getElementById('profilingChoices');
+choicesEl.innerHTML='';
+q.choices.forEach((c,i)=>{
+const btn=document.createElement('button');
+btn.className='profiling-choice';
+btn.setAttribute('data-label',q.label[i]);
+btn.textContent=c.text;
+btn.addEventListener('click',()=>selectChoice(idx,i));
+choicesEl.appendChild(btn);
+});
+
+// Timer bar reset
+const bar=document.getElementById('profilingTimerBar');
+bar.style.transition='none';
+bar.style.width='100%';
+requestAnimationFrame(()=>{
+requestAnimationFrame(()=>{
+bar.style.transition='width 15s linear';
+bar.style.width='0%';
+});
+});
+}
+
+function selectChoice(qIdx,choiceIdx){
+const q=QUESTIONS[qIdx];
+const chosen=q.choices[choiceIdx];
+
+// Apply scores
+Object.entries(chosen.scores).forEach(([key,val])=>{scores[key]+=val});
+
+// Visual feedback
+const btns=document.querySelectorAll('.profiling-choice');
+btns.forEach((b,i)=>{
+b.disabled=true;
+if(i===choiceIdx)b.classList.add('selected');
+else b.style.opacity='.3';
+});
+
+// Next question or result
+setTimeout(()=>{
+if(currentQ<QUESTIONS.length-1){
+showQuestion(currentQ+1);
+}else{
+showResult();
+}
+},600);
+}
+
+function getArchetype(){
+const map={
+tactical:'strategist',empathy:'protector',combat:'hunter',
+leadership:'diplomat',discretion:'shadow',autonomy:'lone_wolf'
+};
+// Find dominant + secondary
+const sorted=Object.entries(scores).sort((a,b)=>b[1]-a[1]);
+const dominant=sorted[0][0];
+const secondary=sorted[1][0];
+
+// Special combos
+if(dominant==='tactical'&&secondary==='discretion')return'shadow';
+if(dominant==='empathy'&&secondary==='leadership')return'diplomat';
+if(dominant==='combat'&&secondary==='autonomy')return'lone_wolf';
+if(dominant==='leadership'&&secondary==='empathy')return'protector';
+
+return map[dominant]||'strategist';
+}
+
+function showResult(){
+document.getElementById('profilingQuestions').style.display='none';
+const archKey=getArchetype();
+const arch=ARCHETYPES[archKey];
+
+// Cinematic reveal
+const overlay=document.getElementById('resultRevealOverlay');
+overlay.classList.add('active');
+const nameEl=document.getElementById('revealArchetypeName');
+const subEl=document.getElementById('revealSubtitle');
+nameEl.textContent=arch.name;
+subEl.textContent='VOTRE PROFIL DE SURVIE A ÉTÉ DÉTERMINÉ';
+
+setTimeout(()=>nameEl.classList.add('show'),800);
+setTimeout(()=>subEl.classList.add('show'),1500);
+
+setTimeout(()=>{
+overlay.classList.remove('active');
+nameEl.classList.remove('show');
+subEl.classList.remove('show');
+document.getElementById('profilingResult').style.display='block';
+
+// Build result card
+const maxScore=Math.max(...Object.values(scores),1);
+const resultHTML=`
+<div class="result-card">
+<div class="result-card-header">
+<div><div class="result-card-archetype" style="color:${arch.color}">${arch.name}</div></div>
+<div class="result-card-ref">RÉFÉRENCE TWD<br>${arch.ref}</div>
+</div>
+<div class="result-card-role">${arch.role}</div>
+<div class="result-traits">
+${arch.strengths.map(s=>`<div class="result-trait"><div class="result-trait-label">Force</div><div class="result-trait-value">${s}</div></div>`).join('')}
+</div>
+<div class="result-weakness"><div class="result-trait-label">Faiblesse fatale</div><div class="result-trait-value">${arch.weakness}</div></div>
+<div class="result-survival-rate">
+<div class="rate-label">Taux de survie estimé</div>
+<div class="rate-value">${arch.rate}%</div>
+<div class="result-survival-bar"><div class="result-survival-bar-fill" id="survivalBarFill"></div></div>
+</div>
+<div class="result-gauges">
+<div class="gauge-item"><div class="gauge-label">Tactique</div><div class="gauge-bar"><div class="gauge-fill" style="width:0%;background:#4a9" data-w="${Math.round(scores.tactical/maxScore*100)}%"></div></div><div class="gauge-value">${scores.tactical}</div></div>
+<div class="gauge-item"><div class="gauge-label">Empathie</div><div class="gauge-bar"><div class="gauge-fill" style="width:0%;background:#da3" data-w="${Math.round(scores.empathy/maxScore*100)}%"></div></div><div class="gauge-value">${scores.empathy}</div></div>
+<div class="gauge-item"><div class="gauge-label">Combat</div><div class="gauge-bar"><div class="gauge-fill" style="width:0%;background:#CC0000" data-w="${Math.round(scores.combat/maxScore*100)}%"></div></div><div class="gauge-value">${scores.combat}</div></div>
+<div class="gauge-item"><div class="gauge-label">Leadership</div><div class="gauge-bar"><div class="gauge-fill" style="width:0%;background:#4a9" data-w="${Math.round(scores.leadership/maxScore*100)}%"></div></div><div class="gauge-value">${scores.leadership}</div></div>
+<div class="gauge-item"><div class="gauge-label">Discrétion</div><div class="gauge-bar"><div class="gauge-fill" style="width:0%;background:#8a7a22" data-w="${Math.round(scores.discretion/maxScore*100)}%"></div></div><div class="gauge-value">${scores.discretion}</div></div>
+<div class="gauge-item"><div class="gauge-label">Autonomie</div><div class="gauge-bar"><div class="gauge-fill" style="width:0%;background:#e83" data-w="${Math.round(scores.autonomy/maxScore*100)}%"></div></div><div class="gauge-value">${scores.autonomy}</div></div>
+</div>
+<div class="result-actions">
+<button onclick="restartProfiling()">RECOMMENCER L'ÉVALUATION</button>
+<button onclick="shareProfiling('${archKey}')">PARTAGER MON PROFIL</button>
+</div>
+</div>`;
+document.getElementById('profilingResult').innerHTML=resultHTML;
+
+// Animate bars
+setTimeout(()=>{
+document.getElementById('survivalBarFill').style.width=arch.rate+'%';
+document.querySelectorAll('.gauge-fill').forEach(g=>{g.style.width=g.getAttribute('data-w')});
+},100);
+},4000);
+}
+
+// Global functions for buttons
+window.restartProfiling=function(){
+Object.keys(scores).forEach(k=>scores[k]=0);
+currentQ=0;
+document.getElementById('profilingResult').style.display='none';
+document.getElementById('profilingIntro').style.display='block';
+terminal.textContent='';
+charIndex=0;
+terminalStarted=false;
+setTimeout(typeTerminal,300);
+};
+
+window.shareProfiling=function(archKey){
+const arch=ARCHETYPES[archKey];
+const text=`Mon profil de survie TWD : ${arch.name} — Taux de survie ${arch.rate}%. Et toi, tu serais quoi dans l'apocalypse ?`;
+if(navigator.share){
+navigator.share({title:'Mon Profil TWD',text:text,url:window.location.href}).catch(()=>{});
+}else{
+navigator.clipboard.writeText(text+' '+window.location.href).then(()=>{
+alert('Profil copié dans le presse-papiers !');
+}).catch(()=>{});
+}
+};
+
+})();
 
 // ============================================================
 // === CHAT RADIO ===
