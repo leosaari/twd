@@ -611,6 +611,7 @@ section{padding:100px 15px 60px}
 }
 @media(max-width:480px){.survivors-grid{grid-template-columns:1fr}}
 </style>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.2/jspdf.umd.min.js"></script>
 </head>
 <body>
 <div class="vignette-overlay"></div>
@@ -776,7 +777,7 @@ section{padding:100px 15px 60px}
 <!-- QUESTIONS -->
 <div class="profiling-question-screen" id="profilingQuestions">
 <div class="profiling-progress" id="profilingProgress"></div>
-<div class="profiling-q-number" id="profilingQNum">QUESTION 01/12</div>
+<div class="profiling-q-number" id="profilingQNum">QUESTION 01/08</div>
 <div class="profiling-q-text" id="profilingQText"></div>
 <div class="profiling-choices" id="profilingChoices"></div>
 <div class="profiling-timer"><div class="profiling-timer-bar" id="profilingTimerBar"></div></div>
@@ -1238,12 +1239,6 @@ const QUESTIONS=[
 {text:"On n'y va pas. On éteint les lumières et on attend que ça passe.",scores:{tactical:2,autonomy:2}},
 {text:"Je fonce directement. Si c'est un piège, tant pis.",scores:{combat:3,empathy:1}}
 ],label:['OPTION A','OPTION B','OPTION C','OPTION D']},
-{q:"Un membre du groupe cache de la nourriture en secret. Vous êtes le seul à l'avoir vu. Le groupe est déjà sous tension.",choices:[
-{text:"Je le confronte en privé. On règle ça entre quatre yeux.",scores:{leadership:2,discretion:2}},
-{text:"Je le dénonce devant tout le monde. Le groupe doit savoir.",scores:{leadership:2,empathy:1,tactical:1}},
-{text:"Je ne dis rien. Tout le monde a ses raisons. Je surveille.",scores:{discretion:3,autonomy:1}},
-{text:"Je lui prends sa cachette en douce pour la redistribuer anonymement.",scores:{discretion:2,empathy:2,tactical:1}}
-],label:['OPTION A','OPTION B','OPTION C','OPTION D']},
 {q:"Vous trouvez une arme à feu avec exactement 3 balles. Impossible d'en trouver d'autres. Comment les utilisez-vous ?",choices:[
 {text:"Je les garde pour les moments critiques. Chaque balle sera comptée stratégiquement.",scores:{tactical:3,discretion:1}},
 {text:"Je m'entraîne avec une. Les deux autres pour protéger le groupe.",scores:{combat:3,leadership:1}},
@@ -1262,29 +1257,11 @@ const QUESTIONS=[
 {text:"J'observe à distance. Le conflit va se résoudre de lui-même, ou les affaiblir.",scores:{discretion:3,tactical:1}},
 {text:"Je propose de fusionner les deux groupes. L'union fait la force.",scores:{empathy:2,leadership:2}}
 ],label:['OPTION A','OPTION B','OPTION C','OPTION D']},
-{q:"Après 3 semaines de survie, vous n'avez dormi que quelques heures par nuit. Le groupe compte sur vous. Votre corps lâche.",choices:[
-{text:"Je forme quelqu'un pour me remplacer temporairement et je dors 8 heures.",scores:{leadership:3,tactical:1}},
-{text:"Je continue. Le groupe ne peut pas se permettre que je m'arrête.",scores:{combat:1,empathy:2,autonomy:1}},
-{text:"Je m'isole dans un endroit sûr et je récupère seul, sans le dire.",scores:{autonomy:3,discretion:1}},
-{text:"Je réduis mon périmètre d'action. Moins de territoire, plus de repos.",scores:{tactical:3}}
-],label:['OPTION A','OPTION B','OPTION C','OPTION D']},
 {q:"Un survivant rejoint votre camp. Il est médecin. Mais quelque chose cloche — il refuse de dire d'où il vient et a des cicatrices suspectes.",choices:[
 {text:"On l'accueille avec surveillance. Ses compétences sont trop précieuses.",scores:{tactical:2,leadership:2}},
 {text:"Je l'interroge personnellement pour évaluer la menace.",scores:{discretion:2,leadership:1,tactical:1}},
 {text:"Pas de confiance, pas d'accès au camp. Qu'il prouve ses intentions d'abord.",scores:{autonomy:2,combat:1,tactical:1}},
 {text:"Je lui donne une chance. Tout le monde a un passé dans ce monde.",scores:{empathy:3,leadership:1}}
-],label:['OPTION A','OPTION B','OPTION C','OPTION D']},
-{q:"La radio capte un message : un camp militaire à 80 km offre l'extraction par hélicoptère. Mais le message date de 5 jours.",choices:[
-{text:"On y va. C'est peut-être notre seule chance de sortir.",scores:{combat:2,empathy:1,leadership:1}},
-{text:"J'envoie une équipe de reconnaissance légère. On ne déplace pas tout le groupe sur un pari.",scores:{tactical:3,leadership:1}},
-{text:"C'est un piège. On reste ici et on renforce nos positions.",scores:{autonomy:2,tactical:1,discretion:1}},
-{text:"J'y vais seul en premier. Si c'est réel, je reviens chercher les autres.",scores:{autonomy:2,discretion:2,combat:1}}
-],label:['OPTION A','OPTION B','OPTION C','OPTION D']},
-{q:"Un enfant du camp vous demande si les choses redeviendront comme avant. Tout le monde écoute votre réponse.",choices:[
-{text:"Je lui dis la vérité : non. Mais on peut construire quelque chose de nouveau, ensemble.",scores:{leadership:2,empathy:2}},
-{text:"Je mens. Il a besoin d'espoir, même faux, pour continuer.",scores:{empathy:3,tactical:1}},
-{text:"Je change de sujet. Ce n'est pas le moment pour les grandes questions.",scores:{discretion:2,tactical:1,autonomy:1}},
-{text:"Je lui apprends à se battre plutôt que de répondre. Les mots ne servent à rien ici.",scores:{combat:3,autonomy:1}}
 ],label:['OPTION A','OPTION B','OPTION C','OPTION D']},
 {q:"Vous êtes pris en embuscade. Deux sorties possibles : un tunnel sombre ou un toit découvert. Les infectés arrivent des deux côtés.",choices:[
 {text:"Le tunnel. L'obscurité est un avantage pour celui qui la connaît.",scores:{discretion:3,tactical:1}},
@@ -1313,7 +1290,7 @@ const scores={tactical:0,empathy:0,combat:0,leadership:0,discretion:0,autonomy:0
 let currentQ=0;
 
 // Terminal typewriter intro
-const introText="CENTRE DE PROFILAGE — ZONE DE QUARANTAINE SUD\n\n> Initialisation du protocole d'évaluation...\n> Connexion au réseau Oméga... OK\n> Chargement du module psychométrique...\n\nBienvenue. Avant d'intégrer le camp, vous devez passer l'évaluation de profilage. 12 mises en situation. Pas de bonnes ou mauvaises réponses — seulement ce que vous êtes.\n\nVotre survie en dépend.";
+const introText="CENTRE DE PROFILAGE — ZONE DE QUARANTAINE SUD\n\n> Initialisation du protocole d'évaluation...\n> Connexion au réseau Oméga... OK\n> Chargement du module psychométrique...\n\nBienvenue. Avant d'intégrer le camp, vous devez passer l'évaluation de profilage. 8 mises en situation. Pas de bonnes ou mauvaises réponses — seulement ce que vous êtes.\n\nVotre survie en dépend.";
 const terminal=document.getElementById('profilingTerminal');
 const startBtn=document.getElementById('profilingStartBtn');
 let charIndex=0;
@@ -1478,8 +1455,9 @@ ${arch.strengths.map(s=>`<div class="result-trait"><div class="result-trait-labe
 <div class="gauge-item"><div class="gauge-label">Autonomie</div><div class="gauge-bar"><div class="gauge-fill" style="width:0%;background:#e83" data-w="${Math.round(scores.autonomy/maxScore*100)}%"></div></div><div class="gauge-value">${scores.autonomy}</div></div>
 </div>
 <div class="result-actions">
-<button onclick="restartProfiling()">RECOMMENCER L'ÉVALUATION</button>
+<button onclick="downloadCertificatePDF('${archKey}')" style="background:rgba(139,0,0,.2);border-color:var(--rouge-vif)">TELECHARGER MON CERTIFICAT PDF</button>
 <button onclick="shareProfiling('${archKey}')">PARTAGER MON PROFIL</button>
+<button onclick="restartProfiling()">RECOMMENCER</button>
 </div>
 </div>`;
 document.getElementById('profilingResult').innerHTML=resultHTML;
@@ -1514,6 +1492,129 @@ navigator.clipboard.writeText(text+' '+window.location.href).then(()=>{
 alert('Profil copié dans le presse-papiers !');
 }).catch(()=>{});
 }
+};
+
+window.downloadCertificatePDF=function(archKey){
+const arch=ARCHETYPES[archKey];
+const {jsPDF}=window.jspdf;
+const doc=new jsPDF({orientation:'landscape',unit:'mm',format:'a4'});
+const W=297,H=210;
+
+// === FOND NOIR ===
+doc.setFillColor(10,10,10);
+doc.rect(0,0,W,H,'F');
+
+// === BORDURE DOUBLE ROUGE ===
+doc.setDrawColor(139,0,0);doc.setLineWidth(1.5);doc.rect(8,8,W-16,H-16);
+doc.setDrawColor(80,40,40);doc.setLineWidth(0.3);doc.rect(12,12,W-24,H-24);
+
+// === COINS DÉCORATIFS ===
+doc.setDrawColor(139,0,0);doc.setLineWidth(0.8);
+[[14,14,1,1],[W-14,14,-1,1],[14,H-14,1,-1],[W-14,H-14,-1,-1]].forEach(([x,y,dx,dy])=>{
+doc.line(x,y,x+12*dx,y);doc.line(x,y,x,y+12*dy);
+});
+
+// === HEADER CLASSIFIED ===
+doc.setFontSize(7);doc.setTextColor(139,0,0);
+doc.text('DOCUMENT CLASSIFIE — NIVEAU OMEGA NOIR — POSTE ECHO-7',W/2,20,{align:'center'});
+
+// === BIOHAZARD SYMBOL (texte) ===
+doc.setFontSize(40);doc.setTextColor(35,0,0);
+doc.text('\u2622',W/2,H/2+5,{align:'center'});
+
+// === TITRE PRINCIPAL ===
+doc.setFontSize(11);doc.setTextColor(90,120,60);
+doc.text('CENTRE DE PROFILAGE — ZONE DE QUARANTAINE SUD',W/2,32,{align:'center'});
+
+doc.setFontSize(28);doc.setTextColor(212,201,168);
+doc.text('CERTIFICAT DE PROFILAGE',W/2,46,{align:'center'});
+
+// === LIGNE SÉPARATRICE ===
+doc.setDrawColor(139,0,0);doc.setLineWidth(0.5);
+doc.line(60,50,W-60,50);
+doc.setFontSize(6.5);doc.setTextColor(90,80,60);
+doc.text('PROTOCOLE D\'EVALUATION PSYCHOMETRIQUE — VALIDITE PERMANENTE EN ZONE CONTAMINEE',W/2,55,{align:'center'});
+
+// === BLOC ARCHÉTYPE ===
+const archColor=arch.color||'#CC0000';
+const r=parseInt(archColor.slice(1,3),16)||200,g=parseInt(archColor.slice(3,5),16)||0,b=parseInt(archColor.slice(5,7),16)||0;
+doc.setFontSize(36);doc.setTextColor(r,g,b);
+doc.text(arch.name.toUpperCase(),W/2,75,{align:'center'});
+
+doc.setFontSize(9);doc.setTextColor(168,155,122);
+doc.text('Reference TWD : '+arch.ref,W/2,83,{align:'center'});
+
+// === DESCRIPTION DU RÔLE (wrappé) ===
+doc.setFontSize(9);doc.setTextColor(140,130,110);
+const roleLines=doc.splitTextToSize(arch.role,200);
+doc.text(roleLines,W/2,92,{align:'center'});
+
+// === FORCES ===
+const startY=92+roleLines.length*5+6;
+doc.setFontSize(7.5);doc.setTextColor(90,120,60);
+doc.text('FORCES IDENTIFIEES',W/2,startY,{align:'center'});
+doc.setFontSize(9);doc.setTextColor(168,155,122);
+arch.strengths.forEach((s,i)=>{
+doc.text('> '+s,W/2,startY+6+i*5.5,{align:'center'});
+});
+
+// === FAIBLESSE ===
+const weakY=startY+6+arch.strengths.length*5.5+5;
+doc.setFontSize(7.5);doc.setTextColor(139,0,0);
+doc.text('FAIBLESSE FATALE',W/2,weakY,{align:'center'});
+doc.setFontSize(8.5);doc.setTextColor(200,50,50);
+const weakLines=doc.splitTextToSize(arch.weakness,180);
+doc.text(weakLines,W/2,weakY+5.5,{align:'center'});
+
+// === BARRES DE STATS ===
+const statsY=weakY+5.5+weakLines.length*4.5+8;
+const statsLabels=['Tactique','Empathie','Combat','Leadership','Discretion','Autonomie'];
+const statsKeys=['tactical','empathy','combat','leadership','discretion','autonomy'];
+const maxS=Math.max(...Object.values(scores),1);
+const barStartX=75, barW=100;
+
+doc.setFontSize(7);
+statsKeys.forEach((k,i)=>{
+const x=i<3?barStartX:barStartX+75;
+const y=statsY+(i%3)*7;
+doc.setTextColor(90,80,60);
+doc.text(statsLabels[i],x-2,y+1,{align:'right'});
+doc.setFillColor(25,25,25);
+doc.rect(x,y-2,barW,3.5,'F');
+const pct=scores[k]/maxS;
+doc.setFillColor(r,g,b);
+doc.rect(x,y-2,barW*pct,3.5,'F');
+doc.setTextColor(168,155,122);
+doc.text(String(scores[k]),x+barW+3,y+1);
+});
+
+// === TAUX DE SURVIE ===
+const rateY=statsY+24;
+doc.setFontSize(8);doc.setTextColor(90,120,60);
+doc.text('TAUX DE SURVIE ESTIME',W/2,rateY,{align:'center'});
+doc.setFontSize(28);doc.setTextColor(r,g,b);
+doc.text(arch.rate+'%',W/2,rateY+12,{align:'center'});
+
+// === DATE + REF ===
+const now=new Date();
+const dateStr=String(now.getDate()).padStart(2,'0')+'/'+String(now.getMonth()+1).padStart(2,'0')+'/'+now.getFullYear();
+const refId='ECHO7-'+Math.random().toString(36).substring(2,8).toUpperCase();
+doc.setFontSize(6.5);doc.setTextColor(90,80,60);
+doc.text('Date d\'emission : '+dateStr+'  |  Ref : '+refId+'  |  Poste Echo-7, France',W/2,H-22,{align:'center'});
+
+// === TAMPON VALIDÉ ===
+doc.setFontSize(14);doc.setTextColor(139,0,0);
+doc.text('[ VALIDE ]',W-45,H-30,{align:'center'});
+doc.setDrawColor(139,0,0);doc.setLineWidth(0.8);
+doc.circle(W-45,H-34,14);
+
+// === SCEAU ECHO-7 ===
+doc.setFontSize(5.5);doc.setTextColor(60,50,40);
+doc.text('Ce document atteste que le porteur a ete evalue par le Centre de Profilage Echo-7.',W/2,H-16,{align:'center'});
+doc.text('Toute falsification est passible de bannissement permanent de la zone protegee.',W/2,H-12,{align:'center'});
+
+// === DOWNLOAD ===
+doc.save('CERTIFICAT_SURVIE_'+arch.name.replace(/[^a-zA-Z]/g,'_').toUpperCase()+'.pdf');
 };
 
 })();
