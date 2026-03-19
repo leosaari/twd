@@ -82,19 +82,17 @@ section{min-height:100vh;padding:120px 20px 80px;position:relative}
 .hero-cta::after{content:'';position:absolute;top:-50%;left:-50%;width:200%;height:200%;background:linear-gradient(45deg,transparent 40%,rgba(255,255,255,.05) 50%,transparent 60%);animation:none;transition:.3s}
 .hero-scroll-arrow{position:absolute;bottom:30px;left:50%;transform:translateX(-50%);z-index:2;font-size:1.5rem;color:var(--rouge-sang);animation:blink-red 1.5s infinite;opacity:.6}
 
-/* === COUNTDOWN === */
-#countdown{background:linear-gradient(180deg,var(--noir),#0d0d0d,var(--noir));display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:70vh}
-.countdown-frame{border:1px solid rgba(139,0,0,.4);padding:50px 60px;position:relative;background:rgba(15,15,15,.9)}
-.countdown-frame::before{content:'PROTOCOLE EXTRACTION — CLASSIFIÉ NIVEAU 5';position:absolute;top:-12px;left:20px;background:var(--noir);padding:2px 15px;font-family:var(--font-mono);font-size:.6rem;color:var(--rouge-sang);letter-spacing:3px;text-transform:uppercase}
-.countdown-label{font-family:var(--font-military);font-size:clamp(.9rem,2vw,1.3rem);color:var(--parchemin-sombre);text-transform:uppercase;letter-spacing:4px;text-align:center;margin-bottom:30px}
-.countdown-display{display:flex;gap:20px;justify-content:center;flex-wrap:wrap}
-.countdown-unit{text-align:center;min-width:90px}
-.countdown-number{font-family:var(--font-mono);font-size:clamp(2.5rem,6vw,4.5rem);color:var(--rouge-vif);text-shadow:0 0 20px rgba(204,0,0,.5),0 0 40px rgba(204,0,0,.2);line-height:1;display:block;animation:flicker 6s infinite}
-.countdown-sep{font-family:var(--font-mono);font-size:clamp(2rem,5vw,3.5rem);color:var(--rouge-sang);align-self:flex-start;margin-top:5px;animation:blink-red 1s infinite}
-.countdown-word{font-family:var(--font-mono);font-size:.6rem;color:var(--vert-kaki);letter-spacing:4px;text-transform:uppercase;margin-top:8px}
-.countdown-message{font-family:var(--font-mono);font-size:.75rem;color:var(--parchemin-sombre);text-align:center;margin-top:30px;letter-spacing:2px;opacity:.7}
-.countdown-frame.alert{border-color:var(--rouge-vif);animation:pulse-glow 2s infinite}
-.countdown-frame.alert .countdown-number{color:var(--rouge-alerte);animation:glitch-h .3s infinite}
+/* === COUNTDOWN OVERLAY (sur la vidéo hero) === */
+.hero-countdown-overlay{position:absolute;bottom:0;left:0;right:0;z-index:3;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:30px 20px 50px;background:linear-gradient(0deg,rgba(0,0,0,.65) 0%,rgba(0,0,0,.35) 60%,transparent 100%);backdrop-filter:blur(3px);-webkit-backdrop-filter:blur(3px);opacity:0;animation:countdown-fadein 1.5s ease forwards .5s}
+@keyframes countdown-fadein{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+.countdown-label{font-family:var(--font-military);font-size:clamp(.65rem,1.3vw,.85rem);color:rgba(212,201,168,.7);text-transform:uppercase;letter-spacing:5px;text-align:center;margin-bottom:18px;text-shadow:0 1px 8px rgba(0,0,0,.8)}
+.countdown-display{display:flex;gap:8px;justify-content:center;align-items:center;flex-wrap:nowrap}
+.countdown-unit{text-align:center;min-width:70px;background:rgba(0,0,0,.3);border:1px solid rgba(139,0,0,.2);border-radius:6px;padding:12px 8px 10px;backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
+.countdown-number{font-family:var(--font-mono);font-size:clamp(2rem,5vw,3.5rem);color:#fff;text-shadow:0 2px 20px rgba(0,0,0,.8),0 0 30px rgba(139,0,0,.3);line-height:1;display:block;font-weight:700}
+.countdown-sep{font-family:var(--font-mono);font-size:clamp(1.5rem,4vw,2.8rem);color:rgba(139,0,0,.7);align-self:center;animation:blink-red 1.2s infinite;text-shadow:0 0 10px rgba(139,0,0,.5)}
+.countdown-word{font-family:var(--font-mono);font-size:.55rem;color:rgba(168,155,122,.6);letter-spacing:3px;text-transform:uppercase;margin-top:6px;text-shadow:0 1px 4px rgba(0,0,0,.8)}
+.countdown-message{font-family:var(--font-mono);font-size:.65rem;color:rgba(168,155,122,.5);text-align:center;margin-top:16px;letter-spacing:2px;text-shadow:0 1px 6px rgba(0,0,0,.8)}
+.countdown-unit.alert .countdown-number{color:var(--rouge-alerte);animation:glitch-h .3s infinite;text-shadow:0 0 20px rgba(255,26,26,.5)}
 
 /* === CARTE CONTAMINATION === */
 #contamination-map{min-height:100vh;background:linear-gradient(180deg,var(--noir),#060606,var(--noir));padding:120px 20px 80px}
@@ -603,7 +601,7 @@ section{min-height:100vh;padding:120px 20px 80px;position:relative}
 .hamburger{display:block}.mobile-nav{display:flex}.nav-bar{display:none}
 .header-top .status-indicator{display:none}
 section{padding:100px 15px 60px}
-.countdown-frame{padding:30px 20px}.countdown-display{gap:10px}.countdown-unit{min-width:65px}
+.hero-countdown-overlay{padding:20px 10px 35px}.countdown-display{gap:4px}.countdown-unit{min-width:55px;padding:8px 5px 7px}.countdown-number{font-size:clamp(1.5rem,8vw,2.2rem)}.countdown-sep{font-size:clamp(1.2rem,6vw,1.8rem)}.countdown-label{font-size:.6rem;letter-spacing:3px;margin-bottom:12px}.countdown-message{font-size:.55rem;margin-top:10px}
 .audio-player{flex-direction:column}.play-btn{align-self:center}
 .dossiers-grid{grid-template-columns:1fr}
 .cork-board{padding:20px 15px}.survivors-grid{grid-template-columns:1fr 1fr;gap:20px}
@@ -656,7 +654,6 @@ section{padding:100px 15px 60px}
 <div class="header-tagline">DERNIER SIGNAL ACTIF — POSTE ECHO-7</div>
 <nav class="nav-bar">
 <a href="#hero" class="active">Accueil</a>
-<a href="#countdown">Extraction</a>
 <a href="#contamination-map">Carte</a>
 <a href="#profiling">Profilage</a>
 <a href="#transmissions">Transmissions</a>
@@ -670,7 +667,6 @@ section{padding:100px 15px 60px}
 
 <nav class="mobile-nav" id="mobileNav">
 <a href="#hero" onclick="closeMobileNav()">Accueil</a>
-<a href="#countdown" onclick="closeMobileNav()">Extraction</a>
 <a href="#contamination-map" onclick="closeMobileNav()">Carte</a>
 <a href="#profiling" onclick="closeMobileNav()">Profilage</a>
 <a href="#transmissions" onclick="closeMobileNav()">Transmissions</a>
@@ -693,18 +689,12 @@ section{padding:100px 15px 60px}
 </div>
 <p class="hero-subtitle">DERNIER SIGNAL ACTIF — POSTE ECHO-7 — FRANCE</p>
 <p style="font-family:var(--font-mono);font-size:.75rem;color:var(--rouge-sang);letter-spacing:4px;text-transform:uppercase;margin-bottom:30px">ALERTE NIVEAU MAXIMUM — CONTAMINATION EN COURS</p>
-<a href="#countdown" class="hero-cta">ACCÉDER AU POSTE DE COMMANDEMENT</a>
+<a href="#contamination-map" class="hero-cta">ACCÉDER AU POSTE DE COMMANDEMENT</a>
 </div>
-<div class="hero-scroll-arrow">↓</div>
-</section>
-
-<!-- === COUNTDOWN === -->
-<section id="countdown">
-<div class="section-header reveal"><div class="section-label">PROTOCOLE D'EXTRACTION</div><h2 class="section-title">Temps Restant</h2><div class="section-divider"></div></div>
-<div class="countdown-frame reveal" id="countdownFrame">
+<div class="hero-countdown-overlay" id="countdownFrame">
 <div class="countdown-label">Le Protocole de Confinement expire dans...</div>
 <div class="countdown-display">
-<div class="countdown-unit"><span class="countdown-number" id="cd-days">00</span><span class="countdown-word">Jours</span></div>
+<div class="countdown-unit"><span class="countdown-number" id="cd-days">14</span><span class="countdown-word">Jours</span></div>
 <span class="countdown-sep">:</span>
 <div class="countdown-unit"><span class="countdown-number" id="cd-hours">00</span><span class="countdown-word">Heures</span></div>
 <span class="countdown-sep">:</span>
@@ -714,6 +704,7 @@ section{padding:100px 15px 60px}
 </div>
 <div class="countdown-message">APRÈS EXPIRATION, AUCUNE EXTRACTION NE SERA POSSIBLE — PROTOCOLE OMÉGA ACTIVÉ</div>
 </div>
+<div class="hero-scroll-arrow">↓</div>
 </section>
 
 <!-- === CARTE CONTAMINATION === -->
@@ -1025,7 +1016,7 @@ section{padding:100px 15px 60px}
 <div class="footer-gps">48°51'24.0"N 2°21'07.0"E — SIGNAL INTERMITTENT</div>
 <p class="footer-message">Ce poste émetteur est le dernier signal actif connu.<br>Restez en vie. Restez ensemble.</p>
 <div class="footer-links">
-<a href="#hero">Cellule de Crise</a><a href="#countdown">Protocole Extraction</a><a href="#transmissions">Fréquences Radio</a><a href="#survivants">Points de Ralliement</a>
+<a href="#hero">Cellule de Crise</a><a href="#contamination-map">Protocole Extraction</a><a href="#transmissions">Fréquences Radio</a><a href="#survivants">Points de Ralliement</a>
 </div>
 <div class="footer-copyright">POSTE ECHO-7 — RÉSEAU OMÉGA — DERNIER SIGNAL ACTIF<br>&copy; CELLULE DE CRISE NATIONALE — DOCUMENT CLASSIFIÉ</div>
 </footer>
@@ -1057,17 +1048,17 @@ function sanitize(s){const d=document.createElement('div');d.textContent=s;retur
 // === COUNTDOWN ===
 // ============================================================
 (function(){
-const K='twd_echo7_countdown_start',D=60;
-let s=localStorage.getItem(K);if(!s){s=Date.now();localStorage.setItem(K,s)}else s=parseInt(s);
-const end=s+(D*864e5);
-function up(){let d=end-Date.now();const f=document.getElementById('countdownFrame');
-if(d<=0){d=0;['cd-days','cd-hours','cd-minutes','cd-seconds'].forEach(i=>document.getElementById(i).textContent='00');f.classList.add('alert');return}
+const K='twd_echo7_countdown_target',D=14;
+let target=localStorage.getItem(K);
+if(!target){target=Date.now()+(D*864e5);localStorage.setItem(K,target)}else target=parseInt(target);
+function up(){let d=target-Date.now();const f=document.getElementById('countdownFrame');
+if(d<=0){d=0;['cd-days','cd-hours','cd-minutes','cd-seconds'].forEach(i=>document.getElementById(i).textContent='00');document.querySelectorAll('.countdown-unit').forEach(u=>u.classList.add('alert'));return}
 const dy=Math.floor(d/864e5),hr=Math.floor(d%864e5/36e5),mn=Math.floor(d%36e5/6e4),sc=Math.floor(d%6e4/1e3);
 document.getElementById('cd-days').textContent=String(dy).padStart(2,'0');
 document.getElementById('cd-hours').textContent=String(hr).padStart(2,'0');
 document.getElementById('cd-minutes').textContent=String(mn).padStart(2,'0');
 document.getElementById('cd-seconds').textContent=String(sc).padStart(2,'0');
-f.classList.toggle('alert',dy<7)}
+if(dy<3)document.querySelectorAll('.countdown-unit').forEach(u=>u.classList.add('alert'))}
 up();setInterval(up,1000);
 })();
 
