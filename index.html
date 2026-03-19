@@ -82,8 +82,8 @@ section{min-height:100vh;padding:120px 20px 80px;position:relative}
 .hero-cta::after{content:'';position:absolute;top:-50%;left:-50%;width:200%;height:200%;background:linear-gradient(45deg,transparent 40%,rgba(255,255,255,.05) 50%,transparent 60%);animation:none;transition:.3s}
 .hero-scroll-arrow{position:absolute;bottom:30px;left:50%;transform:translateX(-50%);z-index:2;font-size:1.5rem;color:var(--rouge-sang);animation:blink-red 1.5s infinite;opacity:.6}
 
-/* === COUNTDOWN OVERLAY (sur la vidéo hero) === */
-.hero-countdown-overlay{position:absolute;bottom:0;left:0;right:0;z-index:3;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:30px 20px 50px;background:linear-gradient(0deg,rgba(0,0,0,.65) 0%,rgba(0,0,0,.35) 60%,transparent 100%);backdrop-filter:blur(3px);-webkit-backdrop-filter:blur(3px);opacity:0;animation:countdown-fadein 1.5s ease forwards .5s}
+/* === COUNTDOWN CENTRÉ SUR LA VIDÉO HERO === */
+.hero-countdown-center{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);z-index:3;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:40px 50px;background:rgba(0,0,0,.35);backdrop-filter:blur(5px);-webkit-backdrop-filter:blur(5px);border:1px solid rgba(139,0,0,.2);border-radius:8px;opacity:0;animation:countdown-fadein 1.5s ease forwards .5s}
 @keyframes countdown-fadein{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
 .countdown-label{font-family:var(--font-military);font-size:clamp(.65rem,1.3vw,.85rem);color:rgba(212,201,168,.7);text-transform:uppercase;letter-spacing:5px;text-align:center;margin-bottom:18px;text-shadow:0 1px 8px rgba(0,0,0,.8)}
 .countdown-display{display:flex;gap:8px;justify-content:center;align-items:center;flex-wrap:nowrap}
@@ -601,7 +601,7 @@ section{min-height:100vh;padding:120px 20px 80px;position:relative}
 .hamburger{display:block}.mobile-nav{display:flex}.nav-bar{display:none}
 .header-top .status-indicator{display:none}
 section{padding:100px 15px 60px}
-.hero-countdown-overlay{padding:20px 10px 35px}.countdown-display{gap:4px}.countdown-unit{min-width:55px;padding:8px 5px 7px}.countdown-number{font-size:clamp(1.5rem,8vw,2.2rem)}.countdown-sep{font-size:clamp(1.2rem,6vw,1.8rem)}.countdown-label{font-size:.6rem;letter-spacing:3px;margin-bottom:12px}.countdown-message{font-size:.55rem;margin-top:10px}
+.hero-countdown-center{padding:20px 15px;width:90%;max-width:420px}.countdown-display{gap:4px}.countdown-unit{min-width:55px;padding:8px 5px 7px}.countdown-number{font-size:clamp(1.5rem,8vw,2.2rem)}.countdown-sep{font-size:clamp(1.2rem,6vw,1.8rem)}.countdown-label{font-size:.6rem;letter-spacing:3px;margin-bottom:12px}.countdown-message{font-size:.55rem;margin-top:10px}
 .audio-player{flex-direction:column}.play-btn{align-self:center}
 .dossiers-grid{grid-template-columns:1fr}
 .cork-board{padding:20px 15px}.survivors-grid{grid-template-columns:1fr 1fr;gap:20px}
@@ -611,7 +611,7 @@ section{padding:100px 15px 60px}
 }
 @media(max-width:480px){.survivors-grid{grid-template-columns:1fr}}
 </style>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.2/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 </head>
 <body>
 <div class="vignette-overlay"></div>
@@ -684,15 +684,7 @@ section{padding:100px 15px 60px}
 <source src="video.mp4" type="video/mp4">
 </video>
 <div class="hero-overlay"></div>
-<div class="hero-content">
-<div class="hero-logo-big">
-<div class="twd-logo"><span class="the-line">THE</span><span class="walking-dead-line">WALKING DEAD</span></div>
-</div>
-<p class="hero-subtitle">DERNIER SIGNAL ACTIF — POSTE ECHO-7 — FRANCE</p>
-<p style="font-family:var(--font-mono);font-size:.75rem;color:var(--rouge-sang);letter-spacing:4px;text-transform:uppercase;margin-bottom:30px">ALERTE NIVEAU MAXIMUM — CONTAMINATION EN COURS</p>
-<a href="#contamination-map" class="hero-cta">ACCÉDER AU POSTE DE COMMANDEMENT</a>
-</div>
-<div class="hero-countdown-overlay" id="countdownFrame">
+<div class="hero-countdown-center" id="countdownFrame">
 <div class="countdown-label">Le Protocole de Confinement expire dans...</div>
 <div class="countdown-display">
 <div class="countdown-unit"><span class="countdown-number" id="cd-days">14</span><span class="countdown-word">Jours</span></div>
