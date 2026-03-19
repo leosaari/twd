@@ -1277,18 +1277,6 @@ const QUESTIONS=[
 {text:"Je prépare discrètement un plan B au cas où ça tourne mal.",scores:{tactical:2,discretion:2,autonomy:1}},
 {text:"Je pars seul en éclaireur pour vérifier la zone avant tout le monde.",scores:{autonomy:2,combat:2,discretion:1}}
 ],label:['OPTION A','OPTION B','OPTION C','OPTION D']},
-{q:"Deux groupes de survivants se disputent un pont — la seule route vers le sud. Les deux ont des enfants, des blessés. La tension monte.",choices:[
-{text:"Je m'interpose et je négocie un passage alterné avec des règles claires.",scores:{leadership:2,empathy:2,tactical:1}},
-{text:"On force le passage. Mes gens d'abord.",scores:{combat:2,autonomy:2}},
-{text:"J'observe à distance. Le conflit va se résoudre de lui-même, ou les affaiblir.",scores:{discretion:3,tactical:1}},
-{text:"Je propose de fusionner les deux groupes. L'union fait la force.",scores:{empathy:2,leadership:2}}
-],label:['OPTION A','OPTION B','OPTION C','OPTION D']},
-{q:"Un survivant rejoint votre camp. Il est médecin. Mais quelque chose cloche — il refuse de dire d'où il vient et a des cicatrices suspectes.",choices:[
-{text:"On l'accueille avec surveillance. Ses compétences sont trop précieuses.",scores:{tactical:2,leadership:2}},
-{text:"Je l'interroge personnellement pour évaluer la menace.",scores:{discretion:2,leadership:1,tactical:1}},
-{text:"Pas de confiance, pas d'accès au camp. Qu'il prouve ses intentions d'abord.",scores:{autonomy:2,combat:1,tactical:1}},
-{text:"Je lui donne une chance. Tout le monde a un passé dans ce monde.",scores:{empathy:3,leadership:1}}
-],label:['OPTION A','OPTION B','OPTION C','OPTION D']},
 {q:"Vous êtes pris en embuscade. Deux sorties possibles : un tunnel sombre ou un toit découvert. Les infectés arrivent des deux côtés.",choices:[
 {text:"Le tunnel. L'obscurité est un avantage pour celui qui la connaît.",scores:{discretion:3,tactical:1}},
 {text:"Le toit. Je préfère voir mes ennemis que deviner dans le noir.",scores:{combat:2,tactical:1,leadership:1}},
@@ -1316,7 +1304,7 @@ const scores={tactical:0,empathy:0,combat:0,leadership:0,discretion:0,autonomy:0
 let currentQ=0;
 
 // Terminal typewriter intro
-const introText="CENTRE DE PROFILAGE — ZONE DE QUARANTAINE SUD\n\n> Initialisation du protocole d'évaluation...\n> Connexion au réseau Oméga... OK\n> Chargement du module psychométrique...\n\nBienvenue. Avant d'intégrer le camp, vous devez passer l'évaluation de profilage. 8 mises en situation. Pas de bonnes ou mauvaises réponses — seulement ce que vous êtes.\n\nVotre survie en dépend.";
+const introText="CENTRE DE PROFILAGE — ZONE DE QUARANTAINE SUD\n\n> Initialisation du protocole d'évaluation...\n> Connexion au réseau Oméga... OK\n> Chargement du module psychométrique...\n\nBienvenue. Avant d'intégrer le camp, vous devez passer l'évaluation de profilage. 6 mises en situation. Pas de bonnes ou mauvaises réponses — seulement ce que vous êtes.\n\nVotre survie en dépend.";
 const terminal=document.getElementById('profilingTerminal');
 const startBtn=document.getElementById('profilingStartBtn');
 let charIndex=0;
